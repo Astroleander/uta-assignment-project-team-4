@@ -35,40 +35,37 @@ public class RegisterActivity extends AppCompatActivity {
         findViews();
         register.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String name=username.getText().toString().trim();
-                String pass=password.getText().toString().trim();
-                String rol=role.getText().toString().trim();
-                String lname=lastname.getText().toString().trim();
-                String fname=firstname.getText().toString().trim();
-                String pho=phone.getText().toString().trim();
-                String ema=email.getText().toString().trim();
-                String add=address.getText().toString().trim();
-                String cit=city.getText().toString().trim();
-                String sta=state.getText().toString().trim();
-                String zcode=zipcode.getText().toString().trim();
-                String mem = member.getText().toString().trim();
+            String name=username.getText().toString().trim();
+            String pass=password.getText().toString().trim();
+            String rol=role.getText().toString().trim();
+            String lname=lastname.getText().toString().trim();
+            String fname=firstname.getText().toString().trim();
+            String pho=phone.getText().toString().trim();
+            String ema=email.getText().toString().trim();
+            String add=address.getText().toString().trim();
+            String cit=city.getText().toString().trim();
+            String sta=state.getText().toString().trim();
+            String zcode=zipcode.getText().toString().trim();
+            String mem = member.getText().toString().trim();
 
+            UserService uService=new UserService(RegisterActivity.this);
+            User user=new User();
+            user.setUsername(name);
+            user.setPassword(pass);
+            user.setRole(rol);
+            user.setLastname(lname);
+            user.setFirstname(fname);
+            user.setPhone(pho);
+            user.setEmail(ema);
+            user.setAddress(add);
+            user.setCity(cit);
+            user.setState(sta);
+            user.setZipcode(zcode);
+            user.setMember(mem);
+            user.setStatus("live");
 
-
-//                Log.i("TAG",name+"_"+pass+"_"+agestr+"_"+sexstr);
-                UserService uService=new UserService(RegisterActivity.this);
-                User user=new User();
-                user.setUsername(name);
-                user.setPassword(pass);
-                user.setRole(rol);
-                user.setLastname(lname);
-                user.setFirstname(fname);
-                user.setPhone(pho);
-                user.setEmail(ema);
-                user.setAddress(add);
-                user.setCity(cit);
-                user.setState(sta);
-                user.setZipcode(zcode);
-                user.setMember(mem);
-                user.setStatus("live");
-
-                uService.register(user);
-                Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_LONG).show();
+            uService.register(user);
+            Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_LONG).show();
             }
         });
     }

@@ -68,15 +68,18 @@ public class MainActivity extends AppCompatActivity {
         switch (result) {
             case "User":
                 startActivity(new Intent(this, UserActivity.class));
+                finish();
                 break;
             case "Admin":
                 startActivity(new Intent(this, AdminActivity.class));
+                finish();
                 break;
             case "Manager":
                 startActivity(new Intent(this, ManagerActivity.class));
+                finish();
                 break;
             default:
-                Toast.makeText(this, "Incorrectly inputs!", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Incorrectly Inputs!", Toast.LENGTH_LONG).show();
         }
     }
 }

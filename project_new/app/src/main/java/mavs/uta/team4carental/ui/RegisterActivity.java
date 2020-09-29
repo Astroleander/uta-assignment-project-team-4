@@ -56,16 +56,36 @@ public class RegisterActivity extends AppCompatActivity {
     private void initView() {
         this.dbHelper = new DBHelper(this);
         this.dbHelper.getReadableDatabase();
+
         this.initForm();
+
+        this.selectedRole = findViewById(this.role.getCheckedRadioButtonId());
+        this.autoToggleIsMember();
+
+        this.role.setOnCheckedChangeListener((group, pos) -> {
+            this.selectedRole = findViewById(this.role.getCheckedRadioButtonId());
+            this.autoToggleIsMember();
+        });
+
         this.initSubmit();
+    }
+
+    private void autoToggleIsMember() {
+        String role = this.selectedRole.getText().toString();
+        if (role.equals("User")) {
+            this.isMember.setVisibility(View.VISIBLE);
+        } else {
+            this.isMember.setChecked(false);
+            this.isMember.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void initSubmit() {
         registerButton = findViewById(R.id.register);
         registerButton.setOnClickListener(v -> {
             /* parse role */
-            this.selectedRole = findViewById(this.role.getCheckedRadioButtonId());
             String role = this.selectedRole.getText().toString();
+
             /* parse member */
             String memberCode = null;
             if (isMember.isChecked()) {

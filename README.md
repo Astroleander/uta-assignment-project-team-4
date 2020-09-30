@@ -17,5 +17,8 @@ REPO
 4. done
 
 # todo
-[ ] iteration plan before iteration 2
-[ ] upload iteration 1 assignments files
++ ~~[x] Domain Diagram~~
++ ~~[x] User Case Diagram~~
++ ~~[x] initial project~~
++ [ ] iteration plan before iteration 2
++ [ ] upload iteration 1 assignments files

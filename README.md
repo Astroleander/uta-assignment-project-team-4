@@ -17,3 +17,5 @@ REPO
 4. done
 
 # todo
+[ ] iteration plan before iteration 2
+[ ] upload iteration 1 assignments files

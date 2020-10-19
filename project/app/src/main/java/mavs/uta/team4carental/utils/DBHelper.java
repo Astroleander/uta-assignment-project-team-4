@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.Nullable;
+
+import mavs.uta.team4carental.pojo.Car;
 import mavs.uta.team4carental.pojo.User;
 
 public class DBHelper extends SQLiteOpenHelper {
@@ -23,7 +25,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private ArrayList userFields = new ArrayList<String>();
 
-    public static final String DB_NAME = "user_db";
+    public static final String DB_NAME = "data";
     public static final int DB_VERSION = 1;
 
     private static final String RESERVATION_CREATE =
@@ -308,5 +310,43 @@ public class DBHelper extends SQLiteOpenHelper {
             cursor.close();
             return "None";
         }
+    }
+
+    public Car[] queryCar() {
+        ArrayList<Car> result = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.query(
+                TABLE_LIST.CAR,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+        while(cursor.moveToNext()) {
+            String carname = cursor.getString(cursor.getColumnIndex(EnumTable.CAR.CARNAME));
+            String capacity= cursor.getString(cursor.getColumnIndex(EnumTable.CAR.CAPACITY));
+            String weekday = cursor.getString(cursor.getColumnIndex(EnumTable.CAR.WEEKDAY));
+            String weekend = cursor.getString(cursor.getColumnIndex(EnumTable.CAR.WEEKEND));
+            String week = cursor.getString(cursor.getColumnIndex(EnumTable.CAR.WEEK));
+            String GPS = cursor.getString(cursor.getColumnIndex(EnumTable.CAR.GPS));
+            String onstar = cursor.getString(cursor.getColumnIndex(EnumTable.CAR.ONSTAR));
+            String siriusXM = cursor.getString(cursor.getColumnIndex(EnumTable.CAR.SIRIUSXM));
+            // TODO: not finished
+            result.add(new Car(
+                    carname,
+                    capacity,
+                    weekday,
+                    weekend,
+                    week,
+                    GPS,
+                    onstar,
+                    siriusXM
+            ));
+        }
+        cursor.close();
+        Car[] result_car = new Car[result.size()];
+        result.toArray(result_car);
+        return result_car;
     }
 }

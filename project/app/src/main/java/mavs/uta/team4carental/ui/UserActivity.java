@@ -45,7 +45,7 @@ public class UserActivity extends AppCompatActivity {
 
         requestCarButton = findViewById(R.id.btn_RequestCar);
         requestCarButton.setOnClickListener(v -> {
-            startActivity(new Intent(this, requestCarActivity.class));
+            startActivity(new Intent(UserActivity.this, requestCarActivity.class));
         });
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_user, R.id.navigation_profile)

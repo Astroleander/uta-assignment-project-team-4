@@ -25,7 +25,7 @@ public class requestCarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_car);
-
+        dbHelper = new DBHelper(this);
 
         Car[] carList = dbHelper.queryCar();
 

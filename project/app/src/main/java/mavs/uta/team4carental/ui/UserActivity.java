@@ -2,6 +2,8 @@ package mavs.uta.team4carental.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+
 import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -12,19 +14,36 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import mavs.uta.team4carental.R;
+import mavs.uta.team4carental.ui.user.ViewReservations;
 
 public class UserActivity extends AppCompatActivity {
 
+
     private Button requestCarButton;
+
+    private Button mBtnViewReservation;
+    private Button mBtnViewRequestCar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
+        //将布局中的button匹配给变量
+        mBtnViewReservation=(Button)findViewById(R.id.btn_ViewReservation);
+        //设置ViewReservation的跳转
+        mBtnViewReservation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UserActivity.this, mavs.uta.team4carental.ui.user.ViewReservations.class);
+                startActivity(intent);
+            }
+        });
+
+
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
 
-        requestCarButton = findViewById(R.id.Request_Car_user);
+        requestCarButton = findViewById(R.id.btn_RequestCar);
         requestCarButton.setOnClickListener(v -> {
             startActivity(new Intent(this, requestCarActivity.class));
         });

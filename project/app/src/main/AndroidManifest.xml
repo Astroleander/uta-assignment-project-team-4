@@ -36,6 +36,10 @@
             android:name=".ui.RegisterActivity"
             android:label="@string/title_activity_register"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ui.SearchForUsersActivity"
+            android:label="@string/title_activity_register"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
     </application>
 
 </manifest>

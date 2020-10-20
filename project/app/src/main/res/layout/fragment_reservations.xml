@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--此文件为ViewReservations界面下半部分的fragement的布置文件-->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,14 +7,12 @@
     tools:context=".ui.user.Reservations">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/tv_reservations"
+    <LinearLayout
+        android:id="@+id/list_reservations"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#000"
-        android:textSize="20sp"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.requestCarActivity">
+    </LinearLayout>
 
 </FrameLayout>

@@ -14,7 +14,9 @@ import java.util.List;
 import androidx.annotation.Nullable;
 
 import mavs.uta.team4carental.pojo.Car;
+import mavs.uta.team4carental.pojo.Rental;
 import mavs.uta.team4carental.pojo.User;
+import mavs.uta.team4carental.ui.user.Reservations;
 
 public class DBHelper extends SQLiteOpenHelper {
     private static class TABLE_LIST {
@@ -31,15 +33,15 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String RESERVATION_CREATE =
             "create table "+ TABLE_LIST.Reservation + " (" +
                     EnumTable.Reservation.RESERVATIONNUMBER               + " varchar(30) primary key, " +
-                    EnumTable.Reservation.USERNAME                        + " varchar(30) not null, " +
-                    EnumTable.Reservation.CARNAME                         + " varchar(30) not null," +
-                    EnumTable.Reservation.START                           + " varchar(10) not null," +
-                    EnumTable.Reservation.RETURN                          + " varchar(30) not null," +
-                    EnumTable.Reservation.GPS                             + " varchar(30) not null," +
-                    EnumTable.Reservation.ONSTAR                          + " varchar(20) not null," +
-                    EnumTable.Reservation.SIRIUSXM                        + " varchar(20) not null," +
-                    EnumTable.Reservation.TOTALPRICE                      + " varchar(20) not null," +
-                    EnumTable.Reservation.STATUS                          + " varchar(20) not null" +
+                    EnumTable.Reservation.USERNAME                        + " varchar(30) not null, "    +
+                    EnumTable.Reservation.CARNAME                         + " varchar(30) not null, "    +
+                    EnumTable.Reservation.START                           + " varchar(10) not null, "    +
+                    EnumTable.Reservation.Back                             + " varchar(30) not null, "    +
+                    EnumTable.Reservation.GPS                             + " varchar(30) not null, "    +
+                    EnumTable.Reservation.ONSTAR                          + " varchar(20) not null, "    +
+                    EnumTable.Reservation.SIRIUSXM                        + " varchar(20) not null, "    +
+                    EnumTable.Reservation.TOTALPRICE                      + " varchar(20) not null, "    +
+                    EnumTable.Reservation.STATUS                          + " varchar(20) not null "     +
                     ")";
     private static final String CAR_CREATE =
             "create table "+ TABLE_LIST.CAR + " (" +
@@ -348,5 +350,48 @@ public class DBHelper extends SQLiteOpenHelper {
         Car[] result_car = new Car[result.size()];
         result.toArray(result_car);
         return result_car;
+    }
+//在pojo中为Rental，其它地方均为Reservations
+    public Rental[] queryReservations(String userName, String start_time, String back_time) {
+        ArrayList<Rental> result = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        //使用三个参数对reservation进行筛选
+        Cursor cursor = db.query(
+                TABLE_LIST.Reservation,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+        while(cursor.moveToNext()) {
+            String ReservationNumber = cursor.getString((cursor.getColumnIndex(EnumTable.Reservation.RESERVATIONNUMBER)));
+            String UserName = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.USERNAME));
+            String CarName= cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.CARNAME));
+            String start = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.START));
+            String end = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.Back));
+            String GPS = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.GPS));
+            String onstar = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.ONSTAR));
+            String siriusXM = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.SIRIUSXM));
+            String totalPrice = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.TOTALPRICE));
+            String status = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.STATUS));
+            // TODO: not finished
+            result.add(new Rental(
+                    ReservationNumber,
+                    UserName,
+                    CarName,
+                    start,
+                    end,
+                    GPS,
+                    onstar,
+                    siriusXM,
+                    totalPrice,
+                    status
+            ));
+        }
+        cursor.close();
+        Rental[] result_Reservation = new Rental[result.size()];
+        result.toArray(result_Reservation);
+        return result_Reservation;
     }
 }

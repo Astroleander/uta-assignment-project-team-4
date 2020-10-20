@@ -19,14 +19,14 @@
             android:layout_width="317dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Strat Time" />
+            android:hint="Strat Time" />
 
         <EditText
             android:id="@+id/et_endTime"
             android:layout_width="315dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="End Time" />
+            android:hint="End Time" />
         <Button
             android:id="@+id/btn_searchMyReservation"
             android:layout_width="315dp"

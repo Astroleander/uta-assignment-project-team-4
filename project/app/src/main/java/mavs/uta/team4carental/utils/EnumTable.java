@@ -29,15 +29,15 @@ public class EnumTable {
         public static final String SIRIUSXM = "siriusXM";
     }
     public static final class Reservation{
-        public static final String RESERVATIONNUMBER = "Reservationnumberme";
-        public static final String USERNAME = "username";
-        public static final String CARNAME = "carname";
+        public static final String RESERVATIONNUMBER = "ReservationNumber";
+        public static final String USERNAME = "UserName";
+        public static final String CARNAME = "CarName";
         public static final String START = "start";
-        public static final String RETURN = "return";
+        public static final String Back = "back";
         public static final String GPS = "GPS";
-        public static final String ONSTAR = "onstar";
+        public static final String ONSTAR = "onStar";
         public static final String SIRIUSXM = "siriusXM";
-        public static final String TOTALPRICE = "totalprice";
+        public static final String TOTALPRICE = "totalPrice";
         public static final String STATUS = "status";
 
     }

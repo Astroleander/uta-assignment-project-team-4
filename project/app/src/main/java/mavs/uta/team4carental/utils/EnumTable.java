@@ -18,4 +18,27 @@ public class EnumTable {
         public static final String MEMBER = "member";
         public static final String STATUS = "status";
     }
+    public static final class CAR{
+        public static final String CARNAME = "name";
+        public static final String CAPACITY = "capacity";
+        public static final String WEEKDAY = "weekday";
+        public static final String WEEKEND = "weekend";
+        public static final String WEEK = "week";
+        public static final String GPS = "GPS";
+        public static final String ONSTAR = "onstar";
+        public static final String SIRIUSXM = "siriusXM";
+    }
+    public static final class Reservation{
+        public static final String RESERVATIONNUMBER = "ReservationNumber";
+        public static final String USERNAME = "UserName";
+        public static final String CARNAME = "CarName";
+        public static final String START = "start";
+        public static final String Back = "back";
+        public static final String GPS = "GPS";
+        public static final String ONSTAR = "onStar";
+        public static final String SIRIUSXM = "siriusXM";
+        public static final String TOTALPRICE = "totalPrice";
+        public static final String STATUS = "status";
+
+    }
 }

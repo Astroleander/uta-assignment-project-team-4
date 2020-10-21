@@ -12,22 +12,29 @@
 <!--        android:orientation="vertical"-->
 <!--        tools:context=".ui.user.requestCar.requestCarActivity"/>-->
 
-    <LinearLayout
-        android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <!-- DatePicker Options -->
-        <DatePicker
-            android:id="@+id/dp_datetimepicker_date"
+
+        <TextView
+        android:id="@+id/startDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="start date"/>
+
+        <TextView
+            android:id="@+id/endDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:calendarViewShown="false"
-            android:theme="@android:style/Theme.Holo.Light">
+            android:text="end date"/>
 
-        </DatePicker>
-
-
+        <TextView
+            android:id="@+id/capacity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="capacity"/>
 
     </LinearLayout>
 

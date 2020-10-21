@@ -1,4 +1,4 @@
-package mavs.uta.team4carental.ui.user;
+package mavs.uta.team4carental.ui.user.viewReservation;
 
 import android.os.Bundle;
 
@@ -13,10 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import mavs.uta.team4carental.R;
-import mavs.uta.team4carental.pojo.Car;
 import mavs.uta.team4carental.pojo.Rental;
 import mavs.uta.team4carental.utils.DBHelper;
-import mavs.uta.team4carental.utils.EnumTable;
 
 /**
  * A simple {@link Fragment} subclass.

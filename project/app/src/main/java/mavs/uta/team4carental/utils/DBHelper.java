@@ -9,14 +9,12 @@ import android.util.Log;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.List;
 
 import androidx.annotation.Nullable;
 
 import mavs.uta.team4carental.pojo.Car;
 import mavs.uta.team4carental.pojo.Rental;
 import mavs.uta.team4carental.pojo.User;
-import mavs.uta.team4carental.ui.user.Reservations;
 
 public class DBHelper extends SQLiteOpenHelper {
     private static class TABLE_LIST {

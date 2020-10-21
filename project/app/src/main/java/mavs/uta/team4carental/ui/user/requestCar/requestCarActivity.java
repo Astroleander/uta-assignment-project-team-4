@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,52 +15,82 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.DatePicker;
+import android.widget.TextView;
 
 import mavs.uta.team4carental.R;
-import mavs.uta.team4carental.pojo.Car;
-import mavs.uta.team4carental.ui.user.viewReservation.Reservations;
-import mavs.uta.team4carental.utils.DBHelper;
 
-public class requestCarActivity extends AppCompatActivity {
-
-    private DBHelper dbHelper;
-
-    Fragment datePickerFragment;
-    List<Car> carList;
-
-    private TextView dateTextView;
-    private DatePickerDialog dpd;
-
+public class requestCarActivity extends Activity implements OnClickListener{
+    private TextView startDate;
+    private TextView endDate;
+    private Button btn_Date;
+    private Calendar cal;
+    private int year,month,day;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_car);
-        dbHelper = new DBHelper(this);
 
-        Car[] carList = dbHelper.queryCar();
+        //获取当前日期
+        getDate();
 
+        startDate=(TextView) findViewById(R.id.startDate);
+        startDate.setOnClickListener(this);
 
+        endDate=(TextView) findViewById(R.id.endDate);
+        endDate.setOnClickListener(this);
 
-        
-
-
-
-
-//        Car[] result = dbHelper.queryCar();
-//        Log.d(result.toString(), "onCreate: result");
-//        LinearLayout list = (LinearLayout)findViewById(R.id.list);
-//        for(Car a:carList){
-//            TextView tv = new TextView(this);
-//            tv.setText(a.toString());
-//            list.addView(tv);
-//        }
     }
 
+    //获取当前日期
+    private void getDate() {
+        cal=Calendar.getInstance();
+        year=cal.get(Calendar.YEAR);    //获取年月日时分秒
+        Log.i("wxy","year"+year);
+        month=cal.get(Calendar.MONTH);  //获取到的月份是从0开始计数
+        day=cal.get(Calendar.DAY_OF_MONTH);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.startDate:
+                OnDateSetListener listener=new OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker arg0, int year, int month, int day) {
+                        startDate.setText(year+"-"+(++month)+"-"+day);   //将选择的日期显示到TextView中,因为之前获取month直接使用，所以不需要+1，这个地方需要显示，所以+1
+                    }
+                };
+                DatePickerDialog dialog=new DatePickerDialog(requestCarActivity.this, 0,listener,year,month,day);//后边三个参数为显示dialog时默认的日期，月份从0开始，0-11对应1-12个月
+                dialog.show();
+                break;
+            case R.id.endDate:
+                listener=new OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker arg0, int year, int month, int day) {
+                        endDate.setText(year+"-"+(++month)+"-"+day);   //将选择的日期显示到TextView中,因为之前获取month直接使用，所以不需要+1，这个地方需要显示，所以+1
+                    }
+                };
+                dialog=new DatePickerDialog(requestCarActivity.this, 0,listener,year,month,day);//后边三个参数为显示dialog时默认的日期，月份从0开始，0-11对应1-12个月
+                dialog.show();
+                break;
+
+            default:
+                break;
+        }
+    }
 
 }

@@ -65,7 +65,7 @@ public class requestCarActivity extends Activity implements OnClickListener{
                 //实例化Reservations fragement
                 carresult = carResult.newInstance(startDate.toString(), endDate.toString(),capacity.toString());
                 //之后需要更新整个fragment
-                getSupportFragmentManager().beginTransaction().replace(R.id.requestCar_flcontainer, carresult).commitAllowingStateLoss();
+//                getSupportFragmentManager().beginTransaction().replace(R.id.requestCar_flcontainer, carresult).commitAllowingStateLoss();
 
             }
         });

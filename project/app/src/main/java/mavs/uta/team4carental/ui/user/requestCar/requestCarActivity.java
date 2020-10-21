@@ -1,9 +1,5 @@
 package mavs.uta.team4carental.ui.user.requestCar;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -11,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,13 +26,16 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 import mavs.uta.team4carental.R;
+import mavs.uta.team4carental.ui.user.viewReservation.Reservations;
 
 public class requestCarActivity extends Activity implements OnClickListener{
     private TextView startDate;
     private TextView endDate;
-    private Button btn_Date;
+    private Button btn_request;
     private Calendar cal;
     private int year,month,day;
+    private carResult carresult;
+    private EditText capacity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,25 @@ public class requestCarActivity extends Activity implements OnClickListener{
 
         endDate=(TextView) findViewById(R.id.endDate);
         endDate.setOnClickListener(this);
+
+        capacity = (EditText)findViewById(R.id.capacity);
+        btn_request = findViewById(R.id.btn_requestCar);
+        
+        btn_request.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //将布局中的et匹配给变量
+                
+//                String userName = "wang";
+                //从Intent中获取userName
+                
+                //实例化Reservations fragement
+                carresult = carResult.newInstance(startDate.toString(), endDate.toString(),capacity.toString());
+                //之后需要更新整个fragment
+                getSupportFragmentManager().beginTransaction().replace(R.id.requestCar_flcontainer, carresult).commitAllowingStateLoss();
+
+            }
+        });
 
     }
 

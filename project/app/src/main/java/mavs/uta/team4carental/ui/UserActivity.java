@@ -33,7 +33,9 @@ public class UserActivity extends AppCompatActivity {
         mBtnViewReservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String userName = getIntent().getStringExtra("userName");
                 Intent intent = new Intent(UserActivity.this, mavs.uta.team4carental.ui.user.ViewReservations.class);
+                intent.putExtra("userName", userName);
                 startActivity(intent);
             }
         });

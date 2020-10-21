@@ -43,35 +43,23 @@ public class Reservations extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment Reservations.
      */
-    // TODO: Rename and change types and number of parameters
-    public static Reservations newInstance(String param1, String param2) {
-        Reservations fragment = new Reservations();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
     public static Reservations newInstance(String userName, String start_time, String back_time){
         Reservations reservation = new Reservations();
         Bundle bundle = new Bundle();
         bundle.putString("userName", userName);
         bundle.putString("start_time", start_time);
         bundle.putString("back_time", back_time);
+
+        reservation.setArguments(bundle);
+
         return reservation;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -89,15 +77,17 @@ public class Reservations extends Fragment {
         //这后面可以对 mTvReservation中的值进行设置，将从数据库中读出的写到这儿
         dbHelper = new DBHelper(getActivity());
         //给queryReservations提供参数使其能够进行查找操作
-        Rental[] reservation_list = dbHelper.queryReservations("wang", "2020/10/20","2020/10/30");
+        Rental[] reservation_list;
         if(getArguments() == null){
-            reservation_list = dbHelper.queryReservations("wang", "2020/10/20","2020/10/30");
+            reservation_list = new Rental[]{};
+
         }
         else {
             reservation_list = dbHelper.queryReservations(getArguments().getString("userName"), getArguments().getString("start_time"), getArguments().getString("back_time"));
         }
 
         LinearLayout list = (LinearLayout) view.findViewById(R.id.list_reservations);
+        int c = reservation_list.length;
         for(Rental a:reservation_list){
             TextView tv = new TextView(getActivity());
             tv.setText(a.toString());

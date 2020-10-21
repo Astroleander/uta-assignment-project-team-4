@@ -6,7 +6,7 @@
     android:orientation="horizontal" >
 
     <TextView
-        android:id="@+id/Username"
+        android:id="@+id/item_Username"
         android:layout_width="0dp"
         android:layout_weight="1.0"
         android:layout_height="match_parent"
@@ -15,7 +15,7 @@
         android:textSize="15sp" />
 
     <TextView
-        android:id="@+id/Lastname"
+        android:id="@+id/item_Lastname"
         android:layout_width="0dp"
         android:layout_weight="1.0"
         android:layout_height="match_parent"
@@ -24,7 +24,7 @@
         android:textSize="15sp" />
 
     <TextView
-        android:id="@+id/Firstname"
+        android:id="@+id/item_Firstname"
         android:layout_width="0dp"
         android:layout_weight="1.0"
         android:layout_height="match_parent"
@@ -33,7 +33,7 @@
         android:textSize="15sp" />
 
     <TextView
-        android:id="@+id/userrole"
+        android:id="@+id/item_userrole"
         android:layout_width="0dp"
         android:layout_weight="1.0"
         android:layout_height="match_parent"

@@ -356,10 +356,11 @@ public class DBHelper extends SQLiteOpenHelper {
         ArrayList<Rental> result = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
         //使用三个参数对reservation进行筛选
+        //返回的结果为开始晚于输入的开始时间，且结束时间早于输入的结束时间的reservation
         Cursor cursor = db.query(
                 TABLE_LIST.Reservation,
                 null,
-                EnumTable.Reservation.USERNAME + "=" + "\'" + userName+"\'" + " AND "+ EnumTable.Reservation.START + "=" + "\'" + start_time + "\'" + " AND " + EnumTable.Reservation.Back + "=" + "\'" + back_time + "\'",
+                EnumTable.Reservation.USERNAME + "=" + "\'" + userName+"\'" + " AND "+ EnumTable.Reservation.START + ">=" + "\'" + start_time + "\'" + " AND " + EnumTable.Reservation.Back + "<=" + "\'" + back_time + "\'",
                 null,
                 null,
                 null,

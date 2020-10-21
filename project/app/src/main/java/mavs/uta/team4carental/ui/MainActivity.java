@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText password;
 
     private DBHelper dbHelper;
-
+    private String qusername;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void login() {
         dbHelper = new DBHelper(this);
-        String qusername = getStringFromEditText(this.username);
+        qusername = getStringFromEditText(this.username);
         String qpassword = getStringFromEditText(this.password);
         if (qusername.length() > 0 && qpassword.length() > 0) {
             String result = dbHelper.queryLogin(
@@ -65,17 +65,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleAfterLogin(String result) {
+        Intent intent;
         switch (result) {
             case "User":
-                startActivity(new Intent(this, UserActivity.class));
+                intent = new Intent(this, UserActivity.class);
+                intent.putExtra("userName", qusername);
+                startActivity(intent);
                 finish();
                 break;
             case "Admin":
-                startActivity(new Intent(this, AdminActivity.class));
+                intent = new Intent(this, AdminActivity.class);
+                intent.putExtra("userName", qusername);
+                startActivity(intent);
                 finish();
                 break;
             case "Manager":
-                startActivity(new Intent(this, ManagerActivity.class));
+                intent = new Intent(this, ManagerActivity.class);
+                intent.putExtra("userName", qusername);
+                startActivity(intent);
                 finish();
                 break;
             default:

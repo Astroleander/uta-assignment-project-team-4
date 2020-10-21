@@ -36,9 +36,9 @@ public class ViewReservations extends AppCompatActivity {
         //实例化dbHelper
         dbHelper = new DBHelper(this);
         //初始实例化fragment
-        reservations = new Reservations();
+//        reservations = new Reservations();
         //把Reservations fragement 添加到fragment_flcontaomer中
-        getSupportFragmentManager().beginTransaction().add(R.id.reservation_flcontainer, reservations).commitAllowingStateLoss();
+//        getSupportFragmentManager().beginTransaction().add(R.id.reservation_flcontainer, reservations).commitAllowingStateLoss();
 
         //设置按钮的跳转
         btn_SearchMyReservation.setOnClickListener(new View.OnClickListener() {
@@ -50,7 +50,9 @@ public class ViewReservations extends AppCompatActivity {
                 //需要将按钮设置成能够给fragment传参（start time， back time， user name），并更新fragment显示结果的函数
                 String start_time = et_startTime.getText().toString();
                 String back_time = et_backTime.getText().toString();
-                String userName = "123";
+//                String userName = "wang";
+                //从Intent中获取userName
+                String userName = getIntent().getStringExtra("userName");
                 //实例化Reservations fragement
                 reservations = Reservations.newInstance(userName, start_time, back_time);
                 //之后需要更新整个fragment

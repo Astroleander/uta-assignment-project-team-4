@@ -359,7 +359,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = db.query(
                 TABLE_LIST.Reservation,
                 null,
-                null,
+                EnumTable.Reservation.USERNAME + "=" + "\'" + userName+"\'" + " AND "+ EnumTable.Reservation.START + "=" + "\'" + start_time + "\'" + " AND " + EnumTable.Reservation.Back + "=" + "\'" + back_time + "\'",
                 null,
                 null,
                 null,

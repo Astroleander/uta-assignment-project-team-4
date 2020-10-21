@@ -43,6 +43,10 @@
 
         </LinearLayout>
 
+        <include
+            layout="@layout/user_list_item"
+            android:id="@+id/user_table_title" />
+
         <ListView
             android:id="@+id/Search_For_Users_UsersListView"
             android:layout_width="match_parent"

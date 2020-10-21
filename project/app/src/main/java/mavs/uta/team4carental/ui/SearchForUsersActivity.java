@@ -1,32 +1,32 @@
 package mavs.uta.team4carental.ui;
 
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.widget.Button;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import android.widget.EditText;
+import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import mavs.uta.team4carental.R;
 
+public class SearchForUsersActivity extends AppCompatActivity {
 
+    private EditText lastname;
+    private Button searchUserButton;
 
-public class AdminActivity extends AppCompatActivity {
-
-    private Button searchButton;
-
-
-    public AdminActivity() {
-    }
+    private ListView userList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin);
+        setContentView(R.layout.activity_searchforuser);
         this.initView();
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -39,10 +39,11 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        searchButton = findViewById(R.id.Search_For_Users);
-        searchButton.setOnClickListener(view -> {
-            startActivity(new Intent(this, SearchForUsersActivity.class));
-        });
+        lastname = findViewById(R.id.Search_For_Users_LastNameEditText);
+        searchUserButton = findViewById(R.id.Search_For_Users_SearchButton);
+
 
     }
+
+
 }

@@ -1,4 +1,4 @@
-package mavs.uta.team4carental.ui.user;
+package mavs.uta.team4carental.ui.user.viewReservation;
 
 import androidx.appcompat.app.AppCompatActivity;
 

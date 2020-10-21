@@ -14,7 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import mavs.uta.team4carental.R;
-import mavs.uta.team4carental.ui.user.ViewReservations;
+import mavs.uta.team4carental.ui.user.requestCar.requestCarActivity;
 
 public class UserActivity extends AppCompatActivity {
 
@@ -34,7 +34,7 @@ public class UserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String userName = getIntent().getStringExtra("userName");
-                Intent intent = new Intent(UserActivity.this, mavs.uta.team4carental.ui.user.ViewReservations.class);
+                Intent intent = new Intent(UserActivity.this, mavs.uta.team4carental.ui.user.viewReservation.ViewReservations.class);
                 intent.putExtra("userName", userName);
                 startActivity(intent);
             }

@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.requestCarActivity" />
+        <activity android:name=".ui.user.requestCar.requestCarActivity" />
 
         <activity android:name=".ui.user.ViewReservations"></activity>
         <activity

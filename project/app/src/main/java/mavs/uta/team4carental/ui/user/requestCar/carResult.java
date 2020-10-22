@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import mavs.uta.team4carental.R;
+import mavs.uta.team4carental.pojo.Car;
 import mavs.uta.team4carental.pojo.Rental;
 import mavs.uta.team4carental.utils.DBHelper;
 
@@ -42,17 +43,17 @@ public class carResult extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param starDate Parameter 1.
-     * @param endDate Parameter 2.
+     * @param start Parameter 1.
+     * @param back Parameter 2.
      * @return A new instance of fragment carResult.
      */
     // TODO: Rename and change types and number of parameters
-    public static carResult newInstance(String username,String starDate, String endDate,String capacity) {
+    public static carResult newInstance(String username,String start, String back,String capacity) {
         carResult fragment = new carResult();
         Bundle args = new Bundle();
         args.putString("username",username);
-        args.putString("starDate", starDate);
-        args.putString("endDate", endDate);
+        args.putString("start", start);
+        args.putString("back", back);
         args.putString("capacity", capacity);
         fragment.setArguments(args);
         return fragment;
@@ -79,17 +80,46 @@ public class carResult extends Fragment {
         dbHelper = new DBHelper(getActivity());
         //给queryReservations提供参数使其能够进行查找操作
         Rental[] reservation_list;
-        if(getArguments() == null){
-            reservation_list = new Rental[]{};
-
-        }
-        else {
-            reservation_list = dbHelper.queryReservations(getArguments().getString("userName"), getArguments().getString("start_time"), getArguments().getString("back_time"));
-        }
-
-        LinearLayout list = (LinearLayout) view.findViewById(R.id.list_reservations);
-        int c = reservation_list.length;
+        Car[] car_list;
+        Car[] car_temp = new Car[0];
+        Car[] car_result = new Car[0];
+//        if(getArguments() == null){
+//            reservation_list = new Rental[]{};
+//
+//        }
+//        else {
+            reservation_list = dbHelper.queryReservations(getArguments().getString("userName"), getArguments().getString("start"), getArguments().getString("back"));
+//        }
+        int k=0;
+        String[] car_names = new String[100];
         for(Rental a:reservation_list){
+            car_names[k]=a.getCarName();
+        }
+        car_list = dbHelper.queryCar();
+        int i=0;
+        for(Car a:car_list){
+            if(a.getCapicity().toString().compareTo(getArguments().getString("capacity"))<=0){
+                car_temp[i]=a;
+                i++;
+            }
+        }
+//        int j=0;
+//        for(Car a:car_temp){
+//            for(String name:car_names){
+//                if(name.equals(a.getCarname().toString())){
+//
+//                }
+//                else {
+//                    car_result[j]=a;
+//                    j++;
+//                }
+//            }
+//        }
+
+
+        LinearLayout list = (LinearLayout) view.findViewById(R.id.list_car);
+
+        for(Car a:car_list){
             TextView tv = new TextView(getActivity());
             tv.setText(a.toString());
             list.addView(tv);

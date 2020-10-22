@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.user.Reservations">
+    tools:context=".ui.user.viewReservation.Reservations">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.user.Reservations"/>
+        tools:context=".ui.user.viewReservation.Reservations"/>
 
 
 </FrameLayout>

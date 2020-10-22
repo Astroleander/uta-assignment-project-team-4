@@ -79,14 +79,14 @@ public class Car {
     @Override
     public String toString() {
         return "[Car]" +
-                "\ncarname='" + carname +
-                "\ncapicity='" + capicity +
-                "\nweekday='" + weekday +
-                "\nweekend='" + weekend +
-                "\nweel='" + weel  +
-                "\ngps='" + gps +
-                "\nonstar='" + onstar +
-                "\nsiriusxm='" + siriusxm +
+                "\ncarname=" + carname +
+                "\ncapicity=" + capicity +
+                "\nweekday=" + weekday +
+                "\nweekend=" + weekend +
+                "\nweel=" + weel  +
+                "\ngps=" + gps +
+                "\nonstar=" + onstar +
+                "\nsiriusxm=" + siriusxm +
                 "\n";
     }
 

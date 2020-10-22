@@ -2,6 +2,8 @@ package mavs.uta.team4carental.ui.user.requestCar;
 
 
 import android.app.Activity;
+import android.app.TimePickerDialog;
+import android.app.TimePickerDialog.OnTimeSetListener;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,18 +24,23 @@ import android.app.DatePickerDialog.OnDateSetListener;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.DatePicker;
+
 import android.widget.TextView;
+import android.widget.TimePicker;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import mavs.uta.team4carental.R;
 import mavs.uta.team4carental.ui.user.viewReservation.Reservations;
 
-public class requestCarActivity extends Activity implements OnClickListener{
+public class requestCarActivity extends AppCompatActivity implements OnClickListener{
     private TextView startDate;
     private TextView endDate;
+    private TextView startTime;
+    private TextView endTime;
     private Button btn_request;
     private Calendar cal;
-    private int year,month,day;
+    private int year,month,day,hour,minute;
     private carResult carresult;
     private EditText capacity;
 
@@ -48,11 +55,19 @@ public class requestCarActivity extends Activity implements OnClickListener{
         startDate=(TextView) findViewById(R.id.startDate);
         startDate.setOnClickListener(this);
 
+        startTime=(TextView)findViewById(R.id.startTime);
+        startTime.setOnClickListener(this);
+
         endDate=(TextView) findViewById(R.id.endDate);
         endDate.setOnClickListener(this);
 
+        endTime =(TextView)findViewById(R.id.endTime);
+        endTime.setOnClickListener(this);
+
         capacity = (EditText)findViewById(R.id.capacity);
         btn_request = findViewById(R.id.btn_requestCar);
+
+        String userName = getIntent().getStringExtra("userName");
         
         btn_request.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,9 +78,9 @@ public class requestCarActivity extends Activity implements OnClickListener{
                 //从Intent中获取userName
                 
                 //实例化Reservations fragement
-                carresult = carResult.newInstance(startDate.toString(), endDate.toString(),capacity.toString());
+                carresult = carResult.newInstance(userName,startDate.toString(), endDate.toString(),capacity.toString());
                 //之后需要更新整个fragment
-//                getSupportFragmentManager().beginTransaction().replace(R.id.requestCar_flcontainer, carresult).commitAllowingStateLoss();
+                getSupportFragmentManager().beginTransaction().replace(R.id.requestCar_flcontainer, carresult).commitAllowingStateLoss();
 
             }
         });
@@ -79,6 +94,7 @@ public class requestCarActivity extends Activity implements OnClickListener{
         Log.i("wxy","year"+year);
         month=cal.get(Calendar.MONTH);  //获取到的月份是从0开始计数
         day=cal.get(Calendar.DAY_OF_MONTH);
+        hour = cal.get(Calendar.HOUR_OF_DAY);
     }
 
     @Override
@@ -95,6 +111,20 @@ public class requestCarActivity extends Activity implements OnClickListener{
                 DatePickerDialog dialog=new DatePickerDialog(requestCarActivity.this, 0,listener,year,month,day);//后边三个参数为显示dialog时默认的日期，月份从0开始，0-11对应1-12个月
                 dialog.show();
                 break;
+
+            case R.id.startTime:
+                OnTimeSetListener listener1=new OnTimeSetListener() {
+
+                    @Override
+                    public void onTimeSet(TimePicker tp, int hour,int minute) {
+                        startTime.setText(hour+":00");
+                    }
+                };
+                TimePickerDialog dialog1 = new TimePickerDialog(requestCarActivity.this,listener1,hour,minute,true);
+                dialog1.show();
+
+                break;
+
             case R.id.endDate:
                 listener=new OnDateSetListener() {
 
@@ -107,6 +137,19 @@ public class requestCarActivity extends Activity implements OnClickListener{
                 dialog.show();
                 break;
 
+
+            case R.id.endTime:
+                 listener1=new OnTimeSetListener() {
+
+                    @Override
+                    public void onTimeSet(TimePicker tp, int hour,int minute) {
+                        endTime.setText(hour+":00");
+                    }
+                };
+                dialog1 = new TimePickerDialog(requestCarActivity.this,listener1,hour,minute,true);
+                dialog1.show();
+
+                break;
             default:
                 break;
         }

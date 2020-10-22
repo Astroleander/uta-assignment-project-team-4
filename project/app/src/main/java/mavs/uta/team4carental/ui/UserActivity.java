@@ -45,10 +45,19 @@ public class UserActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
 
-        requestCarButton = findViewById(R.id.btn_RequestCar);
-        requestCarButton.setOnClickListener(v -> {
-            startActivity(new Intent(UserActivity.this, requestCarActivity.class));
+        requestCarButton =(Button) findViewById(R.id.btn_RequestCar);
+        requestCarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String userName = getIntent().getStringExtra("userName");
+                Intent intent = new Intent(UserActivity.this, mavs.uta.team4carental.ui.user.requestCar.requestCarActivity.class);
+                intent.putExtra("userName", userName);
+                startActivity(intent);
+            }
         });
+//        requestCarButton.setOnClickListener(v -> {
+//            startActivity(new Intent(UserActivity.this, requestCarActivity.class));
+//        });
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_user, R.id.navigation_profile)
                 .build();

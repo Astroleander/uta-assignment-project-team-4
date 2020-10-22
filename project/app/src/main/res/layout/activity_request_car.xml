@@ -23,26 +23,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="start date"/>
+        <TextView
+            android:id="@+id/startTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="start time"/>
 
         <TextView
             android:id="@+id/endDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="end date"/>
+        <TextView
+            android:id="@+id/endTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="end time"/>
 
         <EditText
             android:id="@+id/capacity"
-            android:layout_width="0dp"
+            android:layout_width="317dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="96dp"
-            android:layout_marginEnd="24dp"
-            android:hint="capacity"
-            android:inputType="textEmailAddress"
-            android:selectAllOnFocus="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_gravity="center"
+            android:hint="Capacity" />
         <Button
             android:id="@+id/btn_requestCar"
             android:layout_width="315dp"

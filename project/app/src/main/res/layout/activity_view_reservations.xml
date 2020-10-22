@@ -13,6 +13,27 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:layout_editor_absoluteY="56dp">
+        <TextView
+            android:id="@+id/tv_startDate_reservation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="start date"/>
+        <TextView
+            android:id="@+id/tv_startTime_reservation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="start time"/>
+
+        <TextView
+            android:id="@+id/tv_endDate_reservation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="end date"/>
+        <TextView
+            android:id="@+id/tv_endTime_reservation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="end time"/>
 
         <EditText
             android:id="@+id/et_startTime"

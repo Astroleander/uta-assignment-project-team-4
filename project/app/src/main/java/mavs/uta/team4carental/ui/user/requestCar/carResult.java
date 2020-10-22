@@ -81,8 +81,8 @@ public class carResult extends Fragment {
         //给queryReservations提供参数使其能够进行查找操作
         Rental[] reservation_list;
         Car[] car_list;
-        Car[] car_temp = new Car[0];
-        Car[] car_result = new Car[0];
+        Car[] car_temp = new Car[100];
+        Car[] car_result = new Car[100];
 //        if(getArguments() == null){
 //            reservation_list = new Rental[]{};
 //
@@ -97,12 +97,12 @@ public class carResult extends Fragment {
         }
         car_list = dbHelper.queryCar();
         int i=0;
-        for(Car a:car_list){
-            if(a.getCapicity().toString().compareTo(getArguments().getString("capacity"))<=0){
-                car_temp[i]=a;
-                i++;
-            }
-        }
+//        for(Car a:car_list){
+//            if(a.getCapicity().toString().compareTo(getArguments().getString("capacity"))>=0){
+//                car_temp[i]=a;
+//                i++;
+//            }
+//        }
 //        int j=0;
 //        for(Car a:car_temp){
 //            for(String name:car_names){

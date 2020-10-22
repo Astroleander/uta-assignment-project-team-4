@@ -79,48 +79,6 @@ public class ViewReservations extends AppCompatActivity implements OnClickListen
 
                 String back_time = endDate.getText().toString() + endTime.getText().toString();
 
-//                //！！这中间可以加一步对输入的处理操作，如果输入了月份或者日期为一个数字，则自动补成两位，若是其他格式则返回报错信息！！
-//                String[] start_time_tmp = start_time.split("/");
-//                if (start_time_tmp.length != 3) {
-//                    Toast.makeText(getApplicationContext(), "Error Input!", Toast.LENGTH_LONG).show();
-//                }
-//                else {
-//                    if (start_time_tmp[0].length() != 4){
-//                        Toast.makeText(getApplicationContext(), "Error Input!", Toast.LENGTH_LONG).show();
-//                    }
-//                    else{
-//                        if(start_time_tmp[1].length() == 1){
-//                            start_time_tmp[1] = "0" + start_time_tmp[1];
-//                        }
-//                        if(start_time_tmp[2].length() == 1){
-//                            start_time_tmp[2] = "0" + start_time_tmp[2];
-//                        }
-//                    }
-//                }
-//                String[] back_time_tmp = back_time.split("/");
-//                if (back_time_tmp.length != 3) {
-//                    Toast.makeText(getApplicationContext(), "Error Input!", Toast.LENGTH_LONG).show();
-//                }
-//                else {
-//                    if (back_time_tmp[0].length() != 4){
-//                        Toast.makeText(getApplicationContext(), "Error Input!", Toast.LENGTH_LONG).show();
-//                    }
-//                    else{
-//                        if(back_time_tmp[1].length() == 1){
-//                            back_time_tmp[1] = "0" + back_time_tmp[1];
-//                        }
-//                        if(back_time_tmp[2].length() == 1){
-//                            back_time_tmp[2] = "0" + back_time_tmp[2];
-//                        }
-//                    }
-//                }
-//                start_time = String.join("/", start_time_tmp);
-//                back_time = String.join("/", back_time_tmp);
-                //
-
-
-
-
 
 //                String userName = "wang";
                 //从Intent中获取userName
@@ -153,7 +111,16 @@ public class ViewReservations extends AppCompatActivity implements OnClickListen
 
                     @Override
                     public void onDateSet(DatePicker arg0, int year, int month, int day) {
-                        startDate.setText(year+"-"+(++month)+"-"+day+" ");   //将选择的日期显示到TextView中,因为之前获取month直接使用，所以不需要+1，这个地方需要显示，所以+1
+                        String tmp_month = String.valueOf(month + 1);
+                        String tmp_day = String.valueOf(day);
+
+                        if (month < 9){
+                            tmp_month = ("0" + String.valueOf(month + 1));
+                        }
+                        if (day < 10){
+                            tmp_day = ("0" + String.valueOf(day));
+                        }
+                        startDate.setText(year+"-"+tmp_month+"-"+tmp_day+" ");
                     }
                 };
                 DatePickerDialog dialog=new DatePickerDialog(ViewReservations.this, 0,listener,year,month,day);//后边三个参数为显示dialog时默认的日期，月份从0开始，0-11对应1-12个月
@@ -165,6 +132,12 @@ public class ViewReservations extends AppCompatActivity implements OnClickListen
 
                     @Override
                     public void onTimeSet(TimePicker tp, int hour, int minute) {
+                        String res = "";
+                        if (hour < 10){
+                            res = ("0"+hour).toString();
+                            startTime.setText(res + ":00");
+                            return;
+                        }
                         startTime.setText(hour+":00");
                     }
                 };
@@ -178,7 +151,16 @@ public class ViewReservations extends AppCompatActivity implements OnClickListen
 
                     @Override
                     public void onDateSet(DatePicker arg0, int year, int month, int day) {
-                        endDate.setText(year+"-"+(++month)+"-"+day+" ");   //将选择的日期显示到TextView中,因为之前获取month直接使用，所以不需要+1，这个地方需要显示，所以+1
+                        String tmp_month = String.valueOf(month + 1);
+                        String tmp_day = String.valueOf(day);
+
+                        if (month < 9){
+                            tmp_month = ("0" + String.valueOf(month + 1));
+                        }
+                        if (day < 10){
+                            tmp_day = ("0" + String.valueOf(day));
+                        }
+                        endDate.setText(year+"-"+tmp_month+"-"+tmp_day+" ");   //将选择的日期显示到TextView中,因为之前获取month直接使用，所以不需要+1，这个地方需要显示，所以+1
                     }
                 };
                 dialog=new DatePickerDialog(ViewReservations.this, 0,listener,year,month,day);//后边三个参数为显示dialog时默认的日期，月份从0开始，0-11对应1-12个月
@@ -191,6 +173,12 @@ public class ViewReservations extends AppCompatActivity implements OnClickListen
 
                     @Override
                     public void onTimeSet(TimePicker tp, int hour,int minute) {
+                        String res;
+                        if (hour < 10){
+                            res = ("0"+hour).toString();
+                            endTime.setText(res + ":00");
+                            return;
+                        }
                         endTime.setText(hour+":00");
                     }
                 };

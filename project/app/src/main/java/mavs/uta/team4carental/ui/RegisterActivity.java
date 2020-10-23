@@ -96,6 +96,7 @@ public class RegisterActivity extends AppCompatActivity {
                     getStringFromEditText(username),
                     getStringFromEditText(password),
                     role,
+                    null,
                     getStringFromEditText(firstname),
                     getStringFromEditText(lastname),
                     getStringFromEditText(phone),
@@ -112,6 +113,7 @@ public class RegisterActivity extends AppCompatActivity {
             dbHelper.addUser(userForm);
             Toast.makeText(this, "Register success, dear " + getStringFromEditText(firstname), Toast.LENGTH_LONG).show();
             finish();
+
         });
     }
 

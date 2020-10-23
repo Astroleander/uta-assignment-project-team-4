@@ -24,8 +24,9 @@ public class User implements Serializable{
             String username,
             String password,
             String role,
-            String firstname,
+            String uta_id,
             String lastname,
+            String firstname,
             String phone,
             String email,
             String address,
@@ -39,6 +40,7 @@ public class User implements Serializable{
         this.username = username;
         this.password = password;
         this.role =role;
+        this.uta_id = uta_id;
         this.lastname = lastname;
         this.firstname = firstname;
         this.phone = phone;
@@ -67,6 +69,12 @@ public class User implements Serializable{
     }
     public void setRole(String role) {
         this.role = role;
+    }
+    public String getUta_id() {
+        return uta_id;
+    }
+    public void setUta_id(String uta_id) {
+        this.uta_id = uta_id;
     }
     public String getLastname() {
         return lastname;
@@ -135,6 +143,7 @@ public class User implements Serializable{
                 "\nusername=" + username +
                 "\npassword=" + password +
                 "\nrole=" + role +
+                "\nuta_id=" + uta_id +
                 "\nlastname=" + lastname +
                 "\nfirstname=" + firstname +
                 "\nphone=" + phone +

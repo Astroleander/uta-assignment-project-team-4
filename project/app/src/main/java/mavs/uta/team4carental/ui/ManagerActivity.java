@@ -12,7 +12,13 @@ import androidx.navigation.ui.NavigationUI;
 import mavs.uta.team4carental.R;
 
 public class ManagerActivity extends AppCompatActivity {
-
+    /**
+     * [!WARNING] 这仅仅是一个容器，除非你知道你在做什么，不然不要修改这个 ACTIVITY
+     *
+     * ManagerActivity
+     * |- ProfileFragment
+     * |- ManagerFragment <- 在这里修改 Manager 界面
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

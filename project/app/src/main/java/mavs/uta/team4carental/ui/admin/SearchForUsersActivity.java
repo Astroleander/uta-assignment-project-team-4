@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import mavs.uta.team4carental.Adapter.UserListAdapter;
+import mavs.uta.team4carental.adapter.UserListAdapter;
 import mavs.uta.team4carental.R;
 import mavs.uta.team4carental.pojo.User;
 import mavs.uta.team4carental.utils.DBHelper;

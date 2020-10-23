@@ -10,20 +10,14 @@ import android.view.View.OnClickListener;
 import android.view.View;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import mavs.uta.team4carental.R;
-import mavs.uta.team4carental.pojo.Rental;
-import mavs.uta.team4carental.ui.user.requestCar.requestCarActivity;
 import mavs.uta.team4carental.utils.DBHelper;
-import mavs.uta.team4carental.utils.EnumTable;
-import android.widget.Toast;
 
 import java.util.Calendar;
 

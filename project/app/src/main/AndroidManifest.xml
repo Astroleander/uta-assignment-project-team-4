@@ -9,10 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".ui.user.requestCar.requestCarActivity" />
-
-        <activity android:name=".ui.user.viewReservation.ViewReservations"></activity>
+        <activity android:name=".ui.user.requestCar.SpecificCarActivity"></activity>
+        <activity android:name=".ui.user.requestCar.RequestCarActivity" />
+        <activity android:name=".ui.user.viewReservation.ViewReservations" />
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/title_activity_main"
@@ -26,25 +25,28 @@
         <activity
             android:name=".ui.AdminActivity"
             android:label="@string/title_activity_admin"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.ManagerActivity"
             android:label="@string/title_activity_manager"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.UserActivity"
             android:label="@string/title_activity_user"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.RegisterActivity"
             android:label="@string/title_activity_register"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".ui.admin.SearchForUsersActivity"
             android:label="Search For User Pager"
             android:theme="@style/AppTheme.NoActionBar"/>
+            
         <activity android:name=".ui.admin.ViewSelectedUserProfileActivity"
             android:label="View Selected User Profile Page"
             android:theme="@style/AppTheme.NoActionBar"/>
+
 
     </application>
 

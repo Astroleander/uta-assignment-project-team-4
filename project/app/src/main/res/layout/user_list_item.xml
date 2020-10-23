@@ -15,20 +15,20 @@
         android:textSize="15sp" />
 
     <TextView
-        android:id="@+id/item_Firstname"
-        android:layout_width="0dp"
-        android:layout_weight="1.0"
-        android:layout_height="match_parent"
-        android:text="First Name"
-        android:gravity="center"
-        android:textSize="15sp" />
-
-    <TextView
         android:id="@+id/item_Lastname"
         android:layout_width="0dp"
         android:layout_weight="1.0"
         android:layout_height="match_parent"
         android:text="Last Name"
+        android:gravity="center"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/item_Firstname"
+        android:layout_width="0dp"
+        android:layout_weight="1.0"
+        android:layout_height="match_parent"
+        android:text="First Name"
         android:gravity="center"
         android:textSize="15sp" />
 

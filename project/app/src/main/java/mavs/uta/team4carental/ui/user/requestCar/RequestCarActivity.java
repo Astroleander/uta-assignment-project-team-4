@@ -1,7 +1,6 @@
 package mavs.uta.team4carental.ui.user.requestCar;
 
 
-import android.app.Activity;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.os.Bundle;
@@ -10,30 +9,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 
 import java.util.Calendar;
 
-import android.os.Bundle;
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
-import android.util.Log;
-import android.view.View;
 import android.view.View.OnClickListener;
 
-import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import mavs.uta.team4carental.R;
-import mavs.uta.team4carental.ui.user.viewReservation.Reservations;
 
-public class requestCarActivity extends AppCompatActivity implements OnClickListener{
+public class RequestCarActivity extends AppCompatActivity implements OnClickListener{
     private TextView startDate;
     private TextView endDate;
     private TextView startTime;
@@ -41,7 +32,7 @@ public class requestCarActivity extends AppCompatActivity implements OnClickList
     private Button btn_request;
     private Calendar cal;
     private int year,month,day,hour,minute;
-    private carResult carresult;
+    private CarItemFragment carresult;
     private EditText capacity;
 
     @Override
@@ -78,7 +69,7 @@ public class requestCarActivity extends AppCompatActivity implements OnClickList
                 //从Intent中获取userName
                 
                 //实例化Reservations fragement
-                carresult = carResult.newInstance(userName,startDate.toString(), endDate.toString(),capacity.toString());
+                carresult = CarItemFragment.newInstance(userName,startDate.toString(), endDate.toString(),capacity.toString());
                 //之后需要更新整个fragment
                 getSupportFragmentManager().beginTransaction().replace(R.id.requestCar_flcontainer, carresult).commitAllowingStateLoss();
 
@@ -108,7 +99,7 @@ public class requestCarActivity extends AppCompatActivity implements OnClickList
                         startDate.setText(year+"-"+(++month)+"-"+day);   //将选择的日期显示到TextView中,因为之前获取month直接使用，所以不需要+1，这个地方需要显示，所以+1
                     }
                 };
-                DatePickerDialog dialog=new DatePickerDialog(requestCarActivity.this, 0,listener,year,month,day);//后边三个参数为显示dialog时默认的日期，月份从0开始，0-11对应1-12个月
+                DatePickerDialog dialog=new DatePickerDialog(RequestCarActivity.this, 0,listener,year,month,day);//后边三个参数为显示dialog时默认的日期，月份从0开始，0-11对应1-12个月
                 dialog.show();
                 break;
 
@@ -120,7 +111,7 @@ public class requestCarActivity extends AppCompatActivity implements OnClickList
                         startTime.setText(hour+":00");
                     }
                 };
-                TimePickerDialog dialog1 = new TimePickerDialog(requestCarActivity.this,listener1,hour,minute,true);
+                TimePickerDialog dialog1 = new TimePickerDialog(RequestCarActivity.this,listener1,hour,minute,true);
                 dialog1.show();
 
                 break;
@@ -133,7 +124,7 @@ public class requestCarActivity extends AppCompatActivity implements OnClickList
                         endDate.setText(year+"-"+(++month)+"-"+day);   //将选择的日期显示到TextView中,因为之前获取month直接使用，所以不需要+1，这个地方需要显示，所以+1
                     }
                 };
-                dialog=new DatePickerDialog(requestCarActivity.this, 0,listener,year,month,day);//后边三个参数为显示dialog时默认的日期，月份从0开始，0-11对应1-12个月
+                dialog=new DatePickerDialog(RequestCarActivity.this, 0,listener,year,month,day);//后边三个参数为显示dialog时默认的日期，月份从0开始，0-11对应1-12个月
                 dialog.show();
                 break;
 
@@ -146,7 +137,7 @@ public class requestCarActivity extends AppCompatActivity implements OnClickList
                         endTime.setText(hour+":00");
                     }
                 };
-                dialog1 = new TimePickerDialog(requestCarActivity.this,listener1,hour,minute,true);
+                dialog1 = new TimePickerDialog(RequestCarActivity.this,listener1,hour,minute,true);
                 dialog1.show();
 
                 break;

@@ -1,4 +1,4 @@
-package mavs.uta.team4carental.Adapter;
+package mavs.uta.team4carental.adapter;
 
 
 import android.content.Context;

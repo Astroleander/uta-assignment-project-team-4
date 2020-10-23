@@ -7,15 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import mavs.uta.team4carental.R;
-import mavs.uta.team4carental.ui.UserActivity;
+import mavs.uta.team4carental.ui.user.requestCar.RequestCarActivity;
 
 public class UserFragment extends Fragment {
 
@@ -39,7 +35,7 @@ public class UserFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String userName = activity.getIntent().getStringExtra("userName");
-                Intent intent = new Intent(activity, mavs.uta.team4carental.ui.user.requestCar.requestCarActivity.class);
+                Intent intent = new Intent(activity, RequestCarActivity.class);
                 intent.putExtra("userName", userName);
                 startActivity(intent);
             }

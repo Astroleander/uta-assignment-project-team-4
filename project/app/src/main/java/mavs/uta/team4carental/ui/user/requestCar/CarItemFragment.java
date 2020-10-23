@@ -19,10 +19,10 @@ import mavs.uta.team4carental.utils.DBHelper;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link carResult#newInstance} factory method to
+ * Use the {@link CarItemFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class carResult extends Fragment {
+public class CarItemFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,7 +35,7 @@ public class carResult extends Fragment {
 
     private DBHelper dbHelper;
 
-    public carResult() {
+    public CarItemFragment() {
         // Required empty public constructor
     }
 
@@ -48,8 +48,8 @@ public class carResult extends Fragment {
      * @return A new instance of fragment carResult.
      */
     // TODO: Rename and change types and number of parameters
-    public static carResult newInstance(String username,String start, String back,String capacity) {
-        carResult fragment = new carResult();
+    public static CarItemFragment newInstance(String username, String start, String back, String capacity) {
+        CarItemFragment fragment = new CarItemFragment();
         Bundle args = new Bundle();
         args.putString("username",username);
         args.putString("start", start);

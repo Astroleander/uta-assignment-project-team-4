@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.user.requestCar.requestCarActivity" />
+        <activity android:name=".ui.user.requestCar.RequestCarActivity" />
 
         <activity android:name=".ui.user.viewReservation.ViewReservations"></activity>
         <activity

@@ -6,12 +6,16 @@ import android.app.TimePickerDialog.OnTimeSetListener;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 
 import android.app.DatePickerDialog;
@@ -23,6 +27,10 @@ import android.widget.TimePicker;
 import androidx.appcompat.app.AppCompatActivity;
 
 import mavs.uta.team4carental.R;
+import mavs.uta.team4carental.adapter.CarListAdapter;
+import mavs.uta.team4carental.pojo.Car;
+import mavs.uta.team4carental.pojo.Rental;
+import mavs.uta.team4carental.utils.DBHelper;
 
 public class RequestCarActivity extends AppCompatActivity implements OnClickListener{
     private TextView startDate;
@@ -32,14 +40,57 @@ public class RequestCarActivity extends AppCompatActivity implements OnClickList
     private Button btn_request;
     private Calendar cal;
     private int year,month,day,hour,minute;
-    private CarItemFragment carresult;
     private EditText capacity;
+
+    private ArrayList<Car> carListItems;
+    private ListView carListView;
+    private CarListAdapter adapter;
+
+    private DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_car);
+        this.initFilter();
+        this.initCarList();
+        this.initSearchButton();
+    }
 
+    private void initCarList() {
+        carListView = findViewById(R.id.car_list);
+    }
+
+    private void initSearchButton() {
+        btn_request = findViewById(R.id.btn_requestCar);
+        btn_request.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RequestCarActivity.this.queryCars();
+                adapter = new CarListAdapter(RequestCarActivity.this, RequestCarActivity.this.carListItems);
+                carListView.setAdapter(adapter);
+            }
+        });
+    }
+
+    private void queryCars() {
+        String userName = getIntent().getStringExtra("userName");
+        dbHelper = new DBHelper(this);
+//        //给queryReservations提供参数使其能够进行查找操作
+//        Rental[] reservation_list;
+//        reservation_list = dbHelper.queryReservations(userName, startDate.toString(), endDate.toString());
+//
+//        int k=0;
+//        String[] car_names = new String[100];
+//        for(Rental a:reservation_list){
+//            car_names[k]=a.getCarName();
+//        }
+        Car[] car_list = dbHelper.queryCar();
+        ArrayList<Car> result = new ArrayList<>(Arrays.asList(car_list));
+        this.carListItems = result;
+    }
+
+    private void initFilter() {
         //获取当前日期
         getDate();
 
@@ -56,26 +107,6 @@ public class RequestCarActivity extends AppCompatActivity implements OnClickList
         endTime.setOnClickListener(this);
 
         capacity = (EditText)findViewById(R.id.capacity);
-        btn_request = findViewById(R.id.btn_requestCar);
-
-        String userName = getIntent().getStringExtra("userName");
-        
-        btn_request.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //将布局中的et匹配给变量
-                
-//                String userName = "wang";
-                //从Intent中获取userName
-                
-                //实例化Reservations fragement
-                carresult = CarItemFragment.newInstance(userName,startDate.toString(), endDate.toString(),capacity.toString());
-                //之后需要更新整个fragment
-                getSupportFragmentManager().beginTransaction().replace(R.id.requestCar_flcontainer, carresult).commitAllowingStateLoss();
-
-            }
-        });
-
     }
 
     //获取当前日期

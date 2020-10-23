@@ -42,21 +42,22 @@
 
         <EditText
             android:id="@+id/capacity"
-            android:layout_width="317dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:hint="Capacity" />
         <Button
             android:id="@+id/btn_requestCar"
-            android:layout_width="315dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="request Car" />
-        <FrameLayout
-            android:id="@+id/requestCar_flcontainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
 
+        <ListView
+            android:id="@+id/car_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

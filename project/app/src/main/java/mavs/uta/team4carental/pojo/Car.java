@@ -1,8 +1,10 @@
 package mavs.uta.team4carental.pojo;
 
+import java.io.Serializable;
+
 import mavs.uta.team4carental.utils.EnumTable;
 
-public class Car {
+public class Car implements Serializable {
     private String carname;
     private String capicity;
     private String weekday;

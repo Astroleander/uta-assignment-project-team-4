@@ -252,14 +252,14 @@ public class DBHelper extends SQLiteOpenHelper {
             return "Account Created Successfully";
     }
 
-    public User[] queryUser(String columns) {
+    public User[] queryUser(String columns, String[] value) {
         ArrayList<User> result = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.query(
                 TABLE_LIST.USER,
                 null,
-                "id >= 1",
-                null,
+                columns,
+                value,
                 null,
                 null,
                 null);
@@ -267,13 +267,14 @@ public class DBHelper extends SQLiteOpenHelper {
             String username = cursor.getString(cursor.getColumnIndex(EnumTable.User.USERNAME));
             String password = cursor.getString(cursor.getColumnIndex(EnumTable.User.PASSWORD));
             String role = cursor.getString(cursor.getColumnIndex(EnumTable.User.ROLE));
-            String lastname = cursor.getString(cursor.getColumnIndex(EnumTable.User.LASTNAME));
             String firstname = cursor.getString(cursor.getColumnIndex(EnumTable.User.FIRSTNAME));
+            String lastname = cursor.getString(cursor.getColumnIndex(EnumTable.User.LASTNAME));
             // TODO: not finished
             result.add(new User(
                     username,
                     password,
                     role,
+                    null,
                     lastname,
                     firstname,
                     null,

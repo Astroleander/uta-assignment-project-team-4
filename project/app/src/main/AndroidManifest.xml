@@ -40,7 +40,10 @@
             android:label="@string/title_activity_register"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ui.admin.SearchForUsersActivity"
-            android:label="@string/title_activity_register"
+            android:label="Search For User Pager"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ui.admin.ViewSelectedUserProfileActivity"
+            android:label="View Selected User Profile Page"
             android:theme="@style/AppTheme.NoActionBar"/>
 
     </application>

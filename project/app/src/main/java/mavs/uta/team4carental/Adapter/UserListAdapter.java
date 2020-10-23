@@ -53,8 +53,8 @@ public class UserListAdapter extends BaseAdapter {
 
             view = inflater.inflate(R.layout.user_list_item, null);
             viewHolder.username = (TextView) view.findViewById(R.id.item_Username);
-            viewHolder.lastname = (TextView) view.findViewById(R.id.item_Lastname);
             viewHolder.firstname = (TextView) view.findViewById(R.id.item_Firstname);
+            viewHolder.lastname = (TextView) view.findViewById(R.id.item_Lastname);
             viewHolder.role = (TextView) view.findViewById(R.id.item_userrole);
 
             view.setTag(viewHolder);
@@ -63,8 +63,8 @@ public class UserListAdapter extends BaseAdapter {
         }
 
         viewHolder.username.setText(user.getUsername());
-        viewHolder.lastname.setText(user.getLastname());
         viewHolder.firstname.setText(user.getFirstname());
+        viewHolder.lastname.setText(user.getLastname());
         viewHolder.role.setText(user.getRole());
 
         return view;
@@ -72,8 +72,8 @@ public class UserListAdapter extends BaseAdapter {
 
     public static class ViewHolder{
         public TextView username;
-        public TextView lastname;
         public TextView firstname;
+        public TextView lastname;
         public TextView role;
     }
 }

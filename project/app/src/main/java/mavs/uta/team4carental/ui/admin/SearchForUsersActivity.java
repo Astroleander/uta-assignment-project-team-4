@@ -27,7 +27,6 @@ import java.util.List;
 import mavs.uta.team4carental.Adapter.UserListAdapter;
 import mavs.uta.team4carental.R;
 import mavs.uta.team4carental.pojo.User;
-import mavs.uta.team4carental.ui.AdminActivity;
 import mavs.uta.team4carental.utils.DBHelper;
 
 public class SearchForUsersActivity extends AppCompatActivity {
@@ -61,6 +60,7 @@ public class SearchForUsersActivity extends AppCompatActivity {
     private void initView() {
         et_lastname = findViewById(R.id.Search_For_Users_LastNameEditText);
         btn_searchUsers = findViewById(R.id.Search_For_Users_SearchButton);
+        userListView = findViewById(R.id.Search_For_Users_UsersListView);
 
         btn_searchUsers.setOnClickListener(view -> {
             User[] userarray = this.searchForUsers();
@@ -78,16 +78,14 @@ public class SearchForUsersActivity extends AppCompatActivity {
 
                     Intent intent = new Intent();
                     intent.setClass(SearchForUsersActivity.this, ViewSelectedUserProfileActivity.class);
+                    System.out.println(userarray[(int)l].getUsername());
                     intent.putExtra("username", userarray[(int)l].getUsername());
                     startActivity(intent);
+
                 }
             });
 
-
-
         });
-
-        userListView = findViewById(R.id.Search_For_Users_UsersListView);
 
     }
 
@@ -99,9 +97,10 @@ public class SearchForUsersActivity extends AppCompatActivity {
             Toast.makeText(this, "Please input the lastname.", Toast.LENGTH_SHORT).show();
             return null;
         }
-
-        User[] result = dbHelper.queryUser(lastname);
-        System.out.println(result);
+        String[] lastnameToDB = new String[]{lastname};
+        User[] result = dbHelper.queryUser("LASTNAME=?", lastnameToDB);
+        System.out.println(result[0].getFirstname());
+        System.out.println(result[0].getLastname());
         return result;
 
 

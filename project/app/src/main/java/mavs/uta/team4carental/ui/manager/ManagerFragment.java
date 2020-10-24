@@ -16,19 +16,18 @@ import mavs.uta.team4carental.R;
 public class ManagerFragment extends Fragment {
 
     private ManagerViewModel notificationsViewModel;
+    private View view;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         notificationsViewModel =
                 ViewModelProviders.of(this).get(ManagerViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_user, container, false);
-//        final TextView textView = root.findViewById(R.id.text_notifications);
-//        notificationsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
-        return root;
+        view = inflater.inflate(R.layout.fragment_user, container, false);
+        this.initView();
+        return view;
+    }
+
+    private void initView() {
+
     }
 }

@@ -11,26 +11,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <Button
-            android:id="@+id/btn_ViewReservation"
-            android:layout_width="317dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="View Reservations" />
+        <SearchView
+            android:id="@+id/search_view_cars"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-        <Button
-            android:id="@+id/btn_RequestCar"
-            android:layout_width="315dp"
-            android:layout_height="64dp"
-            android:layout_gravity="center"
-            android:text="View Available Cars" />
+        <CheckBox
+            android:text="@string/prompt_is_car_available"
+            android:id="@+id/checkbox_available_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-        <Button
-            android:id="@+id/Search_For_Cars"
-            android:layout_width="315dp"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/car_list"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Search For Cars" />
+        />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,8 +1,9 @@
 package mavs.uta.team4carental.pojo;
+import java.io.Serializable;
 
 import javax.net.ssl.SSLEngineResult;
 
-public class Rental {
+public class Rental implements Serializable{
     private String ReservationNumber;//这些变量名即为数据库中存的字段名
     private String UserName;
     private String CarName;
@@ -26,7 +27,9 @@ public class Rental {
         this.totalPrice = totalPrice;
         this.status = status;
     }
-
+    public String getCarName() {
+        return CarName;
+    }
     public String getID(){
         return ReservationNumber;
     }
@@ -41,9 +44,7 @@ public class Rental {
         this.UserName = username;
     }
 
-    public String getCarName() {
-        return CarName;
-    }
+
 
     public void setCarName(String carname) {
         this.CarName = carname;

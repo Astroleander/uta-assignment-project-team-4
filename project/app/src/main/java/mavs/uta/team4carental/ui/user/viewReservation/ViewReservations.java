@@ -13,16 +13,24 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import mavs.uta.team4carental.R;
+import mavs.uta.team4carental.adapter.CarListAdapter;
+import mavs.uta.team4carental.adapter.ReservationListAdapter;
+import mavs.uta.team4carental.pojo.Car;
+import mavs.uta.team4carental.pojo.Rental;
+import mavs.uta.team4carental.ui.user.requestCar.RequestCarActivity;
 import mavs.uta.team4carental.utils.DBHelper;
+import mavs.uta.team4carental.utils.EnumTable;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 
 public class ViewReservations extends AppCompatActivity implements OnClickListener {
-    private Reservations reservations;
     private DBHelper dbHelper;
     private Button btn_SearchMyReservation;
     private EditText et_startTime;
@@ -33,6 +41,9 @@ public class ViewReservations extends AppCompatActivity implements OnClickListen
     private TextView endDate;
     private TextView startTime;
     private TextView endTime;
+    private ArrayList<Rental> reservation_ListItems;
+    private ListView reservationListView;
+    private ReservationListAdapter adapter;
 
 
     @Override
@@ -54,6 +65,8 @@ public class ViewReservations extends AppCompatActivity implements OnClickListen
         endTime =(TextView)findViewById(R.id.tv_endTime_reservation);
         endTime.setOnClickListener(this);
 
+        initReservationList();
+
 
 
 
@@ -74,18 +87,24 @@ public class ViewReservations extends AppCompatActivity implements OnClickListen
                 String back_time = endDate.getText().toString() + endTime.getText().toString();
 
 
+
+
 //                String userName = "wang";
                 //从Intent中获取userName
                 String userName = getIntent().getStringExtra("userName");
-                //实例化Reservations fragement
-                reservations = Reservations.newInstance(userName, start_time, back_time);
-                //之后需要更新整个fragment
-                getSupportFragmentManager().beginTransaction().replace(R.id.reservation_flcontainer, reservations).commitAllowingStateLoss();
+                //将结果存入reservationListItems中
+                ViewReservations.this.queryReservations(userName, start_time, back_time);
+                //显示整个列表
+                adapter = new ReservationListAdapter(ViewReservations.this, ViewReservations.this.reservation_ListItems);
+                reservationListView.setAdapter(adapter);
 
             }
         });
 
     }
+
+    private void initReservationList() { reservationListView = findViewById(R.id.reservation_list); }
+
 
     //获取当前日期
     private void getDate() {
@@ -95,6 +114,21 @@ public class ViewReservations extends AppCompatActivity implements OnClickListen
         month=cal.get(Calendar.MONTH);  //获取到的月份是从0开始计数
         day=cal.get(Calendar.DAY_OF_MONTH);
         hour = cal.get(Calendar.HOUR_OF_DAY);
+    }
+
+    private void queryReservations(String userName, String startTime, String endTime) {
+        dbHelper = new DBHelper(this);
+        //给queryReservations提供参数使其能够进行查找操作
+        Rental[] reservation_list;
+        reservation_list = dbHelper.queryReservations(userName, startTime.toString(), endTime.toString());
+
+        int k=0;
+        String[] reservation_names = new String[100];
+        for(Rental a:reservation_list){
+            reservation_names[k]=a.getCarName();
+        }
+        ArrayList<Rental> result = new ArrayList<>(Arrays.asList(reservation_list));
+        this.reservation_ListItems = result;
     }
 
     @Override

@@ -40,10 +40,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="View My Resverations" />
-        <FrameLayout
-            android:id="@+id/reservation_flcontainer"
+        <ListView
+            android:id="@+id/reservation_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content"
+            />
+<!--        <FrameLayout-->
+<!--            android:id="@+id/reservation_flcontainer"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"/>-->
 
     </LinearLayout>
 

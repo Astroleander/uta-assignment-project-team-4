@@ -25,7 +25,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private ArrayList userFields = new ArrayList<String>();
 
-    public static final String DB_NAME = "data";
+    public static final String DB_NAME = "test1";
     public static final int DB_VERSION = 1;
 
     private static final String RESERVATION_CREATE =
@@ -33,7 +33,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     EnumTable.Reservation.RESERVATIONNUMBER               + " varchar(30) primary key, " +
                     EnumTable.Reservation.USERNAME                        + " varchar(30) not null, "    +
                     EnumTable.Reservation.CARNAME                         + " varchar(30) not null, "    +
-                    EnumTable.Reservation.START                           + " varchar(10) not null, "    +
+                    EnumTable.Reservation.START                           + " varchar(30) not null, "    +
                     EnumTable.Reservation.Back                             + " varchar(30) not null, "    +
                     EnumTable.Reservation.GPS                             + " varchar(30) not null, "    +
                     EnumTable.Reservation.ONSTAR                          + " varchar(20) not null, "    +

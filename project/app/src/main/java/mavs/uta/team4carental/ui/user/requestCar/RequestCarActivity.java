@@ -106,7 +106,7 @@ public class RequestCarActivity extends AppCompatActivity implements OnClickList
         //判断车是否被交易出去
         for(int i=0;i<rentals.size();i++){
             for(int j=0;j<result.size();j++){
-                if(result.get(j).getCarname().equals(rentals.get(i).getCarName())){
+                if(rentals.get(i).getStatus().equals('1')&&result.get(j).getCarname().equals(rentals.get(i).getCarName())){
                     result.remove(j);
                     break;
                 }

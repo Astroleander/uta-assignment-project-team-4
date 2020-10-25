@@ -265,7 +265,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put(EnumTable.Reservation.ONSTAR,rental.getOnstar());
         cv.put(EnumTable.Reservation.SIRIUSXM,rental.getSiriusxm());
         cv.put(EnumTable.Reservation.TOTALPRICE,rental.getTotalPrice());
-        cv.put(EnumTable.Reservation.STATUS,rental.getStatus();
+        cv.put(EnumTable.Reservation.STATUS,rental.getStatus());
         long res = db.insert(TABLE_LIST.Reservation, null, cv);
         if(res == -1)
             return "failed";

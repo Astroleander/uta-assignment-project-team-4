@@ -251,6 +251,27 @@ public class DBHelper extends SQLiteOpenHelper {
         else
             return "Account Created Successfully";
     }
+    //预约车辆
+    public String addReservation(Rental rental){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(EnumTable.Reservation.RESERVATIONNUMBER,rental.getID());
+        cv.put(EnumTable.Reservation.USERNAME,rental.getUsername());
+        cv.put(EnumTable.Reservation.CARNAME,rental.getUsername());
+        cv.put(EnumTable.Reservation.START,rental.getStart());
+        cv.put(EnumTable.Reservation.Back,rental.getEnd());
+        cv.put(EnumTable.Reservation.GPS,rental.getGPS());
+        cv.put(EnumTable.Reservation.ONSTAR,rental.getOnstar());
+        cv.put(EnumTable.Reservation.SIRIUSXM,rental.getSiriusxm());
+        cv.put(EnumTable.Reservation.TOTALPRICE,rental.getTotalPrice());
+        cv.put(EnumTable.Reservation.STATUS,rental.getStatus();
+        long res = db.insert(TABLE_LIST.Reservation, null, cv);
+        if(res == -1)
+            return "failed";
+        else
+            return "Reserve Successfully";
+    }
 
     public User[] queryUser(String columns, String[] value) {
         ArrayList<User> result = new ArrayList<>();

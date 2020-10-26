@@ -72,18 +72,21 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("userName", qusername);
                 startActivity(intent);
                 finish();
+                Toast.makeText(this, "Successful Login!", Toast.LENGTH_LONG).show();
                 break;
             case "Admin":
                 intent = new Intent(this, AdminActivity.class);
                 intent.putExtra("userName", qusername);
                 startActivity(intent);
                 finish();
+                Toast.makeText(this, "Successful Login!", Toast.LENGTH_LONG).show();
                 break;
             case "Manager":
                 intent = new Intent(this, ManagerActivity.class);
                 intent.putExtra("userName", qusername);
                 startActivity(intent);
                 finish();
+                Toast.makeText(this, "Successful Login!", Toast.LENGTH_LONG).show();
                 break;
             default:
                 Toast.makeText(this, "Incorrectly Inputs!", Toast.LENGTH_LONG).show();

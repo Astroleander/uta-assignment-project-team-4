@@ -37,7 +37,7 @@ public class SpecificCarActivity extends AppCompatActivity {
 
         TextView test = findViewById(R.id.for_test);
         if (car != null) {
-            test.setText(car.toString()+user+start+back);
+            test.setText(car.toString());
         } else {
             test.setText("error token");
         }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.user.UserFragment">
+    tools:context=".ui.manager.ManagerFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -13,6 +13,8 @@
         android:orientation="vertical">
         <SearchView
             android:id="@+id/search_view_cars"
+            android:iconifiedByDefault="false"
+            android:queryHint="Search Here"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -22,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <ListView
             android:id="@+id/car_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

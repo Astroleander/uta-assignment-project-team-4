@@ -30,4 +30,7 @@
     <string name="onstar">onStar</string>
     <string name="gps">GPS</string>
     <string name="siriusxm">SiriusXM</string>
+    <string name="prompt_name">Name</string>
+    <string name="edit">Edit</string>
+    <string name="view_profile">View Profile</string>
 </resources>

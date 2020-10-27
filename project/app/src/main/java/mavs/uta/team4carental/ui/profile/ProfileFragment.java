@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,8 +19,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import mavs.uta.team4carental.R;
 import mavs.uta.team4carental.ui.MainActivity;
+import mavs.uta.team4carental.utils.DBHelper;
 
 public class ProfileFragment extends Fragment {
+    public static final String PROFILE_TOKEN = "PROFILE";
 // ↓ elegant but complex way
 //    /* 与 activity 通信 */
 //    private ProfileListener activityCallback;
@@ -32,36 +35,52 @@ public class ProfileFragment extends Fragment {
 
     private ProfileViewModel profileViewModel;
     private View root;
+    private Activity activity;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
-        this.bindView(inflater, container);
+        activity = this.getActivity();
         this.bindViewModel();
+        this.bindView(inflater, container);
         return root;
     }
 
     private void bindView(LayoutInflater inflater, ViewGroup container) {
         this.root = inflater.inflate(R.layout.fragment_profile, container, false);
+        this.initLogoutButton();
+        this.initProfile();
+        this.initText();
+    }
 
+    private void initText() {
+
+    }
+
+    private void initProfile() {
+        String username = "";
+        if (activity != null) {
+            username = activity.getIntent().getStringExtra("userName");
+            profileViewModel.getUserInfo(activity, username).observe(this, u -> {
+                Button btn = root.findViewById(R.id.view_profile);
+                btn.setOnClickListener(v -> {
+                    Intent i = new Intent(activity, ViewProfileActivity.class);
+                    i.putExtra(PROFILE_TOKEN, u);
+                    this.startActivity(i);
+                });
+            });
+        }
+    }
+
+    private void initLogoutButton() {
         Button logoutButton = root.findViewById(R.id.logout);
-        Log.d("logoutButton", logoutButton.toString());
         logoutButton.setOnClickListener(v -> {
-            startActivity(new Intent(this.getContext(), MainActivity.class));
-            Activity activity = getActivity();
+            startActivity(new Intent(activity, MainActivity.class));
             if (activity != null) activity.finish();
         });
     }
 
     private void bindViewModel() {
-        final TextView textView = root.findViewById(R.id.text_dashboard);
         profileViewModel =
                 ViewModelProviders.of(this).get(ProfileViewModel.class);
-        profileViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
     }
 }

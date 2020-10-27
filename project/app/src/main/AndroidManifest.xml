@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.user.viewReservation.SpecificReservationActivity"></activity>
+        <activity android:name=".ui.user.viewReservation.SpecificReservationActivity" />
         <activity android:name=".ui.user.requestCar.SpecificCarActivity" />
         <activity android:name=".ui.user.requestCar.RequestCarActivity" />
         <activity android:name=".ui.user.viewReservation.ViewReservations" />
@@ -23,6 +23,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.profile.ViewProfileActivity"
+            android:label="Profile"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
         <activity
             android:name=".ui.AdminActivity"
             android:label="@string/title_activity_admin"

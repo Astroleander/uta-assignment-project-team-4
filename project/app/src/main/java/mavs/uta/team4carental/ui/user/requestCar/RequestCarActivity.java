@@ -41,6 +41,7 @@ public class RequestCarActivity extends AppCompatActivity implements OnClickList
     private Calendar cal;
     private int year,month,day,hour,minute;
     private EditText capacity;
+    private String userName;
 
     private ArrayList<Car> carListItems;
     private ListView carListView;
@@ -67,15 +68,20 @@ public class RequestCarActivity extends AppCompatActivity implements OnClickList
             @Override
             public void onClick(View view) {
                 RequestCarActivity.this.queryCars();
-                adapter = new CarListAdapter(RequestCarActivity.this, RequestCarActivity.this.carListItems);
+                userName = getIntent().getStringExtra("userName");
+                adapter = new CarListAdapter(RequestCarActivity.this, RequestCarActivity.this.carListItems,userName,RequestCarActivity.this.startDate.getText().toString()+RequestCarActivity.this.startTime.getText().toString(),RequestCarActivity.this.endDate.getText().toString()+RequestCarActivity.this.endTime.getText().toString());
                 carListView.setAdapter(adapter);
             }
         });
     }
 
+
+    //差 判断车的容量与车是否可用
     private void queryCars() {
-        String userName = getIntent().getStringExtra("userName");
+        userName = getIntent().getStringExtra("userName");
         dbHelper = new DBHelper(this);
+        capacity = findViewById(R.id.capacity);
+        int cap = Integer.valueOf(capacity.getEditableText().toString()).intValue();
 //        //给queryReservations提供参数使其能够进行查找操作
 //        Rental[] reservation_list;
 //        reservation_list = dbHelper.queryReservations(userName, startDate.toString(), endDate.toString());
@@ -87,6 +93,25 @@ public class RequestCarActivity extends AppCompatActivity implements OnClickList
 //        }
         Car[] car_list = dbHelper.queryCar();
         ArrayList<Car> result = new ArrayList<>(Arrays.asList(car_list));
+
+        Rental[] rental_list = dbHelper.queryReservations(userName,RequestCarActivity.this.startDate.getText().toString()+'-'+RequestCarActivity.this.startTime.getText().toString(),RequestCarActivity.this.endDate.getText().toString()+'-'+RequestCarActivity.this.endTime.getText().toString());
+        ArrayList<Rental> rentals = new ArrayList<>(Arrays.asList(rental_list));
+        //判断车的容量够不够
+        for(int i=0;i<result.size();i++){
+            if((Integer.valueOf(result.get(i).getCapicity()).intValue())<cap){
+                result.remove(i);
+            }
+        }
+
+        //判断车是否被交易出去
+        for(int i=0;i<rentals.size();i++){
+            for(int j=0;j<result.size();j++){
+                if(rentals.get(i).getStatus().equals('1')&&result.get(j).getCarname().equals(rentals.get(i).getCarName())){
+                    result.remove(j);
+                    break;
+                }
+            }
+        }
         this.carListItems = result;
     }
 

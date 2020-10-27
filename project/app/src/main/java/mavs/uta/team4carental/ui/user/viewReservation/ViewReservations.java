@@ -82,9 +82,9 @@ public class ViewReservations extends AppCompatActivity implements OnClickListen
             public void onClick(View view) {
                 //需要将按钮设置成能够给fragment传参（start time， back time， user name），并更新fragment显示结果的函数
                 //从Textview中获取起始日期及时间，结束日期和时间
-                String start_time = startDate.getText().toString() + startTime.getText().toString();
+                String start_time = startDate.getText().toString() +'-'+ startTime.getText().toString();
 
-                String back_time = endDate.getText().toString() + endTime.getText().toString();
+                String back_time = endDate.getText().toString() + '-'+endTime.getText().toString();
 
 
 

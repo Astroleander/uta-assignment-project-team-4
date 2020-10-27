@@ -21,10 +21,16 @@ public class CarListAdapter extends BaseAdapter {
     public static final String CAR_INTENT_TOKEN = "CAR_INTENT_TOKEN";
     private Context ctx;
     ArrayList<Car> items;
+    private String start;
+    private String back;
+    private String user;
 
-    public CarListAdapter(Context ctx, ArrayList<Car> list) {
+    public CarListAdapter(Context ctx, ArrayList<Car> list,String userName,String start,String back) {
         this.ctx = ctx;
         this.items = list;
+        this.user=userName;
+        this.start = start;
+        this.back = back;
     }
 
     /*
@@ -70,11 +76,16 @@ public class CarListAdapter extends BaseAdapter {
         /*
          * 在这里对你新加入的字段赋值
          */
+
         viewHolder.textView.setText(items.get(i).getCarname());
-        viewHolder.button.setText(R.string.car_detail_btn);
+        viewHolder.button.setText("DETAILS");
         viewHolder.button.setOnClickListener(v -> {
             Intent intent = new Intent(ctx, SpecificCarActivity.class);
             intent.putExtra(CAR_INTENT_TOKEN, items.get(i));
+            intent.putExtra("userName",user);
+            intent.putExtra("start",start);
+            intent.putExtra("back",back);
+
             ctx.startActivity(intent);
         });
         return view;

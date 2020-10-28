@@ -41,4 +41,13 @@
     <string name="start_time">Start Time</string>
     <string name="search">Search</string>
     <string name="search_cars">Search Cars</string>
+    <string name="prompt_carname">Car Name</string>
+    <string name="prompt_capacity">Capacity</string>
+    <string name="prompt_weekday_rate">Weekday Rate</string>
+    <string name="prompt_weekend_rate">Weekend Rate</string>
+    <string name="prompt_week_rate">Week Rate</string>
+    <string name="prompt_gps_rate">GPS Rate</string>
+    <string name="prompt_siriusXM_rate">SiriusXM Rate</string>
+    <string name="prompt_on_star_rate">OnStar Rate</string>
+    <string name="status">Status</string>
 </resources>

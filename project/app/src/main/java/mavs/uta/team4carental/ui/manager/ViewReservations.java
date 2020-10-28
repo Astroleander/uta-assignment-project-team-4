@@ -2,6 +2,7 @@ package mavs.uta.team4carental.ui.manager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import mavs.uta.team4carental.R;
+import mavs.uta.team4carental.adapter.ManagerReservationListAdapter;
 import mavs.uta.team4carental.adapter.ReservationListAdapter;
 import mavs.uta.team4carental.pojo.Rental;
 import mavs.uta.team4carental.utils.DBHelper;
@@ -56,7 +57,7 @@ public class ViewReservations extends AppCompatActivity {
     private void initList() {
         listView = findViewById(R.id.list);
         reservations = new ArrayList<>();
-        listView.setAdapter(new ReservationListAdapter(ViewReservations.this, reservations));
+        listView.setAdapter(new ManagerReservationListAdapter(ViewReservations.this, reservations));
     }
 
     private void initButton() {
@@ -65,7 +66,7 @@ public class ViewReservations extends AppCompatActivity {
             String start_time = startDate.getText().toString() +'-'+ startTime.getText().toString();
             String end_time = endDate.getText().toString() + '-' + endTime.getText().toString();
             ArrayList<Rental> result = this.queryReservations(start_time, end_time);
-            listView.setAdapter(new ReservationListAdapter(this, result));
+            listView.setAdapter(new ManagerReservationListAdapter(this, result));
         });
     }
 

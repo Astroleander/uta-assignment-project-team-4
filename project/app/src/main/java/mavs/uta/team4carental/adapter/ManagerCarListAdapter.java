@@ -31,7 +31,9 @@ public class ManagerCarListAdapter extends BaseAdapter {
      * 在这里统一管理放置你在 item_car 里所有的字段
      */
     public static class CarViewHolder {
-        TextView textView;
+        TextView rate;
+        TextView capacity;
+        TextView carName;
         Button button;
     }
 
@@ -60,7 +62,9 @@ public class ManagerCarListAdapter extends BaseAdapter {
             /*
              * 在这里绑定字段
              */
-            viewHolder.textView = view.findViewById(R.id.for_test);
+            viewHolder.carName = view.findViewById(R.id.car_name);
+            viewHolder.capacity = view.findViewById(R.id.capacity);
+            viewHolder.rate = view.findViewById(R.id.rate);
             viewHolder.button = view.findViewById(R.id.btn);
             view.setTag(viewHolder);
         } else {
@@ -69,7 +73,12 @@ public class ManagerCarListAdapter extends BaseAdapter {
         /*
          * 在这里对你新加入的字段赋值
          */
-        viewHolder.textView.setText(items.get(i).getCarname());
+        viewHolder.carName.setText(items.get(i).getCarname());
+        viewHolder.capacity.setText("Capicity: " + items.get(i).getCapicity());
+        viewHolder.rate.setText(
+                items.get(i).getWeekday() + "$/day in weekday    |    " +
+                items.get(i).getWeekend() + "$/day in weekend "
+        );
         viewHolder.button.setText(R.string.car_detail_btn);
         viewHolder.button.setOnClickListener(v -> {
             Intent intent = new Intent(ctx, DisplayCarActivity.class);

@@ -28,16 +28,18 @@ public class DisplayCarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_display_car);
         Intent i = getIntent();
         Car car = (Car) i.getSerializableExtra(CarListAdapter.CAR_INTENT_TOKEN);
-        String user = getIntent().getStringExtra("userName");
-        String start = getIntent().getStringExtra("start");
-        String back = getIntent().getStringExtra("back");
-        //计算价格
-
-        TextView test = findViewById(R.id.for_test);
         if (car != null) {
-            test.setText(car.toString());
-        } else {
-            test.setText("error token");
+            ((TextView) findViewById(R.id.car_name)).setText(car.getCarname());
+            ((TextView) findViewById(R.id.capacity)).setText(car.getCapicity());
+            ((TextView) findViewById(R.id.weekday_rate)).setText(car.getWeekday() + "$/day");
+            ((TextView) findViewById(R.id.weekend_rate)).setText(car.getWeekend() + "$/day");
+            ((TextView) findViewById(R.id.week_rate)).setText(car.getWeel() + "$/week");
+            ((TextView) findViewById(R.id.gps_rate)).setText(car.getGps() + "$/day");
+            ((TextView) findViewById(R.id.on_star_rate)).setText(car.getOnstar() + "$/day");
+            ((TextView) findViewById(R.id.siriusXM_rate)).setText(car.getSiriusxm() + "$/day");
+            ((TextView) findViewById(R.id.status)).setText("Available");
+
         }
+
     }
 }

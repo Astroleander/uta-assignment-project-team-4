@@ -20,7 +20,7 @@ public class AdminFragment extends Fragment {
     private View root;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.fragment_user, container, false);
+        root = inflater.inflate(R.layout.fragment_admin, container, false);
         this.initView();
         return root;
     }

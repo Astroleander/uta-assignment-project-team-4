@@ -31,12 +31,12 @@ public class DisplayCarActivity extends AppCompatActivity {
         if (car != null) {
             ((TextView) findViewById(R.id.car_name)).setText(car.getCarname());
             ((TextView) findViewById(R.id.capacity)).setText(car.getCapicity());
-            ((TextView) findViewById(R.id.weekday_rate)).setText(car.getWeekday() + "$/day");
-            ((TextView) findViewById(R.id.weekend_rate)).setText(car.getWeekend() + "$/day");
-            ((TextView) findViewById(R.id.week_rate)).setText(car.getWeel() + "$/week");
-            ((TextView) findViewById(R.id.gps_rate)).setText(car.getGps() + "$/day");
-            ((TextView) findViewById(R.id.on_star_rate)).setText(car.getOnstar() + "$/day");
-            ((TextView) findViewById(R.id.siriusXM_rate)).setText(car.getSiriusxm() + "$/day");
+            ((TextView) findViewById(R.id.weekday_rate)).setText("$" + car.getWeekday() + "/day");
+            ((TextView) findViewById(R.id.weekend_rate)).setText("$" + car.getWeekend() + "/day");
+            ((TextView) findViewById(R.id.week_rate)).setText("$" + car.getWeel() + "/week");
+            ((TextView) findViewById(R.id.gps_rate)).setText("$" + car.getGps() + "/day");
+            ((TextView) findViewById(R.id.on_star_rate)).setText("$" + car.getOnstar() + "/day");
+            ((TextView) findViewById(R.id.siriusXM_rate)).setText("$" + car.getSiriusxm() + "/day");
             ((TextView) findViewById(R.id.status)).setText("Available");
 
         }

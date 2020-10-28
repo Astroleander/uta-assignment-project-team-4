@@ -58,6 +58,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     EnumTable.User.USERNAME     + " varchar(30) not null, " +
                     EnumTable.User.PASSWORD     + " varchar(30) not null," +
                     EnumTable.User.ROLE         + " varchar(10) not null," +
+                    EnumTable.User.UTAID        + " varchar(10) not null," +
                     EnumTable.User.LASTNAME     + " varchar(30) not null," +
                     EnumTable.User.FIRSTNAME    + " varchar(30) not null," +
                     EnumTable.User.PHONE        + " varchar(20) not null," +
@@ -234,6 +235,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put(EnumTable.User.USERNAME, user.getUsername());
         cv.put(EnumTable.User.PASSWORD, user.getPassword());
         cv.put(EnumTable.User.ROLE,     user.getRole());
+        cv.put(EnumTable.User.UTAID,    user.getUta_id());
         cv.put(EnumTable.User.LASTNAME, user.getLastname());
         cv.put(EnumTable.User.FIRSTNAME,user.getFirstname());
         cv.put(EnumTable.User.PHONE,    user.getPhone());
@@ -288,24 +290,34 @@ public class DBHelper extends SQLiteOpenHelper {
             String username = cursor.getString(cursor.getColumnIndex(EnumTable.User.USERNAME));
             String password = cursor.getString(cursor.getColumnIndex(EnumTable.User.PASSWORD));
             String role = cursor.getString(cursor.getColumnIndex(EnumTable.User.ROLE));
+            String uta_id = cursor.getString(cursor.getColumnIndex(EnumTable.User.UTAID));
             String firstname = cursor.getString(cursor.getColumnIndex(EnumTable.User.FIRSTNAME));
             String lastname = cursor.getString(cursor.getColumnIndex(EnumTable.User.LASTNAME));
+            String phone = cursor.getString(cursor.getColumnIndex(EnumTable.User.PHONE));
+            String email = cursor.getString(cursor.getColumnIndex(EnumTable.User.EMAIL));
+            String address = cursor.getString(cursor.getColumnIndex(EnumTable.User.ADDRESS));
+            String city = cursor.getString(cursor.getColumnIndex(EnumTable.User.CITY));
+            String state = cursor.getString(cursor.getColumnIndex(EnumTable.User.STATE));
+            String zipcode = cursor.getString(cursor.getColumnIndex(EnumTable.User.ZIPCODE));
+            String member = cursor.getString(cursor.getColumnIndex(EnumTable.User.MEMBER));
+            String status = cursor.getString(cursor.getColumnIndex(EnumTable.User.STATUS));
+
             // TODO: not finished
             result.add(new User(
                     username,
                     password,
                     role,
-                    null,
+                    uta_id,
                     lastname,
                     firstname,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
+                    phone,
+                    email,
+                    address,
+                    city,
+                    state,
+                    zipcode,
+                    member,
+                    status
             ));
         }
         cursor.close();

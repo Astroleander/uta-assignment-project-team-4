@@ -17,6 +17,7 @@ import mavs.uta.team4carental.pojo.Rental;
 import mavs.uta.team4carental.pojo.User;
 
 public class DBHelper extends SQLiteOpenHelper {
+
     private static class TABLE_LIST {
         public static String USER = "tbl_user";
         public static String CAR = "tbl_car";
@@ -90,6 +91,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(CAR_CREATE);
         db.execSQL(RESERVATION_CREATE);
         init_Car_tbl(db);//把车表中的车插入数据库中
+        init_reservation_tbl(db);
     }
 
     @Override
@@ -105,7 +107,38 @@ public class DBHelper extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
-    public  String init_Car_tbl(SQLiteDatabase db){
+    private void init_reservation_tbl(SQLiteDatabase db) {
+        ContentValues cv = new ContentValues();
+        cv.put(EnumTable.Reservation.Back, "2020-10-11-4:00");
+        cv.put(EnumTable.Reservation.START, "2020-10-12-4:00");
+        cv.put(EnumTable.Reservation.CARNAME, "Smart");
+        cv.put(EnumTable.Reservation.GPS, "1");
+        cv.put(EnumTable.Reservation.ONSTAR, "1");
+        cv.put(EnumTable.Reservation.RESERVATIONNUMBER, "1111");
+        cv.put(EnumTable.Reservation.SIRIUSXM, "1");
+        cv.put(EnumTable.Reservation.STATUS, "1");
+        cv.put(EnumTable.Reservation.TOTALPRICE, "67.98");
+        cv.put(EnumTable.Reservation.USERNAME, "321");
+        long res = db.insert(TABLE_LIST.Reservation, null, cv);
+        Log.e("[inittable]", "init_reservation_tbl: " + res);
+
+        cv = new ContentValues();
+        cv.put(EnumTable.Reservation.Back, "2020-10-13-4:00");
+        cv.put(EnumTable.Reservation.START, "2020-10-14-4:00");
+        cv.put(EnumTable.Reservation.CARNAME, "Smart");
+        cv.put(EnumTable.Reservation.GPS, "1");
+        cv.put(EnumTable.Reservation.ONSTAR, "1");
+        cv.put(EnumTable.Reservation.RESERVATIONNUMBER, "2222");
+        cv.put(EnumTable.Reservation.SIRIUSXM, "1");
+        cv.put(EnumTable.Reservation.STATUS, "1");
+        cv.put(EnumTable.Reservation.TOTALPRICE, "127.96");
+        cv.put(EnumTable.Reservation.USERNAME, "123456");
+        db.insert(TABLE_LIST.Reservation, null, cv);
+        res = db.insert(TABLE_LIST.Reservation, null, cv);
+        Log.e("[inittable]", "init_reservation_tbl: " + res);
+    }
+
+    public String init_Car_tbl(SQLiteDatabase db){
 
         ContentValues cv = new ContentValues();
         cv.put(EnumTable.CAR.CARNAME, "Smart");
@@ -381,6 +414,94 @@ public class DBHelper extends SQLiteOpenHelper {
                 TABLE_LIST.Reservation,
                 null,
                 EnumTable.Reservation.USERNAME + "=" + "\'" + userName+"\'" + " AND "+ EnumTable.Reservation.START + ">=" + "\'" + start_time + "\'" + " AND " + EnumTable.Reservation.Back + "<=" + "\'" + back_time + "\'",
+                null,
+                null,
+                null,
+                null);
+        while(cursor.moveToNext()) {
+            String ReservationNumber = cursor.getString((cursor.getColumnIndex(EnumTable.Reservation.RESERVATIONNUMBER)));
+            String UserName = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.USERNAME));
+            String CarName= cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.CARNAME));
+            String start = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.START));
+            String end = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.Back));
+            String GPS = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.GPS));
+            String onstar = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.ONSTAR));
+            String siriusXM = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.SIRIUSXM));
+            String totalPrice = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.TOTALPRICE));
+            String status = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.STATUS));
+            // TODO: not finished
+            result.add(new Rental(
+                    ReservationNumber,
+                    UserName,
+                    CarName,
+                    start,
+                    end,
+                    GPS,
+                    onstar,
+                    siriusXM,
+                    totalPrice,
+                    status
+            ));
+        }
+        cursor.close();
+        Rental[] result_Reservation = new Rental[result.size()];
+        Log.d("[Rental]", result.toString());
+        Log.d("[Rental]", ""+result.size());
+        result.toArray(result_Reservation);
+        return result_Reservation;
+    }
+
+    public Rental[] queryAllReservations(String start_time, String back_time) {
+        ArrayList<Rental> result = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                TABLE_LIST.Reservation,
+                null,
+                EnumTable.Reservation.START + ">=" + "\'" + start_time + "\'" + " AND " + EnumTable.Reservation.Back + "<=" + "\'" + back_time + "\'",
+                null,
+                null,
+                null,
+                null);
+        while(cursor.moveToNext()) {
+            String ReservationNumber = cursor.getString((cursor.getColumnIndex(EnumTable.Reservation.RESERVATIONNUMBER)));
+            String UserName = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.USERNAME));
+            String CarName= cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.CARNAME));
+            String start = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.START));
+            String end = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.Back));
+            String GPS = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.GPS));
+            String onstar = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.ONSTAR));
+            String siriusXM = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.SIRIUSXM));
+            String totalPrice = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.TOTALPRICE));
+            String status = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.STATUS));
+            // TODO: not finished
+            result.add(new Rental(
+                    ReservationNumber,
+                    UserName,
+                    CarName,
+                    start,
+                    end,
+                    GPS,
+                    onstar,
+                    siriusXM,
+                    totalPrice,
+                    status
+            ));
+        }
+        cursor.close();
+        Rental[] result_Reservation = new Rental[result.size()];
+        Log.d("[Rental]", result.toString());
+        Log.d("[Rental]", ""+result.size());
+        result.toArray(result_Reservation);
+        return result_Reservation;
+    }
+    public Rental[] queryActiveReservations() {
+        ArrayList<Rental> result = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        //返回的结果为开始晚于输入的开始时间，且结束时间早于输入的结束时间的reservation
+        Cursor cursor = db.query(
+                TABLE_LIST.Reservation,
+                null,
+                EnumTable.Reservation.STATUS + "=1",
                 null,
                 null,
                 null,

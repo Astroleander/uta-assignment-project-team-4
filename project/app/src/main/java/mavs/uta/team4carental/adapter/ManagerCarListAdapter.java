@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import mavs.uta.team4carental.R;
 import mavs.uta.team4carental.pojo.Car;
+import mavs.uta.team4carental.ui.manager.DisplayCarActivity;
 import mavs.uta.team4carental.ui.user.requestCar.SpecificCarActivity;
 
 public class ManagerCarListAdapter extends BaseAdapter {
@@ -71,7 +72,7 @@ public class ManagerCarListAdapter extends BaseAdapter {
         viewHolder.textView.setText(items.get(i).getCarname());
         viewHolder.button.setText(R.string.car_detail_btn);
         viewHolder.button.setOnClickListener(v -> {
-            Intent intent = new Intent(ctx, SpecificCarActivity.class);
+            Intent intent = new Intent(ctx, DisplayCarActivity.class);
             intent.putExtra(CAR_INTENT_TOKEN, items.get(i));
             ctx.startActivity(intent);
         });

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/for_test_reservation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Car Name"
+        />
+    <TextView
+        android:id="@+id/for_dateStart_reservation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="dateStart"
+        />
+    <TextView
+        android:id="@+id/for_dateEnd_reservation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="dateEnd"
+        />
+    <Button
+        android:id="@+id/btn_reservation"
+        android:visibility="visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="This car"/>
+</LinearLayout>

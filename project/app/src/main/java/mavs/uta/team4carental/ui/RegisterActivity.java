@@ -25,6 +25,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText username;
     private EditText password;
     private RadioGroup role;
+    private EditText uta_id;
     private EditText lastname;
     private EditText firstname;
     private EditText phone;
@@ -96,9 +97,9 @@ public class RegisterActivity extends AppCompatActivity {
                     getStringFromEditText(username),
                     getStringFromEditText(password),
                     role,
-                    null,
-                    getStringFromEditText(firstname),
+                    getStringFromEditText(uta_id),
                     getStringFromEditText(lastname),
+                    getStringFromEditText(firstname),
                     getStringFromEditText(phone),
                     getStringFromEditText(email),
                     getStringFromEditText(address),
@@ -122,6 +123,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
+        uta_id = findViewById(R.id.uta_id);
         firstname = findViewById(R.id.first_name);
         lastname = findViewById(R.id.last_name);
         phone = findViewById(R.id.phone);

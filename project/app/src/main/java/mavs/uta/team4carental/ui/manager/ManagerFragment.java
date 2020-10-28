@@ -22,6 +22,9 @@ public class ManagerFragment extends Fragment {
         view.findViewById(R.id.view_cars).setOnClickListener(v -> {
             startActivity(new Intent(this.getContext(), ViewCars.class));
         });
+        view.findViewById(R.id.search_cars).setOnClickListener(v -> {
+            startActivity(new Intent(this.getContext(), SearchCars.class));
+        });
         return view;
     }
 }

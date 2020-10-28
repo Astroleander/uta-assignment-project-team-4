@@ -22,4 +22,12 @@
         android:text="@string/view_cars"
         app:layout_constraintTop_toBottomOf="@id/view_all_reservations"/>
 
+    <Button
+        android:id="@+id/search_cars"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/search_cars"
+        app:layout_constraintTop_toBottomOf="@id/view_cars"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

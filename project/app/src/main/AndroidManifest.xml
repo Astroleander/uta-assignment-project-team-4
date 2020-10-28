@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.manager.ViewCars"/>
+        <activity android:name=".ui.manager.SearchCars"/>
         <activity android:name=".ui.manager.DisplayCarActivity" />
         <activity android:name=".ui.manager.ViewReservations" />
         <activity android:name=".ui.user.viewReservation.SpecificReservationActivity" />

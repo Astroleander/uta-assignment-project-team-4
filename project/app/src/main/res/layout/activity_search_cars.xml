@@ -8,15 +8,15 @@ android:layout_height="match_parent"
 android:orientation="vertical"
 tools:context=".ui.manager.ManagerFragment">
 
-    <SearchView
-        android:id="@+id/search_view_cars"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:iconifiedByDefault="false"
-        android:queryHint="Search Here" />
+<SearchView
+    android:id="@+id/search_view_cars"
+    android:iconifiedByDefault="false"
+    android:queryHint="Search Here"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp">
         <CheckBox
             android:text="@string/prompt_is_car_available"
             android:id="@+id/checkbox_available_filter"

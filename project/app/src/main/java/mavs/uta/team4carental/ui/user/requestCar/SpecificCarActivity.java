@@ -35,18 +35,31 @@ public class SpecificCarActivity extends AppCompatActivity {
 
 
 
-        TextView test = findViewById(R.id.for_test);
+//        TextView test = findViewById(R.id.for_test);
+//        if (car != null) {
+//            test.setText(car.toString());
+//        } else {
+//            test.setText("error token");
+//        }
+//        Intent i = getIntent();
+//        Car car = (Car) i.getSerializableExtra(CarListAdapter.CAR_INTENT_TOKEN);
         if (car != null) {
-            test.setText(car.toString());
-        } else {
-            test.setText("error token");
+            ((TextView) findViewById(R.id.car_name)).setText(car.getCarname());
+            ((TextView) findViewById(R.id.capacity)).setText(car.getCapicity());
+            ((TextView) findViewById(R.id.Start)).setText("2020-10-28-15:00");
+            ((TextView) findViewById(R.id.Back)).setText("2020-10-28-15:00");
+            ((TextView) findViewById(R.id.duration)).setText("1 weekday");
+            ((TextView) findViewById(R.id.number_of_occupants)).setText("1 occupant(s)");
+
+            ((TextView) findViewById(R.id.total_price)).setText("32.99$");
+
         }
 
         reserve = findViewById(R.id.reserve);
         reserve.setOnClickListener(v -> {
 //            dbHelper.addReservation(rental);
 
-            Toast.makeText(this, "Reserve success, estimated price: $100" ,Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Reservation number 1 ,price: $32.99,no extra" ,Toast.LENGTH_LONG).show();
             finish();
 
         });

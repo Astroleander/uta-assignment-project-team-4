@@ -50,4 +50,9 @@
     <string name="prompt_siriusXM_rate">SiriusXM Rate</string>
     <string name="prompt_on_star_rate">OnStar Rate</string>
     <string name="status">Status</string>
+    <string name="start">Start</string>
+    <string name="back">Back</string>
+    <string name="duration">Duration</string>
+    <string name="prcie">Total Price</string>
+    <string name="number_of_occupants">Number of occupants</string>
 </resources>

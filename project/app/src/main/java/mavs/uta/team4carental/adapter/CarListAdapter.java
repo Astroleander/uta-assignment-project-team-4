@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import mavs.uta.team4carental.R;
 import mavs.uta.team4carental.pojo.Car;
+import mavs.uta.team4carental.ui.manager.DisplayCarActivity;
 import mavs.uta.team4carental.ui.user.requestCar.SpecificCarActivity;
 
 public class CarListAdapter extends BaseAdapter {
@@ -24,6 +25,8 @@ public class CarListAdapter extends BaseAdapter {
     private String start;
     private String back;
     private String user;
+
+
 
     public CarListAdapter(Context ctx, ArrayList<Car> list,String userName,String start,String back) {
         this.ctx = ctx;
@@ -38,7 +41,12 @@ public class CarListAdapter extends BaseAdapter {
      * 在这里统一管理放置你在 item_car 里所有的字段
      */
     public static class CarViewHolder {
-        TextView textView;
+//        TextView textView;
+//        Button button;
+
+        TextView rate;
+        TextView capacity;
+        TextView carName;
         Button button;
     }
 
@@ -60,32 +68,47 @@ public class CarListAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         CarViewHolder viewHolder;
+//        if (view == null) {
+//            viewHolder = new CarViewHolder();
+//            LayoutInflater inflater = LayoutInflater.from(ctx);
+//            view = inflater.inflate(R.layout.item_car, viewGroup, false);
+//            /*
+//             * 在这里绑定字段
+//             */
+//            viewHolder.textView = view.findViewById(R.id.for_test);
+//            viewHolder.button = view.findViewById(R.id.btn);
+//            view.setTag(viewHolder);
+//        } else {
+//            viewHolder = (CarViewHolder) view.getTag();
+//        }
         if (view == null) {
-            viewHolder = new CarViewHolder();
+            viewHolder = new CarListAdapter.CarViewHolder();
             LayoutInflater inflater = LayoutInflater.from(ctx);
             view = inflater.inflate(R.layout.item_car, viewGroup, false);
             /*
              * 在这里绑定字段
              */
-            viewHolder.textView = view.findViewById(R.id.for_test);
+            viewHolder.carName = view.findViewById(R.id.car_name);
+            viewHolder.capacity = view.findViewById(R.id.capacity);
+            viewHolder.rate = view.findViewById(R.id.rate);
             viewHolder.button = view.findViewById(R.id.btn);
             view.setTag(viewHolder);
         } else {
-            viewHolder = (CarViewHolder) view.getTag();
+            viewHolder = (CarListAdapter.CarViewHolder) view.getTag();
         }
         /*
          * 在这里对你新加入的字段赋值
          */
 
-        viewHolder.textView.setText(items.get(i).getCarname());
-        viewHolder.button.setText("DETAILS");
+        viewHolder.carName.setText(items.get(i).getCarname());
+        viewHolder.capacity.setText("Capicity: " + items.get(i).getCapicity());
+        viewHolder.rate.setText(
+                "Estimated Total Price:"+items.get(i).getWeekday() +"$"
+        );
+        viewHolder.button.setText(R.string.car_detail_btn);
         viewHolder.button.setOnClickListener(v -> {
             Intent intent = new Intent(ctx, SpecificCarActivity.class);
             intent.putExtra(CAR_INTENT_TOKEN, items.get(i));
-            intent.putExtra("userName",user);
-            intent.putExtra("start",start);
-            intent.putExtra("back",back);
-
             ctx.startActivity(intent);
         });
         return view;

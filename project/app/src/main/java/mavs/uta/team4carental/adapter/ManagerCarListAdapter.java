@@ -58,7 +58,7 @@ public class ManagerCarListAdapter extends BaseAdapter {
         if (view == null) {
             viewHolder = new CarViewHolder();
             LayoutInflater inflater = LayoutInflater.from(ctx);
-            view = inflater.inflate(R.layout.item_car, viewGroup, false);
+            view = inflater.inflate(R.layout.item_manager_car, viewGroup, false);
             /*
              * 在这里绑定字段
              */

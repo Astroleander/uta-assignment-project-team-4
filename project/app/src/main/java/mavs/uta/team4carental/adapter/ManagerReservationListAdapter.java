@@ -76,8 +76,8 @@ public class ManagerReservationListAdapter extends BaseAdapter {
          */
         viewHolder.textView.setText(items.get(i).getCarName());
         viewHolder.Start_date.setText("Start from: " + items.get(i).getStart());
-        viewHolder.End_date.setText("End from: " + items.get(i).getEnd());
-        viewHolder.totalPrice.setText("Total Price:" + items.get(i).getTotalPrice() + "$");
+        viewHolder.End_date.setText("End to: " + items.get(i).getEnd());
+        viewHolder.totalPrice.setText("Total Price:"  + "$" + items.get(i).getTotalPrice());
         viewHolder.button.setText("Details");
         viewHolder.button.setOnClickListener(v -> {
             Intent intent = new Intent(ctx, SpecificReservationActivity.class);

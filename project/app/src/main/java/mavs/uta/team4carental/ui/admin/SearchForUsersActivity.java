@@ -99,8 +99,6 @@ public class SearchForUsersActivity extends AppCompatActivity {
         }
         String[] lastnameToDB = new String[]{lastname};
         User[] result = dbHelper.queryUser("LASTNAME=?", lastnameToDB);
-        System.out.println(result[0].getFirstname());
-        System.out.println(result[0].getLastname());
         return result;
 
 

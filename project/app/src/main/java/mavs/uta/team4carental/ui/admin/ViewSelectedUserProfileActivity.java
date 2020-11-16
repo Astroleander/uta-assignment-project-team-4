@@ -2,6 +2,7 @@ package mavs.uta.team4carental.ui.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -13,34 +14,37 @@ import mavs.uta.team4carental.utils.DBHelper;
 
 public class ViewSelectedUserProfileActivity extends AppCompatActivity {
 
-    TextView tv_username;
-    TextView tv_password;
-    TextView tv_role;
-    TextView tv_UTAID;
-    TextView tv_firstname;
-    TextView tv_lastname;
-    TextView tv_phone;
-    TextView tv_email;
-    TextView tv_address;
-    TextView tv_city;
-    TextView tv_state;
-    TextView tv_zipcode;
-    TextView tv_member;
-    TextView tv_status;
+    private TextView tv_username;
+    private TextView tv_password;
+    private TextView tv_role;
+    private TextView tv_UTAID;
+    private TextView tv_firstname;
+    private TextView tv_lastname;
+    private TextView tv_phone;
+    private TextView tv_email;
+    private TextView tv_address;
+    private TextView tv_city;
+    private TextView tv_state;
+    private TextView tv_zipcode;
+    private TextView tv_member;
+    private TextView tv_status;
+    private Button bt_edit;
+
     private DBHelper dbHelper;
+    private String username;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_selected_user_profile);
         initView();
         Intent intent = getIntent();
-        String username = intent.getStringExtra("username");
+        username = intent.getStringExtra("username");
         System.out.println(username);
-        showProfile(username);
+        showProfile();
 
     }
 
-    private void showProfile(String username) {
+    private void showProfile() {
         dbHelper = new DBHelper(this);
 
         String[] usernameToDB = new String[]{username};
@@ -79,6 +83,16 @@ public class ViewSelectedUserProfileActivity extends AppCompatActivity {
         tv_zipcode = findViewById(R.id.View_Selected_User_Profile_Zipcode);
         tv_member = findViewById(R.id.View_Selected_User_Profile_Member);
         tv_status = findViewById(R.id.View_Selected_User_Profile_Status);
+
+        bt_edit = findViewById(R.id.View_Selected_User_Profile_EditButton);
+        bt_edit.setOnClickListener(view -> {
+            Intent intent = getIntent();
+            intent.setClass(ViewSelectedUserProfileActivity.this, EditSelectedUserProfileActivity.class);
+            System.out.println(username);
+            intent.putExtra("username", username);
+            startActivity(intent);
+
+        });
 
     }
 

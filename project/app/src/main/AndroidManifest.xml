@@ -55,6 +55,9 @@
             android:name=".ui.admin.ViewSelectedUserProfileActivity"
             android:label="View Selected User Profile Page"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.admin.EditSelectedUserProfileActivity"
+            android:label="Edit Selected User Profile Page"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

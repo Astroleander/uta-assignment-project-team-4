@@ -286,6 +286,7 @@ public class DBHelper extends SQLiteOpenHelper {
         else
             return "Account Created Successfully";
     }
+
     //预约车辆
     public String addReservation(Rental rental){
 
@@ -357,6 +358,33 @@ public class DBHelper extends SQLiteOpenHelper {
         User[] result_user = new User[result.size()];
         result.toArray(result_user);
         return result_user;
+    }
+
+    public String editUser(User user){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(EnumTable.User.USERNAME, user.getUsername());
+        cv.put(EnumTable.User.PASSWORD, user.getPassword());
+        cv.put(EnumTable.User.ROLE,     user.getRole());
+        cv.put(EnumTable.User.UTAID,    user.getUta_id());
+        cv.put(EnumTable.User.LASTNAME, user.getLastname());
+        cv.put(EnumTable.User.FIRSTNAME,user.getFirstname());
+        cv.put(EnumTable.User.PHONE,    user.getPhone());
+        cv.put(EnumTable.User.EMAIL,    user.getEmail());
+        cv.put(EnumTable.User.ADDRESS,  user.getAddress());
+        cv.put(EnumTable.User.CITY,     user.getCity());
+        cv.put(EnumTable.User.STATE,    user.getState());
+        cv.put(EnumTable.User.ZIPCODE,  user.getZipcode());
+        cv.put(EnumTable.User.MEMBER,   user.getMember());
+        cv.put(EnumTable.User.STATUS,   user.getStatus());
+
+        long res = db.update(TABLE_LIST.USER, cv, null, null);
+        if(res == -1)
+            return "failed";
+        else
+            return "User Update Successfully";
+
     }
 
     public String queryLogin(String qusername, String qpassword) {

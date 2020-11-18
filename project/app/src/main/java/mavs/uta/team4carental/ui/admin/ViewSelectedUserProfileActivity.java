@@ -36,11 +36,11 @@ public class ViewSelectedUserProfileActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_selected_user_profile);
-        initView();
+        this.initView();
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
         System.out.println(username);
-        showProfile();
+        this.showProfile();
 
     }
 

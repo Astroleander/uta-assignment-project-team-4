@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:text="Role:" />
 
-            <EditText
+            <TextView
                 android:id="@+id/Edit_Selected_User_Profile_Role"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"/>

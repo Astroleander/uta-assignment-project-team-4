@@ -47,24 +47,25 @@ public class EditSelectedUserProfileActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_selected_user_profile);
-        this.initView();
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
-        System.out.println(username);
+        this.getUserProfile();
+        this.initView();
         this.showProfile();
         this.initSubmit();
 
     }
 
-    private void showProfile() {
+    private void getUserProfile() {
         dbHelper = new DBHelper(this);
 
         String[] usernameToDB = new String[]{username};
 
         User[] result = dbHelper.queryUser("USERNAME=?", usernameToDB);
         userProfile = result[0];
+    }
 
-
+    private void showProfile() {
         tv_username.setText(userProfile.getUsername());
         et_password.setText(userProfile.getPassword());
         tv_role.setText(userProfile.getRole());
@@ -106,17 +107,18 @@ public class EditSelectedUserProfileActivity extends AppCompatActivity {
 
                 }
             });
-            int texas = Arrays.asList(states).indexOf("Texas");
+            int texas = Arrays.asList(states).indexOf(userProfile.getState());
             if (texas > 0) {
                 sp_state.setSelection(texas);
             }
         }
         et_zipcode = findViewById(R.id.Edit_Selected_User_Profile_Zipcode);
         et_member = findViewById(R.id.Edit_Selected_User_Profile_MemberID);
-//        if(userProfile.getRole() == "User")
-//            et_member.setVisibility(View.VISIBLE);
-//        else
-//            et_member.setVisibility(View.INVISIBLE);
+        if(userProfile.getRole().equals("User")){
+            et_member.setVisibility(View.VISIBLE);
+        }else{
+            et_member.setVisibility(View.INVISIBLE);
+        }
         et_status = findViewById(R.id.Edit_Selected_User_Profile_Status);
     }
     static String getStringFromEditText(EditText editText) {
@@ -139,7 +141,11 @@ public class EditSelectedUserProfileActivity extends AppCompatActivity {
             System.out.println(userProfile);
             dbHelper.editUser(userProfile);
             Toast.makeText(this, "Edit success", Toast.LENGTH_LONG).show();
-            finish();
+            Intent intent = getIntent();
+            intent.setClass(EditSelectedUserProfileActivity.this, ViewSelectedUserProfileActivity.class);
+            System.out.println(username);
+            intent.putExtra("username", username);
+            startActivity(intent);
         });
     }
 

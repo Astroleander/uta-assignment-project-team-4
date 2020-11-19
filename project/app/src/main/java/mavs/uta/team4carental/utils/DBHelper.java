@@ -379,7 +379,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put(EnumTable.User.MEMBER,   user.getMember());
         cv.put(EnumTable.User.STATUS,   user.getStatus());
 
-        long res = db.update(TABLE_LIST.USER, cv, null, null);
+        long res = db.update(TABLE_LIST.USER, cv, "USERNAME=?", new String[]{user.getUsername()});
         if(res == -1)
             return "failed";
         else

@@ -29,9 +29,11 @@ public class ViewSelectedUserProfileActivity extends AppCompatActivity {
     private TextView tv_member;
     private TextView tv_status;
     private Button bt_edit;
+    private Button bt_revoke;
 
     private DBHelper dbHelper;
     private String username;
+    private User userProfile;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +46,12 @@ public class ViewSelectedUserProfileActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     private void showProfile() {
         dbHelper = new DBHelper(this);
 
@@ -51,7 +59,7 @@ public class ViewSelectedUserProfileActivity extends AppCompatActivity {
 
         User[] result = dbHelper.queryUser("USERNAME=?", usernameToDB);
 
-        User userProfile = result[0];
+        userProfile = result[0];
         tv_username.setText("username:" + userProfile.getUsername());
         tv_password.setText("password:" + userProfile.getPassword());
         tv_role.setText("role:" + userProfile.getRole());
@@ -94,8 +102,27 @@ public class ViewSelectedUserProfileActivity extends AppCompatActivity {
 
         });
 
+        bt_revoke = findViewById(R.id.View_Selected_User_Profile_Revoke);
+        bt_revoke.setOnClickListener(view -> {
+            dbHelper = new DBHelper(this);
+            userProfile.setStatus("live");
+            dbHelper.editUser(userProfile);
+            System.out.println(userProfile);
+
+            refresh();
+
+        });
+
     }
 
+    private void refresh() {
+        finish();
+        Intent intent = getIntent();
+        intent.setClass(ViewSelectedUserProfileActivity.this, ViewSelectedUserProfileActivity.class);
+        System.out.println(username);
+        intent.putExtra("username", username);
+        startActivity(intent);
+    }
 
 
 }

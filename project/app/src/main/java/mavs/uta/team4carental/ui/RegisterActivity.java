@@ -84,36 +84,44 @@ public class RegisterActivity extends AppCompatActivity {
     private void initSubmit() {
         registerButton = findViewById(R.id.register);
         registerButton.setOnClickListener(v -> {
-            /* parse role */
-            String role = this.selectedRole.getText().toString();
 
-            /* parse member */
-            String memberCode = null;
-            if (isMember.isChecked()) {
-                memberCode = getStringFromEditText(member);
+            String unique = getStringFromEditText(username);
+            String[] usernameToDB = new String[]{unique};
+            User[] result = dbHelper.queryUser("USERNAME=?", usernameToDB);
+            if(result.length != 0){
+                Toast.makeText(this, "The username has been used. Please change your username.", Toast.LENGTH_LONG).show();
+            }else{
+                /* parse role */
+                String role = this.selectedRole.getText().toString();
+
+                /* parse member */
+                String memberCode = null;
+                if (isMember.isChecked()) {
+                    memberCode = getStringFromEditText(member);
+                }
+
+                userForm = new User(
+                        getStringFromEditText(username),
+                        getStringFromEditText(password),
+                        role,
+                        getStringFromEditText(uta_id),
+                        getStringFromEditText(lastname),
+                        getStringFromEditText(firstname),
+                        getStringFromEditText(phone),
+                        getStringFromEditText(email),
+                        getStringFromEditText(address),
+                        getStringFromEditText(city),
+                        selectedState,
+                        getStringFromEditText(zipcode),
+                        memberCode,
+                        "live"
+                );
+
+                Log.d("initSubmit", userForm.toString());
+                dbHelper.addUser(userForm);
+                Toast.makeText(this, "Register success, dear " + getStringFromEditText(firstname), Toast.LENGTH_LONG).show();
+                finish();
             }
-
-            userForm = new User(
-                    getStringFromEditText(username),
-                    getStringFromEditText(password),
-                    role,
-                    getStringFromEditText(uta_id),
-                    getStringFromEditText(lastname),
-                    getStringFromEditText(firstname),
-                    getStringFromEditText(phone),
-                    getStringFromEditText(email),
-                    getStringFromEditText(address),
-                    getStringFromEditText(city),
-                    selectedState,
-                    getStringFromEditText(zipcode),
-                    memberCode,
-                    "live"
-            );
-
-            Log.d("initSubmit", userForm.toString());
-            dbHelper.addUser(userForm);
-            Toast.makeText(this, "Register success, dear " + getStringFromEditText(firstname), Toast.LENGTH_LONG).show();
-            finish();
 
         });
     }

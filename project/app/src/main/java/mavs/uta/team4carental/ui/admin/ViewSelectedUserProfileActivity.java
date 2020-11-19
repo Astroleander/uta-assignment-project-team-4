@@ -125,6 +125,9 @@ public class ViewSelectedUserProfileActivity extends AppCompatActivity {
         });
 
         bt_change = findViewById(R.id.View_Selected_User_Profile_Change_Role);
+        if(userProfile.getRole().equals("User")){
+            bt_change.setVisibility(View.VISIBLE);
+        }
         bt_change.setOnClickListener(view -> {
             dbHelper = new DBHelper(this);
             userProfile.setRole("Manager");

@@ -49,6 +49,7 @@
                 android:id="@+id/View_Selected_User_Profile_Change_Role"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:text="Change"/>
         </LinearLayout>
         <TextView

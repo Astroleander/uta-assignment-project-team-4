@@ -2,6 +2,7 @@ package mavs.uta.team4carental.ui.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ public class ViewSelectedUserProfileActivity extends AppCompatActivity {
     private TextView tv_status;
     private Button bt_edit;
     private Button bt_revoke;
+    private Button bt_change;
 
     private DBHelper dbHelper;
     private String username;
@@ -38,10 +40,10 @@ public class ViewSelectedUserProfileActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_selected_user_profile);
-        this.initView();
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
-        System.out.println(username);
+        this.getUserProfile();
+        this.initView();
         this.showProfile();
 
     }
@@ -52,14 +54,18 @@ public class ViewSelectedUserProfileActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    private void showProfile() {
+
+    private void getUserProfile() {
         dbHelper = new DBHelper(this);
 
         String[] usernameToDB = new String[]{username};
 
         User[] result = dbHelper.queryUser("USERNAME=?", usernameToDB);
-
         userProfile = result[0];
+    }
+
+
+    private void showProfile() {
         tv_username.setText("username:" + userProfile.getUsername());
         tv_password.setText("password:" + userProfile.getPassword());
         tv_role.setText("role:" + userProfile.getRole());
@@ -73,6 +79,9 @@ public class ViewSelectedUserProfileActivity extends AppCompatActivity {
         tv_state.setText("state:" + userProfile.getState());
         tv_zipcode.setText("zipcode:" + userProfile.getZipcode());
         tv_status.setText("status:" + userProfile.getStatus());
+        if(userProfile.getRole().equals("User")){
+            tv_member.setText("memberid:" + userProfile.getMember());
+        }
 
     }
 
@@ -91,12 +100,14 @@ public class ViewSelectedUserProfileActivity extends AppCompatActivity {
         tv_zipcode = findViewById(R.id.View_Selected_User_Profile_Zipcode);
         tv_member = findViewById(R.id.View_Selected_User_Profile_Member);
         tv_status = findViewById(R.id.View_Selected_User_Profile_Status);
+        if(userProfile.getRole().equals("User")){
+            tv_member.setVisibility(View.VISIBLE);
+        }
 
         bt_edit = findViewById(R.id.View_Selected_User_Profile_EditButton);
         bt_edit.setOnClickListener(view -> {
             Intent intent = getIntent();
             intent.setClass(ViewSelectedUserProfileActivity.this, EditSelectedUserProfileActivity.class);
-            System.out.println(username);
             intent.putExtra("username", username);
             startActivity(intent);
 
@@ -105,12 +116,20 @@ public class ViewSelectedUserProfileActivity extends AppCompatActivity {
         bt_revoke = findViewById(R.id.View_Selected_User_Profile_Revoke);
         bt_revoke.setOnClickListener(view -> {
             dbHelper = new DBHelper(this);
-            userProfile.setStatus("live");
+            userProfile.setStatus("dead");
             dbHelper.editUser(userProfile);
             System.out.println(userProfile);
 
             refresh();
 
+        });
+
+        bt_change = findViewById(R.id.View_Selected_User_Profile_Change_Role);
+        bt_change.setOnClickListener(view -> {
+            dbHelper = new DBHelper(this);
+            userProfile.setRole("Manager");
+            dbHelper.editUser(userProfile);
+            refresh();
         });
 
     }
@@ -119,7 +138,6 @@ public class ViewSelectedUserProfileActivity extends AppCompatActivity {
         finish();
         Intent intent = getIntent();
         intent.setClass(ViewSelectedUserProfileActivity.this, ViewSelectedUserProfileActivity.class);
-        System.out.println(username);
         intent.putExtra("username", username);
         startActivity(intent);
     }

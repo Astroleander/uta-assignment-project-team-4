@@ -31,16 +31,26 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/View_Selected_User_Profile_Username"/>
-        <TextView
-            android:id="@+id/View_Selected_User_Profile_Role"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/View_Selected_User_Profile_Password"/>
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/View_Selected_User_Profile_Role"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/View_Selected_User_Profile_Password"/>
+            <Button
+                android:id="@+id/View_Selected_User_Profile_Change_Role"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Change"/>
+        </LinearLayout>
         <TextView
             android:id="@+id/View_Selected_User_Profile_UTAID"
             android:layout_width="wrap_content"
@@ -135,12 +145,14 @@
             android:id="@+id/View_Selected_User_Profile_Member"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/View_Selected_User_Profile_Zipcode"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

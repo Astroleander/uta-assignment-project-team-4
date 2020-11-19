@@ -35,7 +35,8 @@ public class EditSelectedUserProfileActivity extends AppCompatActivity {
     private Spinner sp_state;
     private EditText et_zipcode;
     private EditText et_member;
-    private EditText et_status;
+    private TextView tv_member;
+    private TextView tv_status;
     private Button bt_edit;
 
     private String username;
@@ -77,7 +78,10 @@ public class EditSelectedUserProfileActivity extends AppCompatActivity {
         et_address.setText(userProfile.getAddress());
         et_city.setText(userProfile.getCity());
         et_zipcode.setText(userProfile.getZipcode());
-        et_status.setText(userProfile.getStatus());
+        tv_status.setText(userProfile.getStatus());
+        if(userProfile.getRole().equals("User")){
+            et_member.setText(userProfile.getMember());
+        }
     }
 
 
@@ -113,13 +117,13 @@ public class EditSelectedUserProfileActivity extends AppCompatActivity {
             }
         }
         et_zipcode = findViewById(R.id.Edit_Selected_User_Profile_Zipcode);
+        tv_member = findViewById(R.id.Edit_Selected_User_Profile_MemberID_tv);
         et_member = findViewById(R.id.Edit_Selected_User_Profile_MemberID);
         if(userProfile.getRole().equals("User")){
+            tv_member.setVisibility(View.VISIBLE);
             et_member.setVisibility(View.VISIBLE);
-        }else{
-            et_member.setVisibility(View.INVISIBLE);
         }
-        et_status = findViewById(R.id.Edit_Selected_User_Profile_Status);
+        tv_status = findViewById(R.id.Edit_Selected_User_Profile_Status);
     }
     static String getStringFromEditText(EditText editText) {
         return editText.getText().toString();
@@ -138,6 +142,9 @@ public class EditSelectedUserProfileActivity extends AppCompatActivity {
             userProfile.setCity(getStringFromEditText(et_city));
             userProfile.setState(selectedState);
             userProfile.setZipcode(getStringFromEditText(et_zipcode));
+            if(userProfile.getRole().equals("User")){
+                userProfile.setMember(getStringFromEditText(et_member));
+            }
             System.out.println(userProfile);
             dbHelper.editUser(userProfile);
             Toast.makeText(this, "Edit success", Toast.LENGTH_LONG).show();

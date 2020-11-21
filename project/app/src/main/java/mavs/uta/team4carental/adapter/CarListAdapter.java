@@ -17,7 +17,7 @@ import mavs.uta.team4carental.R;
 import mavs.uta.team4carental.pojo.Car;
 import mavs.uta.team4carental.ui.manager.DisplayCarActivity;
 import mavs.uta.team4carental.ui.user.requestCar.SpecificCarActivity;
-
+import java.text.SimpleDateFormat;
 public class CarListAdapter extends BaseAdapter {
     public static final String CAR_INTENT_TOKEN = "CAR_INTENT_TOKEN";
     private Context ctx;
@@ -25,15 +25,17 @@ public class CarListAdapter extends BaseAdapter {
     private String start;
     private String back;
     private String user;
+    private String occupants;
 
 
 
-    public CarListAdapter(Context ctx, ArrayList<Car> list,String userName,String start,String back) {
+    public CarListAdapter(Context ctx, ArrayList<Car> list,String userName,String start,String back,String occupants) {
         this.ctx = ctx;
         this.items = list;
         this.user=userName;
         this.start = start;
         this.back = back;
+        this.occupants = occupants;
     }
 
     /*
@@ -109,6 +111,10 @@ public class CarListAdapter extends BaseAdapter {
         viewHolder.button.setOnClickListener(v -> {
             Intent intent = new Intent(ctx, SpecificCarActivity.class);
             intent.putExtra(CAR_INTENT_TOKEN, items.get(i));
+            intent.putExtra("user", user);
+            intent.putExtra("start", start);
+            intent.putExtra("back", back);
+            intent.putExtra("occupants",occupants);
             ctx.startActivity(intent);
         });
         return view;

@@ -491,6 +491,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return result_Reservation;
     }
 
+
     public Rental[] queryAllReservations(String start_time, String back_time) {
         ArrayList<Rental> result = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();

@@ -68,8 +68,9 @@ public class RequestCarActivity extends AppCompatActivity implements OnClickList
             @Override
             public void onClick(View view) {
                 RequestCarActivity.this.queryCars();
+                String occupants = capacity.getEditableText().toString();
                 userName = getIntent().getStringExtra("userName");
-                adapter = new CarListAdapter(RequestCarActivity.this, RequestCarActivity.this.carListItems,userName,RequestCarActivity.this.startDate.getText().toString()+RequestCarActivity.this.startTime.getText().toString(),RequestCarActivity.this.endDate.getText().toString()+RequestCarActivity.this.endTime.getText().toString());
+                adapter = new CarListAdapter(RequestCarActivity.this, RequestCarActivity.this.carListItems,userName,RequestCarActivity.this.startDate.getText().toString()+"-"+RequestCarActivity.this.startTime.getText().toString(),RequestCarActivity.this.endDate.getText().toString()+"-"+RequestCarActivity.this.endTime.getText().toString(),occupants);
                 carListView.setAdapter(adapter);
             }
         });
@@ -97,10 +98,18 @@ public class RequestCarActivity extends AppCompatActivity implements OnClickList
         Rental[] rental_list = dbHelper.queryReservations(userName,RequestCarActivity.this.startDate.getText().toString()+'-'+RequestCarActivity.this.startTime.getText().toString(),RequestCarActivity.this.endDate.getText().toString()+'-'+RequestCarActivity.this.endTime.getText().toString());
         ArrayList<Rental> rentals = new ArrayList<>(Arrays.asList(rental_list));
         //判断车的容量够不够
-        for(int i=0;i<result.size();i++){
-            if((Integer.valueOf(result.get(i).getCapicity()).intValue())<cap){
-                result.remove(i);
+
+        for(int i=0;i<9;i++){
+            for(int j=0;j<result.size();j++)
+            {
+                if((Integer.valueOf(result.get(j).getCapicity()).intValue())<cap){
+                    result.remove(j);
+                }
+
             }
+//            if((Integer.valueOf(result.get(i).getCapicity()).intValue())<cap){
+//                result.remove(i);
+//            }
         }
 
         //判断车是否被交易出去

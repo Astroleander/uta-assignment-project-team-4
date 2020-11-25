@@ -308,7 +308,7 @@ public class DBHelper extends SQLiteOpenHelper {
         else
             return "Reserve Successfully";
     }
-    public int queryUserstatus(String username){
+    public String queryUserstatus(String username){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.query(
                 TABLE_LIST.USER,
@@ -319,7 +319,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 null,
                 null);
         if (cursor.moveToNext()) {
-            String r = cursor.getString(cursor.getColumnIndex(EnumTable.User.ROLE));
+            String r = cursor.getString(cursor.getColumnIndex(EnumTable.User.MEMBER));
             cursor.close();
             return  r;
         } else {

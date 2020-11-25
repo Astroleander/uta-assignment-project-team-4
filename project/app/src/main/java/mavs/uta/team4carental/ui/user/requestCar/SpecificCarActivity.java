@@ -25,7 +25,7 @@ public class SpecificCarActivity extends AppCompatActivity {
 
     private DBHelper dbHelper;
 
-    private String totalprice;
+    private String totalprice = " ";
     private Rental rental;
     CheckBox checkBox01 ;
     CheckBox checkBox02 ;
@@ -46,6 +46,8 @@ public class SpecificCarActivity extends AppCompatActivity {
         checkBox01 = (CheckBox) findViewById(R.id.checkBox_gps);
         checkBox02 = (CheckBox) findViewById(R.id.checkBox_onstar);
         checkBox03 = (CheckBox) findViewById(R.id.checkBox_siriusXM);
+//        String string1 = dbHelper.queryUserstatus("chen");
+//        String string2 = dbHelper.queryUserstatus("li");
 
 
 
@@ -62,14 +64,40 @@ public class SpecificCarActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        long durations = (backdate.getTime() - startdate.getTime())/(1000*24*60*60);
-        String dur = String.valueOf(durations);
+        float durations = (backdate.getTime() - startdate.getTime())/(1000*24*60*60);
+        if(((backdate.getTime() - startdate.getTime())%(1000*24*60*60))==0){
 
+        }else{
+            durations+=1;
+        }
+        String dur = String.valueOf(durations);
+        long flag = startdate.getTime();
+        int day_of_weekend = 0;
+        int day_of_weekday = 0;
         Calendar cal = Calendar.getInstance();
         cal.setTime(startdate);
         int start_week = cal.get(Calendar.DAY_OF_WEEK)-1;
         cal.setTime(backdate);
         int back_week = cal.get(Calendar.DAY_OF_WEEK)-1;
+
+        int flag_week = start_week;
+        for(;(backdate.getTime()-flag)>(1000*24*60*60);){
+            if(flag_week==0||flag_week==6){
+                day_of_weekend+=1;
+            }else{
+                day_of_weekday+=1;
+            }
+            flag_week+=1;
+            flag_week = flag_week%7;
+            flag+=(1000*24*60*60);
+        }
+        if(back_week==0||back_week==6){
+            day_of_weekend+=1;
+        }else{
+            day_of_weekday+=1;
+        }
+
+
 //
 //
 ////        TextView test = findViewById(R.id.for_test);
@@ -82,23 +110,40 @@ public class SpecificCarActivity extends AppCompatActivity {
 ////        Car car = (Car) i.getSerializableExtra(CarListAdapter.CAR_INTENT_TOKEN);
 
 
+
+        float price_weekday = Float.valueOf(car.getWeekday());
+        float price_weekend = Float.valueOf(car.getWeekend());
+        final float price = price_weekday * day_of_weekday + price_weekend * day_of_weekend;
+
+
+        totalprice = String.valueOf(price);
+//        System.out.println(totalprice);
+
+
+
         if (car != null) {
             ((TextView) findViewById(R.id.car_name)).setText(car.getCarname());
             ((TextView) findViewById(R.id.capacity)).setText(car.getCapicity());
             ((TextView) findViewById(R.id.Start)).setText(start);
             ((TextView) findViewById(R.id.Back)).setText(back+String.valueOf(back_week));
-            ((TextView) findViewById(R.id.duration)).setText(dur);
+            ((TextView) findViewById(R.id.duration)).setText(day_of_weekday+" weekday(s),"+day_of_weekend+" weekend(s)");
             ((TextView) findViewById(R.id.number_of_occupants)).setText(occupants+" occupant(s)");
 
-            ((TextView) findViewById(R.id.total_price)).setText("32.99$");
+            ((TextView) findViewById(R.id.total_price)).setText("$"+totalprice);
 
         }
 
+        totalprice = String.valueOf(price[0]);
+
         reserve = findViewById(R.id.reserve);
+        final String finalExtra = extra;
+        final float finalprice = price;
         reserve.setOnClickListener(v -> {
 //            dbHelper.addReservation(rental);
 
-            Toast.makeText(this, "Reservation number 1 ,price: $32.99,no extra" ,Toast.LENGTH_LONG).show();
+
+
+            Toast.makeText(this, "Reservation number 2020,price: $"+totalprice+ finalExtra,Toast.LENGTH_LONG).show();
             finish();
 
         });

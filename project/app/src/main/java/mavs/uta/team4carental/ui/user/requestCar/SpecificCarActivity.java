@@ -133,17 +133,17 @@ public class SpecificCarActivity extends AppCompatActivity {
 
         }
 
-        totalprice = String.valueOf(price[0]);
+//        totalprice = String.valueOf(price[0]);
 
         reserve = findViewById(R.id.reserve);
-        final String finalExtra = extra;
+//        final String finalExtra = extra;
         final float finalprice = price;
         reserve.setOnClickListener(v -> {
 //            dbHelper.addReservation(rental);
 
 
 
-            Toast.makeText(this, "Reservation number 2020,price: $"+totalprice+ finalExtra,Toast.LENGTH_LONG).show();
+//            Toast.makeText(this, "Reservation number 2020,price: $"+totalprice+ finalExtra,Toast.LENGTH_LONG).show();
             finish();
 
         });

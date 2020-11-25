@@ -28,6 +28,11 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ui.admin.SearchForUsersActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+        />
+
+        <activity
             android:name=".ui.profile.ViewProfileActivity"
             android:label="Profile"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -46,10 +51,6 @@
         <activity
             android:name=".ui.RegisterActivity"
             android:label="@string/title_activity_register"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ui.admin.SearchForUsersActivity"
-            android:label="Search For User Pager"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.admin.ViewSelectedUserProfileActivity"

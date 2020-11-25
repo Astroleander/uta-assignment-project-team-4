@@ -3,274 +3,454 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
+    android:id="@+id/wrapper"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="?attr/actionBarSize">
 
-    <LinearLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="73dp"
-        tools:layout_editor_absoluteY="131dp">
-
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
         <LinearLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            tools:context=".ui.admin.ViewSelectedUserProfileActivity">
 
-            <TextView
-                android:layout_width="100dp"
+            <LinearLayout
+                android:id="@+id/uta_wrapper"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Username:" />
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/prompt_uta"
+                    android:textSize="18dp" />
 
-            <TextView
-                android:id="@+id/Edit_Selected_User_Profile_Username"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"/>
+                <EditText
+                    android:enabled="true"
+                    android:id="@+id/uta_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_uta_id"
+                    android:inputType="text"
+                    android:selectAllOnFocus="true" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/status"
+                        android:textSize="18dp" />
+                    <EditText
+                        android:enabled="true"
+                        android:id="@+id/status"
+                        android:layout_width="100dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/prompt_status"
+                        android:inputType="text"
+                        android:selectAllOnFocus="true" />
+                    <Button
+                        android:id="@+id/revoke"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:text="revoke"/>
+                </LinearLayout>
+
+            </LinearLayout>
+            <RadioGroup
+                android:id="@+id/role"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:orientation="horizontal"
+                android:contentDescription="@string/title_form_role"
+                android:checkedButton="@id/role_radio_user">
+
+                <RadioButton
+                    android:id="@+id/role_radio_admin"
+                    android:text="@string/role_admin"
+                    android:layout_marginEnd="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <RadioButton
+                    android:id="@+id/role_radio_manager"
+                    android:text="@string/role_manager"
+                    android:layout_marginEnd="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <RadioButton
+                    android:id="@+id/role_radio_user"
+                    android:text="@string/role_user"
+                    android:layout_marginEnd="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </RadioGroup>
+
+            <LinearLayout
+                android:id="@+id/username_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/prompt_username"
+                    android:textSize="18dp" />
+
+                <EditText
+                    android:enabled="true"
+                    android:id="@+id/username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_username"
+                    android:inputType="text"
+                    android:selectAllOnFocus="true" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/password_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/prompt_password"
+                    android:textSize="18dp" />
+
+                <EditText
+                    android:enabled="true"
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_password"
+                    android:inputType="text"
+                    android:selectAllOnFocus="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/name_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/username_wrapper">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/prompt_name"
+                    android:textSize="18dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:enabled="true"
+                        android:id="@+id/first_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:autofillHints="@string/prompt_first_name"
+                        android:hint="@string/prompt_first_name"
+                        android:imeActionLabel="@string/prompt_password"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:selectAllOnFocus="true" />
+
+                    <EditText
+                        android:enabled="true"
+                        android:id="@+id/last_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:autofillHints="@string/prompt_last_name"
+                        android:hint="@string/prompt_last_name"
+                        android:imeActionLabel="@string/prompt_password"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:selectAllOnFocus="true" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/phone_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/prompt_phone"
+                    android:textSize="18dp" />
+
+                <EditText
+                    android:enabled="true"
+                    android:id="@+id/phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="@string/prompt_phone"
+                    android:hint="@string/prompt_phone"
+                    android:imeActionLabel="@string/prompt_phone"
+                    android:imeOptions="actionDone"
+                    android:inputType="phone"
+                    android:selectAllOnFocus="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/email_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/phone_wrapper">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/prompt_email"
+                    android:textSize="18dp" />
+
+                <EditText
+                    android:enabled="true"
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="@string/prompt_email"
+                    android:hint="@string/prompt_email"
+                    android:imeActionLabel="@string/prompt_email"
+                    android:imeOptions="actionDone"
+                    android:inputType="textEmailAddress"
+                    android:selectAllOnFocus="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/address_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/prompt_address"
+                    android:textSize="18dp" />
+
+                <EditText
+                    android:enabled="true"
+                    android:id="@+id/address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="@string/prompt_address"
+                    android:hint="@string/prompt_address"
+                    android:imeActionLabel="@string/prompt_address"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:selectAllOnFocus="true"
+                    />
+                <LinearLayout
+                    android:id="@+id/inner_address_wrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@id/email_wrapper">
+
+                    <EditText
+                        android:enabled="true"
+                        android:id="@+id/city"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="8dp"
+                        android:layout_weight="4"
+                        android:autofillHints="@string/prompt_city"
+                        android:hint="@string/prompt_city"
+                        android:imeActionLabel="@string/prompt_city"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:selectAllOnFocus="true" />
+
+                    <Spinner
+                        android:id="@+id/state"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="8dp"
+                        android:layout_weight="3"
+                        android:entries="@array/state_list" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/zipcode_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/address_wrapper">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="match_parent"
+                    android:gravity="start|center"
+                    android:text="@string/prompt_zip_code"
+                    android:textSize="18dp" />
+
+                <EditText
+                    android:enabled="true"
+                    android:id="@+id/zipcode"
+                    android:layout_width="0dp"
+                    android:layout_weight="4"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:autofillHints="@string/prompt_zip_code"
+                    android:hint="@string/prompt_zip_code"
+                    android:imeActionLabel="@string/prompt_zip_code"
+                    android:imeOptions="actionDone"
+                    android:inputType="numberDecimal"
+                    android:selectAllOnFocus="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/address_wrapper" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="invisible"
+                android:id="@+id/member_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/zipcode_wrapper">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/prompt_member"
+                    android:textSize="18dp" />
+                <EditText
+                    android:enabled="true"
+                    android:id="@+id/member"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="@string/prompt_member"
+                    android:hint="@string/prompt_member"
+                    android:imeActionLabel="@string/prompt_member"
+                    android:imeOptions="actionDone"
+                    android:inputType="numberDecimal"
+                    android:selectAllOnFocus="true" />
+            </LinearLayout>
 
         </LinearLayout>
+    </ScrollView>
+    <FrameLayout
+        android:id="@+id/edit_wrapper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:clickable="false"
+        android:paddingStart="8dp"
+        android:padding="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="Password:" />
-
-            <EditText
-                android:id="@+id/Edit_Selected_User_Profile_Password"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="Role:" />
-
-            <TextView
-                android:id="@+id/Edit_Selected_User_Profile_Role"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="Last name:" />
-
-            <EditText
-                android:id="@+id/Edit_Selected_User_Profile_Lastname"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="First name:" />
-
-            <EditText
-                android:id="@+id/Edit_Selected_User_Profile_Firstname"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="UTA ID:" />
-
-            <EditText
-                android:id="@+id/Edit_Selected_User_Profile_UtaID"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="Phone:" />
-
-            <EditText
-                android:id="@+id/Edit_Selected_User_Profile_Phone"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="Email:" />
-
-            <EditText
-                android:id="@+id/Edit_Selected_User_Profile_Email"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="Address:" />
-
-            <EditText
-                android:id="@+id/Edit_Selected_User_Profile_Address"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="City:" />
-
-            <EditText
-                android:id="@+id/Edit_Selected_User_Profile_City"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="State:" />
-            <Spinner
-                android:id="@+id/Edit_Selected_User_Profile_State"
-                android:layout_width="200dp"
-                android:layout_height="30dp"
-                android:entries="@array/state_list"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="Zip code:" />
-
-            <EditText
-                android:id="@+id/Edit_Selected_User_Profile_Zipcode"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="Status:" />
-
-            <TextView
-                android:id="@+id/Edit_Selected_User_Profile_Status"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/Edit_Selected_User_Profile_MemberID_tv"
-                android:layout_width="100dp"
-                android:visibility="gone"
-                android:layout_height="wrap_content"
-                android:text="Member ID:" />
-
-            <EditText
-                android:visibility="gone"
-                android:id="@+id/Edit_Selected_User_Profile_MemberID"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/Edit_Selected_User_Profile_Button"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bt_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edit"
+            android:backgroundTint="@color/design_default_color_primary"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:src="@color/design_default_color_primary"
             />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:layout_gravity="center"
+            android:text="@string/done"
+            android:elevation="16dp"
+            android:textColor="@android:color/white"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </FrameLayout>
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:clickable="false"
+        android:padding="24dp"
+        android:paddingEnd="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/edit_wrapper">
 
-    </LinearLayout>
-
-
-
-
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bt_back"
+            android:layout_width="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:layout_height="wrap_content"
+            android:src="@android:color/transparent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:layout_gravity="center"
+            android:text="@string/back"
+            android:elevation="16dp"
+            android:textColor="@android:color/white"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

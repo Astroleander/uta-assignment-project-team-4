@@ -7,9 +7,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,7 +28,7 @@ public class EditSelectedUserProfileActivity extends AppCompatActivity {
 
     private TextView tv_username;
     private EditText et_password;
-    private TextView tv_role;
+    private RadioGroup tv_role;
     private EditText et_UTAID;
     private EditText et_firstname;
     private EditText et_lastname;
@@ -37,7 +41,9 @@ public class EditSelectedUserProfileActivity extends AppCompatActivity {
     private EditText et_member;
     private TextView tv_member;
     private TextView tv_status;
-    private Button bt_edit;
+
+    private FloatingActionButton bt_edit;
+    private FloatingActionButton bt_back;
 
     private String username;
     private User userProfile;
@@ -69,7 +75,19 @@ public class EditSelectedUserProfileActivity extends AppCompatActivity {
     private void showProfile() {
         tv_username.setText(userProfile.getUsername());
         et_password.setText(userProfile.getPassword());
-        tv_role.setText(userProfile.getRole());
+
+        RadioButton form_role_admin = findViewById(R.id.role_radio_admin);
+        RadioButton form_role_manager = findViewById(R.id.role_radio_manager);
+        RadioButton form_role_user = findViewById(R.id.role_radio_user);
+
+        if (userProfile.getRole().equals(form_role_admin.getText().toString())) {
+            form_role_admin.setChecked(true);
+        } else if (userProfile.getRole().equals(form_role_manager.getText().toString())) {
+            form_role_manager.setChecked(true);
+        } else {
+            form_role_user.setChecked(true);
+        }
+
         et_UTAID.setText(userProfile.getUta_id());
         et_lastname.setText(userProfile.getLastname());
         et_firstname.setText(userProfile.getFirstname());
@@ -86,17 +104,20 @@ public class EditSelectedUserProfileActivity extends AppCompatActivity {
 
 
     private void initView() {
-        tv_username = findViewById(R.id.Edit_Selected_User_Profile_Username);
-        et_password = findViewById(R.id.Edit_Selected_User_Profile_Password);
-        tv_role = findViewById(R.id.Edit_Selected_User_Profile_Role);
-        et_UTAID = findViewById(R.id.Edit_Selected_User_Profile_UtaID);
-        et_firstname = findViewById(R.id.Edit_Selected_User_Profile_Firstname);
-        et_lastname = findViewById(R.id.Edit_Selected_User_Profile_Lastname);
-        et_phone = findViewById(R.id.Edit_Selected_User_Profile_Phone);
-        et_email = findViewById(R.id.Edit_Selected_User_Profile_Email);
-        et_address = findViewById(R.id.Edit_Selected_User_Profile_Address);
-        et_city = findViewById(R.id.Edit_Selected_User_Profile_City);
-        sp_state = findViewById(R.id.Edit_Selected_User_Profile_State);
+        bt_edit = findViewById(R.id.bt_edit);
+        bt_back = findViewById(R.id.bt_back);
+
+        tv_username = findViewById(R.id.username);
+        et_password = findViewById(R.id.password);
+        et_UTAID = findViewById(R.id.uta_id);
+        et_firstname = findViewById(R.id.first_name);
+        et_lastname = findViewById(R.id.last_name);
+        et_phone = findViewById(R.id.phone);
+        et_email = findViewById(R.id.email);
+        et_address = findViewById(R.id.address);
+        et_city = findViewById(R.id.city);
+        sp_state = findViewById(R.id.state);
+        tv_role = findViewById(R.id.role);
         /* state */
         {
             String[] states = getResources().getStringArray(R.array.state_list);
@@ -116,21 +137,21 @@ public class EditSelectedUserProfileActivity extends AppCompatActivity {
                 sp_state.setSelection(texas);
             }
         }
-        et_zipcode = findViewById(R.id.Edit_Selected_User_Profile_Zipcode);
-        tv_member = findViewById(R.id.Edit_Selected_User_Profile_MemberID_tv);
-        et_member = findViewById(R.id.Edit_Selected_User_Profile_MemberID);
+        et_zipcode = findViewById(R.id.zipcode);
+        View memberWrapper = findViewById(R.id.member_wrapper);
+        et_member = findViewById(R.id.member);
         if(userProfile.getRole().equals("User")){
-            tv_member.setVisibility(View.VISIBLE);
+            memberWrapper.setVisibility(View.VISIBLE);
             et_member.setVisibility(View.VISIBLE);
         }
-        tv_status = findViewById(R.id.Edit_Selected_User_Profile_Status);
+        tv_status = findViewById(R.id.status);
     }
     static String getStringFromEditText(EditText editText) {
         return editText.getText().toString();
     }
 
     private void initSubmit() {
-        bt_edit = findViewById(R.id.Edit_Selected_User_Profile_Button);
+        String role = ((RadioButton)findViewById(tv_role.getCheckedRadioButtonId())).getText().toString();
         bt_edit.setOnClickListener(view -> {
             userProfile.setPassword(getStringFromEditText(et_password));
             userProfile.setUta_id(getStringFromEditText(et_UTAID));
@@ -141,18 +162,26 @@ public class EditSelectedUserProfileActivity extends AppCompatActivity {
             userProfile.setAddress(getStringFromEditText(et_address));
             userProfile.setCity(getStringFromEditText(et_city));
             userProfile.setState(selectedState);
+            userProfile.setRole(role);
             userProfile.setZipcode(getStringFromEditText(et_zipcode));
             if(userProfile.getRole().equals("User")){
                 userProfile.setMember(getStringFromEditText(et_member));
             }
-            System.out.println(userProfile);
-            dbHelper.editUser(userProfile);
-            Toast.makeText(this, "Edit success", Toast.LENGTH_LONG).show();
+            String result = dbHelper.editUser(userProfile);
+            Toast.makeText(this, result, Toast.LENGTH_LONG).show();
             Intent intent = getIntent();
             intent.setClass(EditSelectedUserProfileActivity.this, ViewSelectedUserProfileActivity.class);
             System.out.println(username);
             intent.putExtra("username", username);
             startActivity(intent);
+            finish();
+        });
+
+        bt_back.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ViewSelectedUserProfileActivity.class);
+            intent.putExtra("username", username);
+            startActivity(intent);
+            finish();
         });
     }
 

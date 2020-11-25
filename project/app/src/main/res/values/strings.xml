@@ -55,4 +55,9 @@
     <string name="duration">Duration</string>
     <string name="prcie">Total Price</string>
     <string name="number_of_occupants">Number of occupants</string>
+    <string name="prompt_is_user_member">is member</string>
+    <string name="prompt_uta_id">UTA id</string>
+    <string name="prompt_uta">UTA Account</string>
+    <string name="prompt_status">status</string>
+    <string name="done">Done</string>
 </resources>

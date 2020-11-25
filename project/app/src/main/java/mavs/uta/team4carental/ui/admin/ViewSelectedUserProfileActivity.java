@@ -2,36 +2,47 @@ package mavs.uta.team4carental.ui.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.Arrays;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModelProviders;
 import mavs.uta.team4carental.R;
 import mavs.uta.team4carental.pojo.User;
+import mavs.uta.team4carental.ui.profile.ProfileViewModel;
+import mavs.uta.team4carental.ui.profile.ViewProfileActivity;
 import mavs.uta.team4carental.utils.DBHelper;
 
 public class ViewSelectedUserProfileActivity extends AppCompatActivity {
 
-    private TextView tv_username;
-    private TextView tv_password;
-    private TextView tv_role;
-    private TextView tv_UTAID;
-    private TextView tv_firstname;
-    private TextView tv_lastname;
-    private TextView tv_phone;
-    private TextView tv_email;
-    private TextView tv_address;
-    private TextView tv_city;
-    private TextView tv_state;
-    private TextView tv_zipcode;
-    private TextView tv_member;
-    private TextView tv_status;
-    private Button bt_edit;
+    private ProfileViewModel profileViewModel;
+
+    private EditText form_uta_id;
+    private EditText form_lastname;
+    private EditText form_firstname;
+    private EditText form_phone;
+    private EditText form_email;
+    private EditText form_address;
+    private EditText form_city;
+    private EditText form_zipcode;
+    private CheckBox form_isMember;
+    private EditText form_member;
+
     private Button bt_revoke;
-    private Button bt_change;
 
     private DBHelper dbHelper;
     private String username;
@@ -40,101 +51,116 @@ public class ViewSelectedUserProfileActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_selected_user_profile);
+        this.bindViewModel();
+        this.initProfile();
+    }
+
+    private void bindViewModel() {
+        profileViewModel =
+                ViewModelProviders.of(this).get(ProfileViewModel.class);
+    }
+
+    private void initProfile() {
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
-        this.getUserProfile();
-        this.initView();
-        this.showProfile();
-
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-
-    private void getUserProfile() {
-        dbHelper = new DBHelper(this);
-
-        String[] usernameToDB = new String[]{username};
-
-        User[] result = dbHelper.queryUser("USERNAME=?", usernameToDB);
-        userProfile = result[0];
-    }
-
-
-    private void showProfile() {
-        tv_username.setText("username:" + userProfile.getUsername());
-        tv_password.setText("password:" + userProfile.getPassword());
-        tv_role.setText("role:" + userProfile.getRole());
-        tv_UTAID.setText("UTAID:" + userProfile.getUta_id());
-        tv_lastname.setText("lastname:"+ userProfile.getLastname());
-        tv_firstname.setText("firstname:" + userProfile.getFirstname());
-        tv_phone.setText("phone:" + userProfile.getPhone());
-        tv_email.setText("Email:" + userProfile.getEmail());
-        tv_address.setText("address:" + userProfile.getAddress());
-        tv_city.setText("city:" + userProfile.getCity());
-        tv_state.setText("state:" + userProfile.getState());
-        tv_zipcode.setText("zipcode:" + userProfile.getZipcode());
-        tv_status.setText("status:" + userProfile.getStatus());
-        if(userProfile.getRole().equals("User")){
-            tv_member.setText("memberid:" + userProfile.getMember());
-        }
-
+        profileViewModel.getUserInfo(this, username).observe(this, u -> {
+            userProfile = u;
+            initForm();
+            initView();
+        });
     }
 
     private void initView() {
-        tv_username = findViewById(R.id.View_Selected_User_Profile_Username);
-        tv_password = findViewById(R.id.View_Selected_User_Profile_Password);
-        tv_role = findViewById(R.id.View_Selected_User_Profile_Role);
-        tv_UTAID = findViewById(R.id.View_Selected_User_Profile_UTAID);
-        tv_firstname = findViewById(R.id.View_Selected_User_Profile_Firstname);
-        tv_lastname = findViewById(R.id.View_Selected_User_Profile_Lastname);
-        tv_phone = findViewById(R.id.View_Selected_User_Profile_Phone);
-        tv_email = findViewById(R.id.View_Selected_User_Profile_Email);
-        tv_address = findViewById(R.id.View_Selected_User_Profile_Address);
-        tv_city = findViewById(R.id.View_Selected_User_Profile_City);
-        tv_state = findViewById(R.id.View_Selected_User_Profile_State);
-        tv_zipcode = findViewById(R.id.View_Selected_User_Profile_Zipcode);
-        tv_member = findViewById(R.id.View_Selected_User_Profile_Member);
-        tv_status = findViewById(R.id.View_Selected_User_Profile_Status);
-        if(userProfile.getRole().equals("User")){
-            tv_member.setVisibility(View.VISIBLE);
-        }
-
-        bt_edit = findViewById(R.id.View_Selected_User_Profile_EditButton);
-        bt_edit.setOnClickListener(view -> {
-            Intent intent = getIntent();
-            intent.setClass(ViewSelectedUserProfileActivity.this, EditSelectedUserProfileActivity.class);
+        FloatingActionButton bt_edit = findViewById(R.id.bt_edit);
+        bt_edit.setOnClickListener(v -> {
+            Intent intent = new Intent(this, EditSelectedUserProfileActivity.class);
             intent.putExtra("username", username);
             startActivity(intent);
-
+            finish();
         });
+    }
 
-        bt_revoke = findViewById(R.id.View_Selected_User_Profile_Revoke);
-        bt_revoke.setOnClickListener(view -> {
-            dbHelper = new DBHelper(this);
-            userProfile.setStatus("dead");
-            dbHelper.editUser(userProfile);
-            System.out.println(userProfile);
-
-            refresh();
-
-        });
-
-        bt_change = findViewById(R.id.View_Selected_User_Profile_Change_Role);
-        if(userProfile.getRole().equals("User")){
-            bt_change.setVisibility(View.VISIBLE);
+    private void initForm() {
+        {
+            EditText form_pwd = findViewById(R.id.password);
+            form_pwd.setText(userProfile.getPassword());
         }
-        bt_change.setOnClickListener(view -> {
-            dbHelper = new DBHelper(this);
-            userProfile.setRole("Manager");
-            dbHelper.editUser(userProfile);
-            refresh();
-        });
+        {
+            form_uta_id = findViewById(R.id.uta_id);
+            form_uta_id.setText(userProfile.getUta_id());
+        }
+        {
+            RadioButton form_role_admin = findViewById(R.id.role_radio_admin);
+            RadioButton form_role_manager = findViewById(R.id.role_radio_manager);
+            RadioButton form_role_user = findViewById(R.id.role_radio_user);
 
+            if (userProfile.getRole().equals(form_role_admin.getText().toString())) {
+                form_role_admin.setChecked(true);
+            } else if (userProfile.getRole().equals(form_role_manager.getText().toString())) {
+                form_role_manager.setChecked(true);
+            } else {
+                form_role_user.setChecked(true);
+            }
+        } // role
+        {
+            EditText usernameEditText = findViewById(R.id.username);
+            usernameEditText.setText(userProfile.getUsername());
+        } // username
+        {
+            form_firstname = findViewById(R.id.first_name);
+            form_lastname = findViewById(R.id.last_name);
+            form_firstname.setText(userProfile.getFirstname());
+            form_lastname.setText(userProfile.getLastname());
+        } // name
+        {
+            form_phone = findViewById(R.id.phone);
+            form_phone.setText(userProfile.getPhone());
+        } // phone
+        {
+            form_email = findViewById(R.id.email);
+            form_email.setText(userProfile.getEmail());
+        } // email
+        {
+            form_address = findViewById(R.id.address);
+            form_city = findViewById(R.id.city);
+            form_address.setText(userProfile.getAddress());
+            form_city.setText(userProfile.getCity());
+        } // address
+        {
+            form_zipcode = findViewById(R.id.zipcode);
+            form_zipcode.setText(userProfile.getZipcode());
+        } // zip
+        {
+            if (userProfile.getRole().equals("User") && userProfile.getMember().length() > 0) {
+                View member_wrapper = findViewById(R.id.member_wrapper);
+                member_wrapper.setVisibility(View.VISIBLE);
+                form_member = findViewById(R.id.member);
+                form_member.setText(userProfile.getMember());
+            }
+
+        } // member
+        {
+            String[] states = getResources().getStringArray(R.array.state_list);
+            Spinner stateSpinner = findViewById(R.id.state);
+            stateSpinner.setEnabled(false);
+            int idx = Arrays.asList(states).indexOf(userProfile.getState());
+            if (idx > -1) {
+                stateSpinner.setSelection(idx);
+            } else {
+                stateSpinner.setSelected(false);
+            }
+        } // states
+        {
+            EditText statusEd = findViewById(R.id.status);
+            statusEd.setText(userProfile.getStatus());
+            bt_revoke = findViewById(R.id.revoke);
+            bt_revoke.setOnClickListener(v -> {
+                dbHelper = new DBHelper(this);
+                userProfile.setStatus("dead");
+                dbHelper.editUser(userProfile);
+                refresh();
+            });
+        } // status
     }
 
     private void refresh() {

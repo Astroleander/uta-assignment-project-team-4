@@ -33,25 +33,10 @@ public class ProfileViewModel extends ViewModel {
     public LiveData<User> getUserInfo(Context context, String username) {
         String[] q = new String[]{username};
         DBHelper dbHelper = new DBHelper(context.getApplicationContext());
-//        User[] user_list = dbHelper.queryUser(EnumTable.User.USERNAME + "?=\"", q);
-//        User result = user_list[0];
-        User result = new User(
-                "alice",
-                "123456",
-                "admin",
-                "13331110",
-                "alicece",
-                "alice",
-                "1331331133",
-                "a@b.com",
-                "da 10 no 10",
-                "ALT",
-                "Teaxs",
-                "a103",
-                "",
-                ""
-                );
+        User[] user_list = dbHelper.queryUser(EnumTable.User.USERNAME + "=?", q);
+        User result = user_list[0];
         mUser.setValue(result);
+
         return mUser;
     }
 

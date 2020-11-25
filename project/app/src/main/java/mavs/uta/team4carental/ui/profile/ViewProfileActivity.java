@@ -4,13 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import mavs.uta.team4carental.R;
 import mavs.uta.team4carental.pojo.User;
 import mavs.uta.team4carental.ui.RegisterActivity;
+import mavs.uta.team4carental.ui.admin.EditSelectedUserProfileActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Arrays;
 
@@ -28,8 +32,15 @@ public class ViewProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_profile);
+        setContentView(R.layout.activity_rm_view_profile);
         user = (User) this.getIntent().getSerializableExtra(ProfileFragment.PROFILE_TOKEN);
+        FloatingActionButton edit = findViewById(R.id.edit);
+        edit.setOnClickListener(v -> {
+            Intent intent = new Intent(this, EditProfileActivity.class);
+            intent.putExtra(ProfileFragment.PROFILE_TOKEN, user);
+            startActivity(intent);
+            finish();
+        });
         this.initForm();
     }
 

@@ -49,11 +49,6 @@ public class ProfileFragment extends Fragment {
         this.root = inflater.inflate(R.layout.fragment_profile, container, false);
         this.initLogoutButton();
         this.initProfile();
-        this.initText();
-    }
-
-    private void initText() {
-
     }
 
     private void initProfile() {

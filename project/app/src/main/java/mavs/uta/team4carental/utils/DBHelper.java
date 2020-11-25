@@ -308,6 +308,25 @@ public class DBHelper extends SQLiteOpenHelper {
         else
             return "Reserve Successfully";
     }
+    public int queryUserstatus(String username){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.query(
+                TABLE_LIST.USER,
+                null,
+                EnumTable.User.USERNAME + "=\"" + username ,
+                null,
+                null,
+                null,
+                null);
+        if (cursor.moveToNext()) {
+            String r = cursor.getString(cursor.getColumnIndex(EnumTable.User.ROLE));
+            cursor.close();
+            return  r;
+        } else {
+            cursor.close();
+            return "None";
+        }
+    }
 
     public User[] queryUser(String columns, String[] value) {
         ArrayList<User> result = new ArrayList<>();

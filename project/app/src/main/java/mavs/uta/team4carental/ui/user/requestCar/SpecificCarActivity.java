@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,9 @@ public class SpecificCarActivity extends AppCompatActivity {
 
     private String totalprice;
     private Rental rental;
+    CheckBox checkBox01 ;
+    CheckBox checkBox02 ;
+    CheckBox checkBox03 ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,10 @@ public class SpecificCarActivity extends AppCompatActivity {
         String back = getIntent().getStringExtra("back");
         String occupants = getIntent().getStringExtra("occupants");
 //        Rental[] reservations=dbHelper.queryAllReservations("0000-00-00-00:00","3000-00-00-00:00");
+
+        checkBox01 = (CheckBox) findViewById(R.id.checkBox_gps);
+        checkBox02 = (CheckBox) findViewById(R.id.checkBox_onstar);
+        checkBox03 = (CheckBox) findViewById(R.id.checkBox_siriusXM);
 
 
 
@@ -72,6 +80,8 @@ public class SpecificCarActivity extends AppCompatActivity {
 ////        }
 ////        Intent i = getIntent();
 ////        Car car = (Car) i.getSerializableExtra(CarListAdapter.CAR_INTENT_TOKEN);
+
+
         if (car != null) {
             ((TextView) findViewById(R.id.car_name)).setText(car.getCarname());
             ((TextView) findViewById(R.id.capacity)).setText(car.getCapicity());

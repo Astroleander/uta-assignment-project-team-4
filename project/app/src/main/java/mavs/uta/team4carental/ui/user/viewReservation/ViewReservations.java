@@ -127,7 +127,13 @@ public class ViewReservations extends AppCompatActivity implements OnClickListen
         for(Rental a:reservation_list){
             reservation_names[k]=a.getCarName();
         }
-        ArrayList<Rental> result = new ArrayList<>(Arrays.asList(reservation_list));
+//        ArrayList<Rental> result = new ArrayList<>(Arrays.asList(reservation_list));
+        ArrayList<Rental> result = new ArrayList<>();
+        for(Rental a:reservation_list){
+            if (a.getStatus().equals("1")){
+                result.add(a);
+            }
+        }
         this.reservation_ListItems = result;
     }
 

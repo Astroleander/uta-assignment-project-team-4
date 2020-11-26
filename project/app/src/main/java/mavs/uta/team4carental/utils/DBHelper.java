@@ -596,4 +596,48 @@ public class DBHelper extends SQLiteOpenHelper {
         result.toArray(result_Reservation);
         return result_Reservation;
     }
+    // 输入为一个rental实例，此函数可以更改数据库中的Reservation
+    public String editReservation(Rental rental){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(EnumTable.Reservation.RESERVATIONNUMBER, rental.getID());
+        cv.put(EnumTable.Reservation.USERNAME, rental.getUsername());
+        cv.put(EnumTable.Reservation.CARNAME, rental.getCarName());
+        cv.put(EnumTable.Reservation.START, rental.getStart());
+        cv.put(EnumTable.Reservation.Back, rental.getEnd());
+        cv.put(EnumTable.Reservation.GPS, rental.getGPS());
+        cv.put(EnumTable.Reservation.ONSTAR, rental.getOnstar());
+        cv.put(EnumTable.Reservation.SIRIUSXM, rental.getSiriusxm());
+        cv.put(EnumTable.Reservation.TOTALPRICE, rental.getTotalPrice());
+        cv.put(EnumTable.Reservation.STATUS, rental.getStatus());
+
+        long res = db.update(TABLE_LIST.Reservation, cv, "ReservationNumber=?", new String[]{rental.getID()});
+        if(res == -1)
+            return "failed";
+        else
+            return "User Update Successfully";
+
+    }
+    // 当用户取消此预约时，将预约的Status置为"0"
+    public void removeReservation(Rental rental){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(EnumTable.Reservation.RESERVATIONNUMBER, rental.getID());
+        cv.put(EnumTable.Reservation.USERNAME, rental.getUsername());
+        cv.put(EnumTable.Reservation.CARNAME, rental.getCarName());
+        cv.put(EnumTable.Reservation.START, rental.getStart());
+        cv.put(EnumTable.Reservation.Back, rental.getEnd());
+        cv.put(EnumTable.Reservation.GPS, rental.getGPS());
+        cv.put(EnumTable.Reservation.ONSTAR, rental.getOnstar());
+        cv.put(EnumTable.Reservation.SIRIUSXM, rental.getSiriusxm());
+        cv.put(EnumTable.Reservation.TOTALPRICE, rental.getTotalPrice());
+        cv.put(EnumTable.Reservation.STATUS, "0");
+
+        long res = db.update(TABLE_LIST.Reservation, cv, "ReservationNumber=?", new String[]{rental.getID()});
+        if(res == -1) {
+        }
+
+    }
 }

@@ -10,40 +10,42 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="24dp"
         android:orientation="horizontal">
 
+    <LinearLayout
+        android:layout_width="100dp"
+        android:layout_height="700dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
+            android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="24dp"
+        android:orientation="horizontal">
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:gravity="start|center"
                 android:text="Reservation number"
                 android:textSize="14dp" />
 
             <EditText
-                android:id="@+id/Numer_of_Reservation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:id="@+id/Number_of_Reservation"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="4dp"
                 android:enabled="false"
-                android:inputType="numberDecimal"
-                android:selectAllOnFocus="true" />
+                android:selectAllOnFocus="true"
+                android:textSize="14dp"/>
         </LinearLayout>
-
-
-    </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="24dp"
@@ -51,7 +53,7 @@
 
         <TextView
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="30dp"
             android:layout_weight="2"
             android:gravity="start|center"
             android:text="UserName"
@@ -60,19 +62,19 @@
         <EditText
             android:id="@+id/UserName"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
             android:layout_weight="4"
             android:enabled="false"
-            android:inputType="numberDecimal"
-            android:selectAllOnFocus="true" />
+            android:selectAllOnFocus="true"
+            android:textSize="14dp"/>
     </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="24dp"
@@ -80,7 +82,7 @@
 
         <TextView
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="30dp"
             android:layout_weight="2"
             android:gravity="start|center"
             android:text="Start"
@@ -89,18 +91,18 @@
         <EditText
             android:id="@+id/Start"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
             android:layout_weight="4"
             android:enabled="false"
-            android:inputType="numberDecimal"
-            android:selectAllOnFocus="true" />
+            android:selectAllOnFocus="true"
+            android:textSize="14dp"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="24dp"
@@ -108,7 +110,7 @@
 
         <TextView
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="30dp"
             android:layout_weight="2"
             android:gravity="start|center"
             android:text="Back"
@@ -117,17 +119,17 @@
         <EditText
             android:id="@+id/Back"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
             android:layout_weight="4"
             android:enabled="false"
-            android:inputType="numberDecimal"
-            android:selectAllOnFocus="true" />
+            android:selectAllOnFocus="true"
+            android:textSize="14dp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="24dp"
@@ -135,7 +137,7 @@
 
         <TextView
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="30dp"
             android:layout_weight="2"
             android:gravity="start|center"
             android:text="Duration"
@@ -144,17 +146,17 @@
         <EditText
             android:id="@+id/Duration"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
             android:layout_weight="4"
             android:enabled="false"
-            android:inputType="numberDecimal"
-            android:selectAllOnFocus="true" />
+            android:selectAllOnFocus="true"
+            android:textSize="14dp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="24dp"
@@ -162,7 +164,7 @@
 
         <TextView
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="30dp"
             android:layout_weight="2"
             android:gravity="start|center"
             android:text="CarName"
@@ -171,17 +173,17 @@
         <EditText
             android:id="@+id/Car_name"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
             android:layout_weight="4"
             android:enabled="false"
-            android:inputType="numberDecimal"
-            android:selectAllOnFocus="true" />
+            android:selectAllOnFocus="true"
+            android:textSize="14dp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="24dp"
@@ -189,7 +191,7 @@
 
         <TextView
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="30dp"
             android:layout_weight="2"
             android:gravity="start|center"
             android:text="Capacity"
@@ -198,17 +200,17 @@
         <EditText
             android:id="@+id/Capacity"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
             android:layout_weight="4"
             android:enabled="false"
-            android:inputType="numberDecimal"
-            android:selectAllOnFocus="true" />
+            android:selectAllOnFocus="true"
+            android:textSize="14dp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="24dp"
@@ -216,7 +218,7 @@
 
         <TextView
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="30dp"
             android:layout_weight="2"
             android:gravity="start|center"
             android:text="@string/prcie"
@@ -225,17 +227,17 @@
         <EditText
             android:id="@+id/total_price"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
             android:layout_weight="4"
             android:enabled="false"
-            android:selectAllOnFocus="true" />
+            android:selectAllOnFocus="true"
+            android:textSize="14dp"/>
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="24dp">
@@ -258,22 +260,43 @@
             android:layout_height="wrap_content"
             android:text="@string/siriusxm" />
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="24dp"
-        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/cancel_reservation"
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="48dp"
-            android:layout_marginBottom="64dp"
-            android:text="CANCEL RESERVATION" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="24dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/edit_reservation"
+                android:layout_width="200dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="48dp"
+                android:layout_marginBottom="64dp"
+                android:text="EDIT RESERVATION"
+                android:textSize="14dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="67dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="24dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/cancel_reservation"
+                android:layout_width="200dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="48dp"
+                android:text="CANCEL RESERVATION"
+                android:textSize="14dp" />
+        </LinearLayout>
+    </LinearLayout>
     </LinearLayout>
 </LinearLayout>

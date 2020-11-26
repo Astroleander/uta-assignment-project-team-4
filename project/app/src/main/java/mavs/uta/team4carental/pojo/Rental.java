@@ -1,5 +1,8 @@
 package mavs.uta.team4carental.pojo;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.net.ssl.SSLEngineResult;
 
@@ -14,6 +17,7 @@ public class Rental implements Serializable{
     private String siriusXM;
     private String totalPrice;
     private String status;
+    private String Duration;
 
     public Rental(String ID, String UserName, String CarName, String start, String back, String GPS, String onStar, String siriusXM, String totalPrice, String status) {
         this.ReservationNumber = ID;
@@ -26,6 +30,24 @@ public class Rental implements Serializable{
         this.siriusXM = siriusXM;
         this.totalPrice = totalPrice;
         this.status = status;
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
+        Date startdate = null;
+        Date backdate = null;
+        try {
+            startdate = format.parse(start);
+            backdate = format.parse(back);
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+
+        float durations = (backdate.getTime() - startdate.getTime())/(1000*24*60*60);
+        if(((backdate.getTime() - startdate.getTime())%(1000*24*60*60))==0){
+
+        }else{
+            durations+=1;
+        }
+        String dur = String.valueOf(durations);
+        this.Duration = dur;
     }
     public String getCarName() {
         return CarName;
@@ -80,6 +102,32 @@ public class Rental implements Serializable{
 
     public void setOnstar(String onstar) {
         this.onStar = onstar;
+    }
+
+    public String getDuration() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
+        Date startdate = null;
+        Date backdate = null;
+        try {
+            startdate = format.parse(start);
+            backdate = format.parse(back);
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+
+        float durations = (backdate.getTime() - startdate.getTime())/(1000*24*60*60);
+        if(((backdate.getTime() - startdate.getTime())%(1000*24*60*60))==0){
+
+        }else{
+            durations+=1;
+        }
+        String dur = String.valueOf(durations);
+        Duration = dur;
+        return Duration;
+    }
+
+    public void setDuration(String Duration) {
+        this.Duration = Duration;
     }
 
     public String getSiriusxm() {

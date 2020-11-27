@@ -38,6 +38,11 @@ public class SpecificReservationActivity extends AppCompatActivity {
         dbHelper = new DBHelper(this);
         dbHelper.editReservation(reservation);
     }
+    private String getCapability(Rental reservation){
+        dbHelper = new DBHelper(this);
+        String capability=dbHelper.queryCapability(reservation.getCarName().toString());
+        return capability;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +64,7 @@ public class SpecificReservationActivity extends AppCompatActivity {
             ((EditText) findViewById(R.id.Duration)).setText(reservation.getDuration());
             ((EditText) findViewById(R.id.Car_name)).setText(reservation.getCarName());
             // todo 这里的Capability还没有显示出来，因为Reservation中没有保存车的相关信息
-//            ((EditText) findViewById(R.id.Capacity)).setText(reservation.getCapability());
+            ((EditText) findViewById(R.id.Capacity)).setText(getCapability(reservation));
             ((EditText) findViewById(R.id.total_price)).setText("$"+reservation.getTotalPrice());
             if (reservation.getGPS().equals("1")){
                 ((CheckBox) findViewById(R.id.checkBox_gps)).setChecked(true);
@@ -140,7 +145,7 @@ public class SpecificReservationActivity extends AppCompatActivity {
                 ((EditText) findViewById(R.id.Duration)).setText(reservation.getDuration());
                 ((EditText) findViewById(R.id.Car_name)).setText(reservation.getCarName());
                 // todo 这里的Capability还没有显示出来，因为Reservation中没有保存车的相关信息
-//            ((EditText) findViewById(R.id.Capacity)).setText(reservation.getCapability());
+                ((EditText) findViewById(R.id.Capacity)).setText(getCapability(reservation));
                 ((EditText) findViewById(R.id.total_price)).setText("$"+reservation.getTotalPrice());
             }
         });

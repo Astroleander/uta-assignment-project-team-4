@@ -30,6 +30,7 @@ public class Rental implements Serializable{
         this.siriusXM = siriusXM;
         this.totalPrice = totalPrice;
         this.status = status;
+        // 计算并获取duration
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
         Date startdate = null;
         Date backdate = null;

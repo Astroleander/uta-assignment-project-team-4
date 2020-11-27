@@ -463,6 +463,23 @@ public class DBHelper extends SQLiteOpenHelper {
         result.toArray(result_car);
         return result_car;
     }
+    public String queryCapability(String carName) {
+        ArrayList<Car> result = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        String capacity="";
+        Cursor cursor = db.query(
+                TABLE_LIST.CAR,
+                null,
+                EnumTable.CAR.CARNAME + "=" + "\'" + carName+"\'",
+                null,
+                null,
+                null,
+                null);
+        while(cursor.moveToNext()) {
+            capacity= cursor.getString(cursor.getColumnIndex(EnumTable.CAR.CAPACITY));
+        }
+        return capacity;
+    }
 //在pojo中为Rental，其它地方均为Reservations
     public Rental[] queryReservations(String userName, String start_time, String back_time) {
         ArrayList<Rental> result = new ArrayList<>();

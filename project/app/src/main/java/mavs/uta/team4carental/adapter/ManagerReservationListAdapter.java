@@ -35,6 +35,7 @@ public class ManagerReservationListAdapter extends BaseAdapter {
         TextView End_date;
         TextView totalPrice;
         Button button;
+        TextView owner;
     }
 
     @Override
@@ -62,6 +63,7 @@ public class ManagerReservationListAdapter extends BaseAdapter {
             /*
              * 在这里绑定字段
              */
+            viewHolder.owner = view.findViewById(R.id.owner);
             viewHolder.textView = view.findViewById(R.id.for_test_reservation);
             viewHolder.Start_date = view.findViewById(R.id.for_dateStart_reservation);
             viewHolder.End_date = view.findViewById(R.id.for_dateEnd_reservation);
@@ -75,9 +77,10 @@ public class ManagerReservationListAdapter extends BaseAdapter {
          * 在这里对你新加入的字段赋值
          */
         viewHolder.textView.setText(items.get(i).getCarName());
-        viewHolder.Start_date.setText("Start from: " + items.get(i).getStart());
-        viewHolder.End_date.setText("End to: " + items.get(i).getEnd());
-        viewHolder.totalPrice.setText("Total Price:"  + "$" + items.get(i).getTotalPrice());
+        viewHolder.owner.setText(items.get(i).getUsername());
+        viewHolder.Start_date.setText("Start from:\n " + items.get(i).getStart());
+        viewHolder.End_date.setText("End to:\n " + items.get(i).getEnd());
+        viewHolder.totalPrice.setText("$" + items.get(i).getTotalPrice());
         viewHolder.button.setText("Details");
         viewHolder.button.setOnClickListener(v -> {
             Intent intent = new Intent(ctx, SpecificReservationActivity.class);

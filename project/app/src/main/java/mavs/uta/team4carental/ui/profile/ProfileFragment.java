@@ -55,7 +55,7 @@ public class ProfileFragment extends Fragment {
         String username = "";
         if (activity != null) {
             username = activity.getIntent().getStringExtra("userName");
-            profileViewModel.getUserInfo(activity, username).observe(this, u -> {
+            profileViewModel.getUserInfo(activity, username).observe(getViewLifecycleOwner(), u -> {
                 Button btn = root.findViewById(R.id.view_profile);
                 btn.setOnClickListener(v -> {
                     Intent i = new Intent(activity, ViewProfileActivity.class);

@@ -61,7 +61,14 @@ public class SpecificReservationActivity extends AppCompatActivity {
             ((EditText) findViewById(R.id.UserName)).setText(reservation.getUsername());
             ((EditText) findViewById(R.id.Start)).setText(reservation.getStart());
             ((EditText) findViewById(R.id.Back)).setText(reservation.getEnd());
-            ((EditText) findViewById(R.id.Duration)).setText(reservation.getDuration());
+            float day = Float.parseFloat(reservation.getDuration());
+            String sd = String.format("%.0f", day);
+
+            if (day > 1) {
+                ((EditText) findViewById(R.id.Duration)).setText(sd + " days");
+            } else {
+                ((EditText) findViewById(R.id.Duration)).setText(sd + " day");
+            }
             ((EditText) findViewById(R.id.Car_name)).setText(reservation.getCarName());
             // todo 这里的Capability还没有显示出来，因为Reservation中没有保存车的相关信息
             ((EditText) findViewById(R.id.Capacity)).setText(getCapability(reservation));

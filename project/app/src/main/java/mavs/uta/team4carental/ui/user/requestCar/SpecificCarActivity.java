@@ -184,6 +184,7 @@ public class SpecificCarActivity extends AppCompatActivity {
                                            if(finalDazhe ==1){
                                                price[0]= (float) (price[0]*0.75);
                                            }
+                                           price[0]+=price[0]*0.0825;
                                            totalprice = String.valueOf(price[0]);
                                            Rental new_reservation = new Rental(
                                                    idnumber,

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import mavs.uta.team4carental.R;
@@ -18,6 +19,8 @@ import mavs.uta.team4carental.pojo.Car;
 import mavs.uta.team4carental.ui.manager.DisplayCarActivity;
 import mavs.uta.team4carental.ui.user.requestCar.SpecificCarActivity;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class CarListAdapter extends BaseAdapter {
     public static final String CAR_INTENT_TOKEN = "CAR_INTENT_TOKEN";
     private Context ctx;
@@ -102,10 +105,30 @@ public class CarListAdapter extends BaseAdapter {
          * 在这里对你新加入的字段赋值
          */
 
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
+        Date startdate = null;
+        Date backdate = null;
+        try {
+            startdate = format.parse(start);
+            backdate = format.parse(back);
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+
+        float durations = (backdate.getTime() - startdate.getTime())/(1000*24*60*60);
+        if(((backdate.getTime() - startdate.getTime())%(1000*24*60*60))==0){
+
+        }else{
+            durations+=1;
+        }
+        float price=Float.valueOf(items.get(i).getWeekday());
+        float totalprice = durations*price;
+        String str_price = String.valueOf(totalprice);
+
         viewHolder.carName.setText(items.get(i).getCarname());
         viewHolder.capacity.setText("Capicity: " + items.get(i).getCapicity());
         viewHolder.rate.setText(
-                "Estimated Total Price:"+items.get(i).getWeekday() +"$"
+                "Estimated Total Price:"+str_price +"$"
         );
         viewHolder.button.setText(R.string.car_detail_btn);
         viewHolder.button.setOnClickListener(v -> {

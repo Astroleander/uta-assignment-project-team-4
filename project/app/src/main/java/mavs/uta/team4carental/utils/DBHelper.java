@@ -26,7 +26,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private ArrayList userFields = new ArrayList<String>();
 
-    public static final String DB_NAME = "test1";
+    public static final String DB_NAME = "test2";
     public static final int DB_VERSION = 1;
 
     private static final String RESERVATION_CREATE =
@@ -294,7 +294,7 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(EnumTable.Reservation.RESERVATIONNUMBER,rental.getID());
         cv.put(EnumTable.Reservation.USERNAME,rental.getUsername());
-        cv.put(EnumTable.Reservation.CARNAME,rental.getUsername());
+        cv.put(EnumTable.Reservation.CARNAME,rental.getCarName());
         cv.put(EnumTable.Reservation.START,rental.getStart());
         cv.put(EnumTable.Reservation.Back,rental.getEnd());
         cv.put(EnumTable.Reservation.GPS,rental.getGPS());
@@ -313,7 +313,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = db.query(
                 TABLE_LIST.USER,
                 null,
-                EnumTable.User.USERNAME + "=\"" + username ,
+                EnumTable.User.USERNAME + "=\"" + username+"\"" ,
                 null,
                 null,
                 null,
@@ -481,6 +481,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return capacity;
     }
 //在pojo中为Rental，其它地方均为Reservations
+
     public Rental[] queryReservations(String userName, String start_time, String back_time) {
         ArrayList<Rental> result = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
@@ -528,6 +529,49 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
+    public Rental[] queryallReservations() {
+        ArrayList<Rental> result = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                TABLE_LIST.Reservation,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+        while(cursor.moveToNext()) {
+            String ReservationNumber = cursor.getString((cursor.getColumnIndex(EnumTable.Reservation.RESERVATIONNUMBER)));
+            String UserName = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.USERNAME));
+            String CarName= cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.CARNAME));
+            String start = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.START));
+            String end = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.Back));
+            String GPS = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.GPS));
+            String onstar = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.ONSTAR));
+            String siriusXM = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.SIRIUSXM));
+            String totalPrice = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.TOTALPRICE));
+            String status = cursor.getString(cursor.getColumnIndex(EnumTable.Reservation.STATUS));
+            // TODO: not finished
+            result.add(new Rental(
+                    ReservationNumber,
+                    UserName,
+                    CarName,
+                    start,
+                    end,
+                    GPS,
+                    onstar,
+                    siriusXM,
+                    totalPrice,
+                    status
+            ));
+        }
+        cursor.close();
+        Rental[] result_Reservation = new Rental[result.size()];
+        Log.d("[Rental]", result.toString());
+        Log.d("[Rental]", ""+result.size());
+        result.toArray(result_Reservation);
+        return result_Reservation;
+    }
     public Rental[] queryAllReservations(String start_time, String back_time) {
         ArrayList<Rental> result = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();

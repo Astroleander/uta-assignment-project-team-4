@@ -95,7 +95,7 @@ public class RequestCarActivity extends AppCompatActivity implements OnClickList
         Car[] car_list = dbHelper.queryCar();
         ArrayList<Car> result = new ArrayList<>(Arrays.asList(car_list));
 
-        Rental[] rental_list = dbHelper.queryReservations(userName,RequestCarActivity.this.startDate.getText().toString()+'-'+RequestCarActivity.this.startTime.getText().toString(),RequestCarActivity.this.endDate.getText().toString()+'-'+RequestCarActivity.this.endTime.getText().toString());
+        Rental[] rental_list = dbHelper.queryAllReservations(RequestCarActivity.this.startDate.getText().toString()+'-'+RequestCarActivity.this.startTime.getText().toString(),RequestCarActivity.this.endDate.getText().toString()+'-'+RequestCarActivity.this.endTime.getText().toString());
         ArrayList<Rental> rentals = new ArrayList<>(Arrays.asList(rental_list));
         //判断车的容量够不够
 
@@ -114,12 +114,17 @@ public class RequestCarActivity extends AppCompatActivity implements OnClickList
 
         //判断车是否被交易出去
         for(int i=0;i<rentals.size();i++){
-            for(int j=0;j<result.size();j++){
-                if(rentals.get(i).getStatus().equals('1')&&result.get(j).getCarname().equals(rentals.get(i).getCarName())){
-                    result.remove(j);
-                    break;
+            if(rentals.get(i).getStatus().equals("1")){
+                for(int j=0;j<result.size();j++){
+                    String carname = result.get(j).getCarname();
+                    String rental_car = rentals.get(i).getCarName();
+                    if(carname.equals(rental_car)){
+                        result.remove(j);
+                        break;
+                    }
                 }
             }
+
         }
         this.carListItems = result;
     }

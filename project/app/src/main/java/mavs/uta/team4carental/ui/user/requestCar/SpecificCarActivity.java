@@ -5,7 +5,9 @@ import mavs.uta.team4carental.R;
 import mavs.uta.team4carental.adapter.CarListAdapter;
 import mavs.uta.team4carental.pojo.Car;
 import mavs.uta.team4carental.pojo.Rental;
+import mavs.uta.team4carental.pojo.User;
 import mavs.uta.team4carental.utils.DBHelper;
+import mavs.uta.team4carental.utils.EnumTable;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,11 +27,12 @@ public class SpecificCarActivity extends AppCompatActivity {
 
     private DBHelper dbHelper;
 
-    private String totalprice = " ";
+    private String totalprice = "";
     private Rental rental;
     CheckBox checkBox01 ;
     CheckBox checkBox02 ;
     CheckBox checkBox03 ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +49,22 @@ public class SpecificCarActivity extends AppCompatActivity {
         checkBox01 = (CheckBox) findViewById(R.id.checkBox_gps);
         checkBox02 = (CheckBox) findViewById(R.id.checkBox_onstar);
         checkBox03 = (CheckBox) findViewById(R.id.checkBox_siriusXM);
+
+
 //        String string1 = dbHelper.queryUserstatus("chen");
 //        String string2 = dbHelper.queryUserstatus("li");
+        dbHelper = new DBHelper(this);
+        Rental[] reservations = dbHelper.queryallReservations();
+        int id = reservations.length+1;
+        String idnumber = String.valueOf(id);
+
+        String status = dbHelper.queryUserstatus(user);
+        int dazhe=0;
+        if(status.equals("null")){
+
+        }else{
+            dazhe=1;
+        }
 
 
 
@@ -113,13 +130,12 @@ public class SpecificCarActivity extends AppCompatActivity {
 
         float price_weekday = Float.valueOf(car.getWeekday());
         float price_weekend = Float.valueOf(car.getWeekend());
-        final float price = price_weekday * day_of_weekday + price_weekend * day_of_weekend;
+        final float[] price = {price_weekday * day_of_weekday + price_weekend * day_of_weekend};
 
 
-        totalprice = String.valueOf(price);
+
 //        System.out.println(totalprice);
-
-
+        totalprice = String.valueOf(price[0]);
 
         if (car != null) {
             ((TextView) findViewById(R.id.car_name)).setText(car.getCarname());
@@ -137,15 +153,67 @@ public class SpecificCarActivity extends AppCompatActivity {
 
         reserve = findViewById(R.id.reserve);
 //        final String finalExtra = extra;
-        final float finalprice = price;
-        reserve.setOnClickListener(v -> {
-//            dbHelper.addReservation(rental);
+
+        final String[] flag_gps = {"0"};
+        final String[] flag_onstar = {"0"};
+        final String[] flag_siriusXM = {"0"};
+        final String[] extras = {""};
 
 
+        float finalDurations = durations;
+        String carname = car.getCarname();
+        int finalDazhe = dazhe;
+        reserve.setOnClickListener(new View.OnClickListener() {
+                                       @Override
+                                       public void onClick(View v) {
+                                           if(checkBox01.isChecked()){
+                                               flag_gps[0] ="1";
+                                               price[0] += finalDurations *(Float.valueOf(car.getGps()));
+                                               extras[0] +="gps";
+                                           }
+                                           if(checkBox02.isChecked()){
+                                               flag_onstar[0] ="1";
+                                               price[0] += finalDurations *(Float.valueOf(car.getOnstar()));
+                                               extras[0]+="onstar";
+                                           }
+                                           if(checkBox03.isChecked()){
+                                               flag_siriusXM[0] ="1";
+                                               price[0] += finalDurations *(Float.valueOf(car.getSiriusxm()));
+                                               extras[0]+="siriusXM";
+                                           }
+                                           if(finalDazhe ==1){
+                                               price[0]= (float) (price[0]*0.75);
+                                           }
+                                           totalprice = String.valueOf(price[0]);
+                                           Rental new_reservation = new Rental(
+                                                   idnumber,
+                                                   user,
+                                                   carname,
+                                                   start,
+                                                   back,
+                                                   flag_gps[0],
+                                                   flag_onstar[0],
+                                                   flag_siriusXM[0],
+                                                   totalprice,
+                                                   "1"
+                                           );
 
-//            Toast.makeText(this, "Reservation number 2020,price: $"+totalprice+ finalExtra,Toast.LENGTH_LONG).show();
-            finish();
+                                           dbHelper.addReservation(new_reservation);
+                                           final String finaltotalprice = totalprice;
 
-        });
+//                                           Toast.makeText(this, "Reservation number 2020,price: $"+finaltotalprice,Toast.LENGTH_LONG).show();
+                                           finish();
+
+                                       }
+
+                                   }
+
+        );
+//        reserve.setOnClickListener(v -> {
+//            dbHelper.addReservation(new_reservation);
+////            Toast.makeText(this, "Reservation number 2020,price: $"+totalprice+ finalExtra,Toast.LENGTH_LONG).show();
+//            finish();
+//
+//        });
     }
 }

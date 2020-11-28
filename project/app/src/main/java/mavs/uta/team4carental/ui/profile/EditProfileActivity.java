@@ -33,10 +33,13 @@ public class EditProfileActivity extends AppCompatActivity {
     private EditText zipEditText;
     private EditText memberEditText;
     private EditText usernameEditText;
+    private EditText passwordEditText;
+    private EditText utaIdEditText;
+    private EditText statusEditText;
+
     private Spinner sp_state;
     private FloatingActionButton edit;
     private FloatingActionButton back;
-
     private String selectedState;
     private DBHelper dbHelper;
     private User user;
@@ -46,7 +49,7 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rm_edit_profile);
         user = (User) this.getIntent().getSerializableExtra(ProfileFragment.PROFILE_TOKEN);
-        FloatingActionButton edit = findViewById(R.id.edit);
+        FloatingActionButton edit = findViewById(R.id.bt_edit);
         this.initView();
         this.initSubmit();
         this.showProfile();
@@ -56,13 +59,22 @@ public class EditProfileActivity extends AppCompatActivity {
         usernameEditText.setText(user.getUsername());
         lastNameEditText.setText(user.getLastname());
         firstNameEditText.setText(user.getFirstname());
+        passwordEditText.setText(user.getPassword());
+        utaIdEditText.setText(user.getUta_id());
         phoneEditText.setText(user.getPhone());
         emailEditText.setText(user.getEmail());
         addressEditText.setText(user.getAddress());
         cityEditText.setText(user.getCity());
         zipEditText.setText(user.getZipcode());
+        
         if(user.getRole().equals("User")){
+            View memWrapper = findViewById(R.id.member_wrapper);
+            memWrapper.setVisibility(View.VISIBLE);
             memberEditText.setText(user.getMember());
+            statusEditText.setText(user.getStatus());
+        } else {
+            View stWrapper = findViewById(R.id.status_wrapper);
+            stWrapper.setVisibility(View.GONE);
         }
     }
     private void initView() {
@@ -70,9 +82,11 @@ public class EditProfileActivity extends AppCompatActivity {
         back = findViewById(R.id.bt_back);
 
         usernameEditText = findViewById(R.id.username);
-
+        utaIdEditText = findViewById(R.id.uta_id);
         firstNameEditText = findViewById(R.id.first_name);
         lastNameEditText = findViewById(R.id.last_name);
+        passwordEditText = findViewById(R.id.password);
+        statusEditText = findViewById(R.id.status);
         phoneEditText = findViewById(R.id.phone);
         emailEditText= findViewById(R.id.email);
         addressEditText= findViewById(R.id.address);
@@ -114,6 +128,8 @@ public class EditProfileActivity extends AppCompatActivity {
         edit.setOnClickListener(view -> {
             user.setFirstname(getStringFromEditText(firstNameEditText));
             user.setLastname(getStringFromEditText(lastNameEditText));
+            user.setPassword(getStringFromEditText(passwordEditText));
+            user.setUta_id(getStringFromEditText(utaIdEditText));
             user.setPhone(getStringFromEditText(phoneEditText));
             user.setEmail(getStringFromEditText(emailEditText));
             user.setAddress(getStringFromEditText(addressEditText));

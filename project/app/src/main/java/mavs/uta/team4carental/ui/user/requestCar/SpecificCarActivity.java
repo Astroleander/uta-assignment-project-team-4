@@ -141,7 +141,7 @@ public class SpecificCarActivity extends AppCompatActivity {
             ((TextView) findViewById(R.id.car_name)).setText(car.getCarname());
             ((TextView) findViewById(R.id.capacity)).setText(car.getCapicity());
             ((TextView) findViewById(R.id.Start)).setText(start);
-            ((TextView) findViewById(R.id.Back)).setText(back+String.valueOf(back_week));
+            ((TextView) findViewById(R.id.Back)).setText(back);
             ((TextView) findViewById(R.id.duration)).setText(day_of_weekday+" weekday(s),"+day_of_weekend+" weekend(s)");
             ((TextView) findViewById(R.id.number_of_occupants)).setText(occupants+" occupant(s)");
 
@@ -169,17 +169,17 @@ public class SpecificCarActivity extends AppCompatActivity {
                                            if(checkBox01.isChecked()){
                                                flag_gps[0] ="1";
                                                price[0] += finalDurations *(Float.valueOf(car.getGps()));
-                                               extras[0] +="gps";
+                                               extras[0] +="gps ";
                                            }
                                            if(checkBox02.isChecked()){
                                                flag_onstar[0] ="1";
                                                price[0] += finalDurations *(Float.valueOf(car.getOnstar()));
-                                               extras[0]+="onstar";
+                                               extras[0]+="onstar ";
                                            }
                                            if(checkBox03.isChecked()){
                                                flag_siriusXM[0] ="1";
                                                price[0] += finalDurations *(Float.valueOf(car.getSiriusxm()));
-                                               extras[0]+="siriusXM";
+                                               extras[0]+="siriusXM ";
                                            }
                                            if(finalDazhe ==1){
                                                price[0]= (float) (price[0]*0.75);
@@ -201,7 +201,7 @@ public class SpecificCarActivity extends AppCompatActivity {
                                            dbHelper.addReservation(new_reservation);
                                            final String finaltotalprice = totalprice;
 
-//                                           Toast.makeText(this, "Reservation number 2020,price: $"+finaltotalprice,Toast.LENGTH_LONG).show();
+                                           Toast.makeText(getApplicationContext(), "Reservation number "+idnumber+",price: $"+finaltotalprice+",extras:"+extras[0],Toast.LENGTH_LONG).show();
                                            finish();
 
                                        }
@@ -210,10 +210,10 @@ public class SpecificCarActivity extends AppCompatActivity {
 
         );
 //        reserve.setOnClickListener(v -> {
-//            dbHelper.addReservation(new_reservation);
-////            Toast.makeText(this, "Reservation number 2020,price: $"+totalprice+ finalExtra,Toast.LENGTH_LONG).show();
+////            dbHelper.addReservation(new_reservation);
+//            Toast.makeText(this, "Reservation number 2020,price: $"+totalprice,Toast.LENGTH_LONG).show();
 //            finish();
-//
-//        });
+////
+////        });
     }
 }

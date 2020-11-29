@@ -11,6 +11,8 @@ import mavs.uta.team4carental.utils.DBHelper;
 import mavs.uta.team4carental.utils.EnumTable;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -48,6 +50,22 @@ public class SpecificReservationActivity extends AppCompatActivity {
         dbHelper = new DBHelper(this);
         String totalPrice = dbHelper.getTotalPrcie(reservation.getCarName(),reservation.getStart(), reservation.getEnd(), reservation.getGPS(), reservation.getOnstar(), reservation.getSiriusxm());
         return totalPrice;
+    }
+    // 定义弹出窗口操作
+    private void openDialog(String strMsg, String strTitle, Rental reservation, Intent intent){
+        new AlertDialog.Builder(this)
+                .setTitle(strTitle)
+                .setMessage(strMsg)
+                .setPositiveButton("确认",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO Auto-generated method stub
+                                SpecificReservationActivity.this.removeReservation(reservation);
+                                startActivity(intent);
+                            }
+                        })
+                .show();
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,9 +114,10 @@ public class SpecificReservationActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                SpecificReservationActivity.this.removeReservation(reservation);
+//                SpecificReservationActivity.this.removeReservation(reservation);
                 Intent intent = new Intent(tmp, ViewReservations.class);
-                startActivity(intent);
+//                startActivity(intent);
+                openDialog("是否要取消此reservation", "取消reservation", reservation, intent);
             }
         });
         // 定义更改操作

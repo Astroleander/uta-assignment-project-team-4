@@ -328,6 +328,9 @@ public class DBHelper extends SQLiteOpenHelper {
         if (cursor.moveToNext()) {
             String r = cursor.getString(cursor.getColumnIndex(EnumTable.User.MEMBER));
             cursor.close();
+            if(r==null){
+                return "None";
+            }
             return  r;
         } else {
             cursor.close();

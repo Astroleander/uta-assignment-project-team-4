@@ -60,7 +60,7 @@ public class SpecificCarActivity extends AppCompatActivity {
 
         String status = dbHelper.queryUserstatus(user);
         int dazhe=0;
-        if(status.equals("null")){
+        if(status.equals("No Car")){
 
         }else{
             dazhe=1;

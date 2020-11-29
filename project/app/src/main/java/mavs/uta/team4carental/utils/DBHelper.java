@@ -337,6 +337,25 @@ public class DBHelper extends SQLiteOpenHelper {
             return "None";
         }
     }
+    public String queryUserliveordead(String username){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.query(
+                TABLE_LIST.USER,
+                null,
+                EnumTable.User.USERNAME + "=\"" + username+"\"" ,
+                null,
+                null,
+                null,
+                null);
+        if (cursor.moveToNext()) {
+            String r = cursor.getString(cursor.getColumnIndex(EnumTable.User.STATUS));
+            cursor.close();
+            return  r;
+        } else {
+            cursor.close();
+            return "None";
+        }
+    }
 
     public User[] queryUser(String columns, String[] value) {
         ArrayList<User> result = new ArrayList<>();

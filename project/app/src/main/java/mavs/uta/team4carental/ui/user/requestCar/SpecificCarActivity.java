@@ -163,47 +163,56 @@ public class SpecificCarActivity extends AppCompatActivity {
         float finalDurations = durations;
         String carname = car.getCarname();
         int finalDazhe = dazhe;
+        String liveordead = dbHelper.queryUserliveordead(user);
         reserve.setOnClickListener(new View.OnClickListener() {
                                        @Override
                                        public void onClick(View v) {
-                                           if(checkBox01.isChecked()){
-                                               flag_gps[0] ="1";
-                                               price[0] += finalDurations *(Float.valueOf(car.getGps()));
-                                               extras[0] +="gps ";
-                                           }
-                                           if(checkBox02.isChecked()){
-                                               flag_onstar[0] ="1";
-                                               price[0] += finalDurations *(Float.valueOf(car.getOnstar()));
-                                               extras[0]+="onstar ";
-                                           }
-                                           if(checkBox03.isChecked()){
-                                               flag_siriusXM[0] ="1";
-                                               price[0] += finalDurations *(Float.valueOf(car.getSiriusxm()));
-                                               extras[0]+="siriusXM ";
-                                           }
-                                           if(finalDazhe ==1){
-                                               price[0]= (float) (price[0]*0.75);
-                                           }
-                                           price[0]+=price[0]*0.0825;
-                                           totalprice = String.valueOf(price[0]);
-                                           Rental new_reservation = new Rental(
-                                                   idnumber,
-                                                   user,
-                                                   carname,
-                                                   start,
-                                                   back,
-                                                   flag_gps[0],
-                                                   flag_onstar[0],
-                                                   flag_siriusXM[0],
-                                                   totalprice,
-                                                   "1"
-                                           );
+                                           if(liveordead.equals("dead")){
+                                               Toast.makeText(getApplicationContext(), "You can't reserve,Sorry",Toast.LENGTH_LONG).show();
+                                               finish();
 
-                                           dbHelper.addReservation(new_reservation);
-                                           final String finaltotalprice = totalprice;
+                                           }
+                                           else{
+                                               if(checkBox01.isChecked()){
+                                                   flag_gps[0] ="1";
+                                                   price[0] += finalDurations *(Float.valueOf(car.getGps()));
+                                                   extras[0] +="gps ";
+                                               }
+                                               if(checkBox02.isChecked()){
+                                                   flag_onstar[0] ="1";
+                                                   price[0] += finalDurations *(Float.valueOf(car.getOnstar()));
+                                                   extras[0]+="onstar ";
+                                               }
+                                               if(checkBox03.isChecked()){
+                                                   flag_siriusXM[0] ="1";
+                                                   price[0] += finalDurations *(Float.valueOf(car.getSiriusxm()));
+                                                   extras[0]+="siriusXM ";
+                                               }
+                                               if(finalDazhe ==1){
+                                                   price[0]= (float) (price[0]*0.75);
+                                               }
+                                               price[0]+=price[0]*0.0825;
+                                               totalprice = String.valueOf(price[0]);
+                                               Rental new_reservation = new Rental(
+                                                       idnumber,
+                                                       user,
+                                                       carname,
+                                                       start,
+                                                       back,
+                                                       flag_gps[0],
+                                                       flag_onstar[0],
+                                                       flag_siriusXM[0],
+                                                       totalprice,
+                                                       "1"
+                                               );
 
-                                           Toast.makeText(getApplicationContext(), "Reservation number "+idnumber+",price: $"+finaltotalprice+",extras:"+extras[0],Toast.LENGTH_LONG).show();
-                                           finish();
+                                               dbHelper.addReservation(new_reservation);
+                                               final String finaltotalprice = totalprice;
+
+                                               Toast.makeText(getApplicationContext(), "Reservation number "+idnumber+",price: $"+finaltotalprice+",extras:"+extras[0],Toast.LENGTH_LONG).show();
+                                               finish();
+                                           }
+
 
                                        }
 

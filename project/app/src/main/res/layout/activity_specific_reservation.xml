@@ -140,6 +140,33 @@
             android:layout_height="30dp"
             android:layout_weight="2"
             android:gravity="start|center"
+            android:text="Occupation"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/occupation"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_weight="4"
+            android:enabled="false"
+            android:selectAllOnFocus="true"
+            android:textSize="14dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="24dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="2"
+            android:gravity="start|center"
             android:text="Duration"
             android:textSize="18dp" />
 

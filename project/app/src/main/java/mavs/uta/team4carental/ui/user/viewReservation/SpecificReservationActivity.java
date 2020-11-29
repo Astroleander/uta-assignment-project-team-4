@@ -10,6 +10,7 @@ import mavs.uta.team4carental.pojo.Rental;
 import mavs.uta.team4carental.utils.DBHelper;
 import mavs.uta.team4carental.utils.EnumTable;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -43,6 +44,11 @@ public class SpecificReservationActivity extends AppCompatActivity {
         String capability=dbHelper.queryCapability(reservation.getCarName().toString());
         return capability;
     }
+    private String getTotalPrice(Rental reservation){
+        dbHelper = new DBHelper(this);
+        String totalPrice = dbHelper.getTotalPrcie(reservation.getCarName(),reservation.getStart(), reservation.getEnd(), reservation.getGPS(), reservation.getOnstar(), reservation.getSiriusxm());
+        return totalPrice;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +67,8 @@ public class SpecificReservationActivity extends AppCompatActivity {
             ((EditText) findViewById(R.id.UserName)).setText(reservation.getUsername());
             ((EditText) findViewById(R.id.Start)).setText(reservation.getStart());
             ((EditText) findViewById(R.id.Back)).setText(reservation.getEnd());
+            //使用capability定义occupation
+            ((EditText) findViewById(R.id.occupation)).setText(getCapability(reservation));
             float day = Float.parseFloat(reservation.getDuration());
             String sd = String.format("%.0f", day);
 
@@ -70,7 +78,6 @@ public class SpecificReservationActivity extends AppCompatActivity {
                 ((EditText) findViewById(R.id.Duration)).setText(sd + " day");
             }
             ((EditText) findViewById(R.id.Car_name)).setText(reservation.getCarName());
-            // todo 这里的Capability还没有显示出来，因为Reservation中没有保存车的相关信息
             ((EditText) findViewById(R.id.Capacity)).setText(getCapability(reservation));
             ((EditText) findViewById(R.id.total_price)).setText("$"+reservation.getTotalPrice());
             if (reservation.getGPS().equals("1")){
@@ -84,13 +91,17 @@ public class SpecificReservationActivity extends AppCompatActivity {
             }
         }
         // 定义取消按钮的操作，点击取消之后将对应reservation的状态值置为1
+        Activity tmp = this;
         btn_cancelMyReservation.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
                 SpecificReservationActivity.this.removeReservation(reservation);
+                Intent intent = new Intent(tmp, ViewReservations.class);
+                startActivity(intent);
             }
         });
+        // 定义更改操作
         btn_editMyReservation.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
@@ -118,11 +129,7 @@ public class SpecificReservationActivity extends AppCompatActivity {
                 // 更改Duration的值
                 reservation.setDuration(dur);
 
-                // todo 这里计算新的价格，并赋值给price
 
-                String price = "100";
-                //这里更改totalPrice
-                reservation.setTotalPrice(price);
                 reservation.setStart(((EditText) findViewById(R.id.Start)).getText().toString());
                 reservation.setEnd(((EditText) findViewById(R.id.Back)).getText().toString());
                 if (((CheckBox) findViewById(R.id.checkBox_gps)).isChecked()){
@@ -143,6 +150,12 @@ public class SpecificReservationActivity extends AppCompatActivity {
                 else {
                     reservation.setSiriusxm("0");
                 }
+                // todo 这里计算新的价格，并赋值给price
+                String price = "100";
+                //这里更改totalPrice
+                price = getTotalPrice(reservation);
+                reservation.setTotalPrice(price);
+
                 SpecificReservationActivity.this.editReservation(reservation);
 
                 ((EditText) findViewById(R.id.Number_of_Reservation)).setText(reservation.getID());
@@ -151,7 +164,8 @@ public class SpecificReservationActivity extends AppCompatActivity {
                 ((EditText) findViewById(R.id.Back)).setText(reservation.getEnd());
                 ((EditText) findViewById(R.id.Duration)).setText(reservation.getDuration());
                 ((EditText) findViewById(R.id.Car_name)).setText(reservation.getCarName());
-                // todo 这里的Capability还没有显示出来，因为Reservation中没有保存车的相关信息
+                //使用capability定义occupation
+                ((EditText) findViewById(R.id.occupation)).setText(getCapability(reservation));
                 ((EditText) findViewById(R.id.Capacity)).setText(getCapability(reservation));
                 ((EditText) findViewById(R.id.total_price)).setText("$"+reservation.getTotalPrice());
             }

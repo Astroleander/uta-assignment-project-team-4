@@ -6,12 +6,19 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.reflect.Field;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import androidx.annotation.Nullable;
 
+import mavs.uta.team4carental.R;
 import mavs.uta.team4carental.pojo.Car;
 import mavs.uta.team4carental.pojo.Rental;
 import mavs.uta.team4carental.pojo.User;
@@ -404,6 +411,141 @@ public class DBHelper extends SQLiteOpenHelper {
         else
             return "User Update Successfully";
 
+    }
+
+    //输入车名，起始时间，结束时间，gps，onstar，siriusxm来计算最终价格
+    public String getTotalPrcie(String carName, String start, String back, String gps, String onstar, String siriusxm) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        // 根据车名将车的wekkday， wenkday提取出来
+        Cursor cursor = db.query(
+                TABLE_LIST.CAR,
+                null,
+                EnumTable.CAR.CARNAME + "=\"" + carName + "\" ",
+                null,
+                null,
+                null,
+                null);
+        String weekday = null;
+        String weekend = null;
+        String gpsPrice = null;
+        String onstarPrice = null;
+        String siriusxmPrice = null;
+        int dazhe = 0;
+        while (cursor.moveToNext()) {
+
+            weekday = cursor.getString(cursor.getColumnIndex(EnumTable.CAR.WEEKDAY));
+            weekend = cursor.getString(cursor.getColumnIndex(EnumTable.CAR.WEEKEND));
+            gpsPrice = cursor.getString(cursor.getColumnIndex(EnumTable.CAR.GPS));
+            onstarPrice = cursor.getString(cursor.getColumnIndex(EnumTable.CAR.ONSTAR));
+            siriusxmPrice = cursor.getString(cursor.getColumnIndex(EnumTable.CAR.SIRIUSXM));
+
+        }
+
+        //计算不考虑三个extras的报价
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH:mm");
+        Date startdate = null;
+        Date backdate = null;
+        try {
+            startdate = format.parse(start);
+            backdate = format.parse(back);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        float durations = (backdate.getTime() - startdate.getTime()) / (1000 * 24 * 60 * 60);
+        if (((backdate.getTime() - startdate.getTime()) % (1000 * 24 * 60 * 60)) == 0) {
+
+        } else {
+            durations += 1;
+        }
+        String dur = String.valueOf(durations);
+        long flag = startdate.getTime();
+        int day_of_weekend = 0;
+        int day_of_weekday = 0;
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(startdate);
+        int start_week = cal.get(Calendar.DAY_OF_WEEK) - 1;
+        cal.setTime(backdate);
+        int back_week = cal.get(Calendar.DAY_OF_WEEK) - 1;
+
+        int flag_week = start_week;
+        for (; (backdate.getTime() - flag) > (1000 * 24 * 60 * 60); ) {
+            if (flag_week == 0 || flag_week == 6) {
+                day_of_weekend += 1;
+            } else {
+                day_of_weekday += 1;
+            }
+            flag_week += 1;
+            flag_week = flag_week % 7;
+            flag += (1000 * 24 * 60 * 60);
+        }
+        if (back_week == 0 || back_week == 6) {
+            day_of_weekend += 1;
+        } else {
+            day_of_weekday += 1;
+        }
+
+
+//
+//
+////        TextView test = findViewById(R.id.for_test);
+////        if (car != null) {
+////            test.setText(car.toString());
+////        } else {
+////            test.setText("error token");
+////        }
+////        Intent i = getIntent();
+////        Car car = (Car) i.getSerializableExtra(CarListAdapter.CAR_INTENT_TOKEN);
+
+
+        float price_weekday = Float.valueOf(weekday);
+        float price_weekend = Float.valueOf(weekend);
+        final float[] price = {price_weekday * day_of_weekday + price_weekend * day_of_weekend};
+
+
+//        System.out.println(totalprice);
+        String totalprice = "";
+        totalprice = String.valueOf(price[0]);
+
+
+//        totalprice = String.valueOf(price[0]);
+//        final String finalExtra = extra;
+
+        final String[] flag_gps = {"0"};
+        final String[] flag_onstar = {"0"};
+        final String[] flag_siriusXM = {"0"};
+        final String[] extras = {""};
+
+        int finalDazhe = dazhe;
+
+        float finalDurations = durations;
+        String carname = carName;
+        // 计算考虑上extras之后的价格
+        if(gps.equals("1")){
+            flag_gps[0] ="1";
+            price[0] += finalDurations *(Float.valueOf(gpsPrice));
+            extras[0] +="gps ";
+        }
+        if(onstar.equals("1")){
+            flag_onstar[0] ="1";
+            price[0] += finalDurations *(Float.valueOf(onstarPrice));
+            extras[0]+="onstar ";
+        }
+        if(siriusxm.equals("1")){
+            flag_siriusXM[0] ="1";
+            price[0] += finalDurations *(Float.valueOf(siriusxmPrice));
+            extras[0]+="siriusXM ";
+        }
+        if(finalDazhe == 1){
+            price[0]= (float) (price[0]*0.75);
+        }
+        price[0]+=price[0]*0.0825;
+        totalprice = String.valueOf(price[0]);
+
+
+        final String finaltotalprice = totalprice;
+
+        return finaltotalprice;
     }
 
     public String queryLogin(String qusername, String qpassword) {

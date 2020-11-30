@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -20,6 +22,7 @@ import mavs.uta.team4carental.R;
 import mavs.uta.team4carental.adapter.UserListAdapter;
 import mavs.uta.team4carental.pojo.User;
 import mavs.uta.team4carental.utils.DBHelper;
+import mavs.uta.team4carental.utils.EnumTable;
 
 public class SearchForUsersFragment extends Fragment {
 
@@ -66,6 +69,22 @@ public class SearchForUsersFragment extends Fragment {
         }
         String[] lastnameToDB = new String[]{lastname};
         results = dbHelper.queryUser("LASTNAME=?", lastnameToDB);
+        Arrays.sort(results, new Comparator<User>() {
+            @Override
+            public int compare(User o, User t1) {
+                if (o.getLastname().equals(t1.getLastname())){
+                    if (o.getFirstname().compareTo(t1.getFirstname()) > 0)
+                        return 1;
+                    else
+                        return -1;
+                }else{
+                    if(o.getLastname().compareTo(t1.getLastname()) > 0)
+                        return 1;
+                    else
+                        return -1;
+                }
+            }
+        });
         dbHelper.close();
         return results;
     }

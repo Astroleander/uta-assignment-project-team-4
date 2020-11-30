@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -43,6 +44,7 @@ public class ViewSelectedUserProfileActivity extends AppCompatActivity {
     private EditText form_member;
 
     private Button bt_revoke;
+    private Button bt_change;
 
     private DBHelper dbHelper;
     private String username;
@@ -89,19 +91,6 @@ public class ViewSelectedUserProfileActivity extends AppCompatActivity {
             form_uta_id = findViewById(R.id.uta_id);
             form_uta_id.setText(userProfile.getUta_id());
         }
-        {
-            RadioButton form_role_admin = findViewById(R.id.role_radio_admin);
-            RadioButton form_role_manager = findViewById(R.id.role_radio_manager);
-            RadioButton form_role_user = findViewById(R.id.role_radio_user);
-
-            if (userProfile.getRole().equals(form_role_admin.getText().toString())) {
-                form_role_admin.setChecked(true);
-            } else if (userProfile.getRole().equals(form_role_manager.getText().toString())) {
-                form_role_manager.setChecked(true);
-            } else {
-                form_role_user.setChecked(true);
-            }
-        } // role
         {
             EditText usernameEditText = findViewById(R.id.username);
             usernameEditText.setText(userProfile.getUsername());
@@ -151,8 +140,29 @@ public class ViewSelectedUserProfileActivity extends AppCompatActivity {
             }
         } // states
         {
-            EditText statusEd = findViewById(R.id.status);
-            statusEd.setText(userProfile.getStatus());
+            EditText et_role = findViewById(R.id.role);
+            et_role.setText(userProfile.getRole());
+            bt_change = findViewById(R.id.change);
+            if(userProfile.getRole().equals("User"))
+                bt_change.setVisibility(View.VISIBLE);
+            else
+                bt_change.setVisibility(View.GONE);
+            bt_change.setOnClickListener(view -> {
+                dbHelper = new DBHelper(this);
+                userProfile.setRole("Manager");
+                dbHelper.editUser(userProfile);
+                refresh();
+            });
+
+        } // role
+        {
+            LinearLayout ll_statues = findViewById(R.id.layout_statues);
+            if(userProfile.getRole().equals("User"))
+                ll_statues.setVisibility(View.VISIBLE);
+            else
+                ll_statues.setVisibility(View.GONE);
+            EditText statusRole = findViewById(R.id.status);
+            statusRole.setText(userProfile.getStatus());
             bt_revoke = findViewById(R.id.revoke);
             bt_revoke.setOnClickListener(v -> {
                 dbHelper = new DBHelper(this);

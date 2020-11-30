@@ -44,6 +44,8 @@
                     android:inputType="text"
                     android:selectAllOnFocus="true" />
                 <LinearLayout
+                    android:id="@+id/layout_statues"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -54,7 +56,7 @@
                         android:text="@string/status"
                         android:textSize="18dp" />
                     <EditText
-                        android:enabled="true"
+                        android:enabled="false"
                         android:id="@+id/status"
                         android:layout_width="100dp"
                         android:layout_marginStart="24dp"
@@ -62,16 +64,11 @@
                         android:hint="@string/prompt_status"
                         android:inputType="text"
                         android:selectAllOnFocus="true" />
-                    <Button
-                        android:id="@+id/revoke"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
-                        android:text="revoke"/>
                 </LinearLayout>
 
             </LinearLayout>
             <RadioGroup
+
                 android:id="@+id/role"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -83,18 +80,21 @@
                 android:checkedButton="@id/role_radio_user">
 
                 <RadioButton
+                    android:enabled="false"
                     android:id="@+id/role_radio_admin"
                     android:text="@string/role_admin"
                     android:layout_marginEnd="16dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
                 <RadioButton
+                    android:enabled="false"
                     android:id="@+id/role_radio_manager"
                     android:text="@string/role_manager"
                     android:layout_marginEnd="16dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
                 <RadioButton
+                    android:enabled="false"
                     android:id="@+id/role_radio_user"
                     android:text="@string/role_user"
                     android:layout_marginEnd="16dp"
@@ -117,7 +117,7 @@
                     android:textSize="18dp" />
 
                 <EditText
-                    android:enabled="true"
+                    android:enabled="false"
                     android:id="@+id/username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

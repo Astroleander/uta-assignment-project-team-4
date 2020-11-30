@@ -43,6 +43,8 @@
                     android:inputType="text"
                     android:selectAllOnFocus="true" />
                 <LinearLayout
+                    android:id="@+id/layout_statues"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -69,37 +71,35 @@
                         android:text="revoke"/>
                 </LinearLayout>
 
-            </LinearLayout>
-            <RadioGroup
-                android:id="@+id/role"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
-                android:orientation="horizontal"
-                android:contentDescription="@string/title_form_role"
-                android:checkedButton="@id/role_radio_user">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/role_radio_admin"
-                    android:text="@string/role_admin"
-                    android:layout_marginEnd="16dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
-                <RadioButton
-                    android:id="@+id/role_radio_manager"
-                    android:text="@string/role_manager"
-                    android:layout_marginEnd="16dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
-                <RadioButton
-                    android:id="@+id/role_radio_user"
-                    android:text="@string/role_user"
-                    android:layout_marginEnd="16dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
-            </RadioGroup>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Role    "
+                        android:textSize="18dp" />
+                    <EditText
+                        android:enabled="false"
+                        android:id="@+id/role"
+                        android:layout_width="100dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/prompt_status"
+                        android:inputType="text"
+                        android:selectAllOnFocus="true" />
+                    <Button
+                        android:id="@+id/change"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:text="Change"/>
+                </LinearLayout>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/username_wrapper"
@@ -295,20 +295,6 @@
                     android:orientation="horizontal"
                     app:layout_constraintTop_toBottomOf="@id/email_wrapper">
 
-                    <EditText
-                        android:enabled="false"
-                        android:id="@+id/city"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="8dp"
-                        android:layout_weight="4"
-                        android:autofillHints="@string/prompt_city"
-                        android:hint="@string/prompt_city"
-                        android:imeActionLabel="@string/prompt_city"
-                        android:imeOptions="actionDone"
-                        android:inputType="text"
-                        android:selectAllOnFocus="true" />
-
                     <Spinner
                         android:id="@+id/state"
                         android:layout_width="0dp"
@@ -387,6 +373,20 @@
                     android:imeActionLabel="@string/prompt_member"
                     android:imeOptions="actionDone"
                     android:inputType="numberDecimal"
+                    android:selectAllOnFocus="true" />
+
+                <EditText
+                    android:id="@+id/city"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="4"
+                    android:autofillHints="@string/prompt_city"
+                    android:enabled="false"
+                    android:hint="@string/prompt_city"
+                    android:imeActionLabel="@string/prompt_city"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
                     android:selectAllOnFocus="true" />
             </LinearLayout>
 

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -144,6 +145,11 @@ public class EditSelectedUserProfileActivity extends AppCompatActivity {
             memberWrapper.setVisibility(View.VISIBLE);
             et_member.setVisibility(View.VISIBLE);
         }
+        LinearLayout ll_statues = findViewById(R.id.layout_statues);
+        if(userProfile.getRole().equals("User"))
+            ll_statues.setVisibility(View.VISIBLE);
+        else
+            ll_statues.setVisibility(View.GONE);
         tv_status = findViewById(R.id.status);
     }
     static String getStringFromEditText(EditText editText) {

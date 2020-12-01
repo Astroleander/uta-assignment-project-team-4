@@ -54,6 +54,15 @@ public class ViewReservations extends AppCompatActivity {
         this.initButton();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String start_time = startDate.getText().toString() +'-'+ startTime.getText().toString();
+        String end_time = endDate.getText().toString() + '-' + endTime.getText().toString();
+        ArrayList<Rental> result = this.queryReservations(start_time, end_time);
+        listView.setAdapter(new ManagerReservationListAdapter(ViewReservations.this, result));
+    }
+
     private void initList() {
         listView = findViewById(R.id.list);
         reservations = new ArrayList<>();

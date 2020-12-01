@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import mavs.uta.team4carental.R;
 import mavs.uta.team4carental.pojo.Rental;
-import mavs.uta.team4carental.ui.user.viewReservation.SpecificReservationActivity;
+import mavs.uta.team4carental.ui.manager.SpecificReservationActivity;
 
 public class ManagerReservationListAdapter extends BaseAdapter {
     public static final String RESERVATION_INTENT_TOKEN = "RESERVATION_INTENT_TOKEN";
@@ -76,7 +76,12 @@ public class ManagerReservationListAdapter extends BaseAdapter {
         /*
          * 在这里对你新加入的字段赋值
          */
-        viewHolder.textView.setText(items.get(i).getCarName());
+        String status = items.get(i).getStatus();
+        if (!status.equals("0")) {
+            viewHolder.textView.setText(items.get(i).getCarName());
+        } else {
+            viewHolder.textView.setText(items.get(i).getCarName() + " [Deprecated]");
+        }
         viewHolder.owner.setText(items.get(i).getUsername());
         viewHolder.Start_date.setText("Start from:\n " + items.get(i).getStart());
         viewHolder.End_date.setText("End to:\n " + items.get(i).getEnd());
